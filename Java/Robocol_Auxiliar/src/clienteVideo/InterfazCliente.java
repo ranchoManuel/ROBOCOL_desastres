@@ -13,7 +13,7 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 public class InterfazCliente extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID=1L;
-	private static final String VLC_PATH = "./lib/video/";
+	private static final String VLC_PATH = "./libs/video/";
 
 	private final static String PLAY = "Play";
 	private final static String STOP = "Stop";
