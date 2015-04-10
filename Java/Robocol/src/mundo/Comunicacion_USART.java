@@ -64,7 +64,7 @@ public class Comunicacion_USART implements SerialPortEventListener, IComunicacio
 
 
 	@Override
-	public synchronized void enviarLinea(String linea)
+	public void enviarLinea(String linea)
 	{
 		try
 		{
