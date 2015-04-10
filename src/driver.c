@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
+#include <pthread.h>
 #include "robocol_queue.h"
 #include "robocol_list.h"
 #include "command.h"
