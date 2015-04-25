@@ -15,9 +15,9 @@ node* init_robocol_list() {
 }
 
 int append(listPointer *sPointer, int value) {
-	node* newPtr, prevPtr, currentPtr;
+	node *newPtr, *prevPtr, *currentPtr;
 	newPtr = (node *) malloc(sizeof(node));
-
+	
 	if(newPtr != NULL) {
 		newPtr->data = value;
 		newPtr->next = NULL;
