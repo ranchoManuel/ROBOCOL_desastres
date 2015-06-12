@@ -22,13 +22,17 @@ BrazoPostBackwardPWM	PTA5
 Pines ADC 
 AdcTemp					PTE22
 
-Pines Comunicacion
+Pines Comunicacion (UART0)
 ComGalileo - Rx			PTA1
 ComGalileo - Tx			PTA2
 
 Pines Acelerometro
 Acelerometro - SDA		PTE25
 Acelerometro - SCL		PTE24
+
+Pines Magnetometro
+Magnetometro - SDA 		PTE25
+Magnetometro - SCL		PTE24
 
 Pines BateriaInput
 Bateria Pin0			PTD3
