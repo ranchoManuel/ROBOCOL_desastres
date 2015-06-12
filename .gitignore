@@ -1,21 +1,21 @@
-/Java/.metadata
+PC/Java/.metadata
 
-/Java/Robocol/bin
-/Java/Robocol/.settings
-/Java/Robocol/.project
-/Java/Robocol/.classpath
-/Java/Robocol_Auxiliar/bin
-/Java/Robocol_Auxiliar/.settings
-/Java/Robocol_Auxiliar/.project
-/Java/Robocol_Auxiliar/.classpath
-/Java/Robocol/libs/video/vlc-2.2.0
+PC/Java/Robocol/bin
+PC/Java/Robocol/.settings
+PC/Java/Robocol/.project
+PC/Java/Robocol/.classpath
+PC/Java/Robocol_Auxiliar/bin
+PC/Java/Robocol_Auxiliar/.settings
+PC/Java/Robocol_Auxiliar/.project
+PC/Java/Robocol_Auxiliar/.classpath
+PC/Java/Robocol/libs/video/vlc-2.2.0
 
-Java/.idea/
-Java/Robocol/.idea/
-Java/Robocol/Robocol.iml
-Java/Robocol_Auxiliar/.idea/
-Java/Robocol_Auxiliar/Robocol_Auxiliar.iml
-Java/Robocol_Auxiliar/out/
+PC/Java/.idea/
+PC/Java/Robocol/.idea/
+PC/Java/Robocol/Robocol.iml
+PC/Java/Robocol_Auxiliar/.idea/
+PC/Java/Robocol_Auxiliar/Robocol_Auxiliar.iml
+PC/Java/Robocol_Auxiliar/out/
 
-/C/FRDM_KL46Z/.metadata
-/C/FRDM_KL46Z/RemoteSystemsTempFiles
+PC/FRDM_KL46Z/.metadata
+PC/FRDM_KL46Z/RemoteSystemsTempFiles
