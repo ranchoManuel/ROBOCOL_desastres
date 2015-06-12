@@ -3,8 +3,8 @@
     <option>
       <name>PE_G_4PEx_ToolChain_Compiler_SearchUserPaths</name>
       <values lines_count="4">
-        <Line>"${ProcessorExpertPath}/lib/Kinetis/iofiles"</Line>
         <Line>"${ProcessorExpertPath}/lib/Kinetis/pdd/inc"</Line>
+        <Line>"${ProcessorExpertPath}/lib/Kinetis/iofiles"</Line>
         <Line>"${ProjDirPath}/Sources"</Line>
         <Line>"${ProjDirPath}/Generated_Code"</Line>
       </values>
@@ -12,118 +12,143 @@
   </ToolchainSettings>
   <GeneratedFilesList>
     <GeneratedByPE>
-      <File Name="Generated_Code/BateriaInput.h" FileDate="2015-03-13, 19:34:58" FileAge="1426293298955" FileType="45637" CompNumb="98" />
-      <File Name="Generated_Code/PE_Types.h" FileDate="2015-03-25, 16:08:35" FileAge="1427317715154" FileType="45637" />
-      <File Name="Generated_Code/BateriaInput.c" FileDate="2015-03-13, 19:34:58" FileAge="1426293298948" FileType="45637" CompNumb="98" />
-      <File Name="Documentation/doxygen/BitIoLdd1.txt" FileDate="2015-03-13, 19:34:58" FileAge="1426293298939" FileType="45637" CompNumb="101" />
-      <File Name="Documentation/doxygen/BitsIoLdd1.txt" FileDate="2015-03-13, 19:34:58" FileAge="1426293298959" FileType="45637" CompNumb="99" />
-      <File Name="Sources/Events.h" FileDate="2015-03-25, 16:08:39" FileAge="1427317719325" FileType="131328" />
-      <File Name="Generated_Code/ComGalileo.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299682" FileType="45637" CompNumb="22" />
-      <File Name="Documentation/doxygen/TU3.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299883" FileType="45637" CompNumb="77" />
-      <File Name="Sources/Events.c" FileDate="2015-03-25, 16:08:39" FileAge="1427317719969" FileType="131328" />
-      <File Name="Generated_Code/Buzzer.h" FileDate="2015-03-14, 12:06:51" FileAge="1426352811857" FileType="45637" CompNumb="102" />
-      <File Name="Generated_Code/ComGalileo.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299703" FileType="45637" CompNumb="22" />
-      <File Name="Documentation/doxygen/AdcLdd1.txt" FileDate="2015-03-13, 20:34:41" FileAge="1426296881496" FileType="45637" CompNumb="11" />
-      <File Name="Generated_Code/BrazoPostForwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299072" FileType="45637" CompNumb="93" />
-      <File Name="Documentation/doxygen/PwmLdd4.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299131" FileType="45637" CompNumb="85" />
-      <File Name="Documentation/doxygen/ZZZ_Robocol.txt" FileDate="2015-03-25, 16:08:37" FileAge="1427317717563" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/Buzzer.c" FileDate="2015-03-14, 12:06:52" FileAge="1426352812302" FileType="45637" CompNumb="102" />
-      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2015-03-13, 19:35:00" FileAge="1426293300232" FileType="8" CompNumb="23" />
-      <File Name="Generated_Code/BrazoPostForwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299068" FileType="45637" CompNumb="93" />
-      <File Name="Generated_Code/BrazoFrontalBackwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299030" FileType="45637" CompNumb="89" />
-      <File Name="Documentation/doxygen/CI2C1.txt" FileDate="2015-02-07, 11:40:14" FileAge="1423327214000" FileType="45637" CompNumb="19" />
-      <File Name="Generated_Code/AS1.h" FileDate="2015-03-25, 16:08:27" FileAge="1427317707830" FileType="45637" CompNumb="116" />
-      <File Name="Generated_Code/PE_Const.h" FileDate="2015-03-13, 19:35:00" FileAge="1426293300080" FileType="45637" />
-      <File Name="Generated_Code/BrazoFrontalForwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299951" FileType="45637" CompNumb="75" />
-      <File Name="Generated_Code/Oruga2ForwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299053" FileType="45637" CompNumb="87" />
-      <File Name="Generated_Code/BrazoFrontalBackwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299026" FileType="45637" CompNumb="89" />
-      <File Name="Generated_Code/AS1.c" FileDate="2015-03-25, 16:08:27" FileAge="1427317707771" FileType="45637" CompNumb="116" />
-      <File Name="Generated_Code/BitIoLdd2.h" FileDate="2015-03-14, 12:06:51" FileAge="1426352811354" FileType="45637" CompNumb="103" />
-      <File Name="Sources/ZZZ_Robocol.c" FileDate="2015-03-25, 16:28:57" FileAge="1427318937618" FileType="128" />
-      <File Name="Generated_Code/BrazoFrontalForwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299970" FileType="45637" CompNumb="75" />
-      <File Name="Generated_Code/Oruga2ForwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299049" FileType="45637" CompNumb="87" />
-      <File Name="Generated_Code/MAG1.h" FileDate="2015-03-25, 16:08:27" FileAge="1427317707728" FileType="45637" CompNumb="117" />
-      <File Name="Generated_Code/BitIoLdd2.c" FileDate="2015-03-14, 12:06:51" FileAge="1426352811421" FileType="45637" CompNumb="103" />
-      <File Name="Generated_Code/BitIoLdd1.h" FileDate="2015-03-14, 12:06:50" FileAge="1426352810391" FileType="45637" CompNumb="101" />
-      <File Name="Generated_Code/Acelerometro.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299429" FileType="45637" CompNumb="6" />
-      <File Name="Generated_Code/MAG1.c" FileDate="2015-03-25, 16:08:27" FileAge="1427317707674" FileType="45637" CompNumb="117" />
-      <File Name="Generated_Code/Vectors.c" FileDate="2015-03-25, 16:08:38" FileAge="1427317718917" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/BitIoLdd1.c" FileDate="2015-03-14, 12:06:50" FileAge="1426352810409" FileType="45637" CompNumb="101" />
-      <File Name="Generated_Code/Acelerometro.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299449" FileType="45637" CompNumb="6" />
-      <File Name="Documentation/ZZZ_Robocol.txt" FileDate="2015-03-25, 16:08:46" FileAge="1427317726754" FileType="3072" />
-      <File Name="Generated_Code/PE_LDD.h" FileDate="2015-03-25, 16:08:38" FileAge="1427317718612" FileType="45637" CompNumb="23" />
-      <File Name="Documentation/doxygen/TU2.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299750" FileType="45637" CompNumb="44" />
-      <File Name="Generated_Code/RingBuffer.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299244" FileType="45637" CompNumb="12" />
-      <File Name="Generated_Code/PE_LDD.c" FileDate="2015-03-25, 16:08:38" FileAge="1427317718235" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/PwmLdd8.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299119" FileType="45637" CompNumb="94" />
-      <File Name="Documentation/doxygen/PwmLdd3.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299938" FileType="45637" CompNumb="76" />
-      <File Name="Generated_Code/RingBuffer.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299231" FileType="45637" CompNumb="12" />
-      <File Name="Generated_Code/PwmLdd8.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299104" FileType="45637" CompNumb="94" />
-      <File Name="Generated_Code/CI2C1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299394" FileType="45637" CompNumb="19" />
-      <File Name="Generated_Code/PwmLdd7.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299022" FileType="45637" CompNumb="92" />
-      <File Name="Generated_Code/CI2C1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299417" FileType="45637" CompNumb="19" />
-      <File Name="Generated_Code/PwmLdd7.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299016" FileType="45637" CompNumb="92" />
-      <File Name="Generated_Code/PwmLdd6.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299045" FileType="45637" CompNumb="90" />
-      <File Name="Documentation/doxygen/PwmLdd8.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299100" FileType="45637" CompNumb="94" />
-      <File Name="Generated_Code/BrazoPostBackwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299008" FileType="45637" CompNumb="91" />
-      <File Name="Generated_Code/PwmLdd6.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299038" FileType="45637" CompNumb="90" />
-      <File Name="Generated_Code/BrazoPostBackwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299003" FileType="45637" CompNumb="91" />
-      <File Name="Generated_Code/PwmLdd5.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299065" FileType="45637" CompNumb="88" />
-      <File Name="Generated_Code/AdcLdd1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299570" FileType="45637" CompNumb="11" />
-      <File Name="Generated_Code/PwmLdd5.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299061" FileType="45637" CompNumb="88" />
-      <File Name="Generated_Code/PwmLdd4.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299138" FileType="45637" CompNumb="85" />
-      <File Name="Generated_Code/AdcLdd1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299606" FileType="45637" CompNumb="11" />
-      <File Name="Generated_Code/PwmLdd4.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299135" FileType="45637" CompNumb="85" />
-      <File Name="Generated_Code/PwmLdd3.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299907" FileType="45637" CompNumb="76" />
-      <File Name="Generated_Code/PE_Error.h" FileDate="2015-03-13, 19:35:00" FileAge="1426293300069" FileType="45637" />
-      <File Name="Documentation/doxygen/TU1.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299142" FileType="45637" CompNumb="86" />
-      <File Name="Project_Settings/Debugger/MKL46Z256.mem" FileDate="2015-02-07, 11:34:54" FileAge="1423326894000" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/PwmLdd3.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299924" FileType="45637" CompNumb="76" />
-      <File Name="Generated_Code/PwmLdd2.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299778" FileType="45637" CompNumb="48" />
-      <File Name="Documentation/doxygen/PwmLdd2.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299811" FileType="45637" CompNumb="48" />
-      <File Name="Generated_Code/PwmLdd2.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299801" FileType="45637" CompNumb="48" />
-      <File Name="Generated_Code/PwmLdd1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299170" FileType="45637" CompNumb="83" />
-      <File Name="Generated_Code/PwmLdd1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299166" FileType="45637" CompNumb="83" />
-      <File Name="Documentation/doxygen/PwmLdd7.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299012" FileType="45637" CompNumb="92" />
-      <File Name="Documentation/doxygen/AS1.txt" FileDate="2015-03-25, 16:08:27" FileAge="1427317707737" FileType="45637" CompNumb="116" />
-      <File Name="Generated_Code/Cpu.h" FileDate="2015-03-13, 20:34:41" FileAge="1426296881580" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/TU3.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299846" FileType="45637" CompNumb="77" />
-      <File Name="Generated_Code/TU3.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299863" FileType="45637" CompNumb="77" />
-      <File Name="Generated_Code/Cpu.c" FileDate="2015-03-25, 16:37:32" FileAge="1427319452141" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/TU2.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299719" FileType="45637" CompNumb="44" />
-      <File Name="Generated_Code/WAIT1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299377" FileType="45637" CompNumb="18" />
-      <File Name="Generated_Code/IO_Map.h" FileDate="2015-03-13, 19:35:00" FileAge="1426293300091" FileType="45637" />
-      <File Name="Generated_Code/TU2.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299738" FileType="45637" CompNumb="44" />
-      <File Name="Generated_Code/TU1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299150" FileType="45637" CompNumb="86" />
-      <File Name="Generated_Code/WAIT1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299339" FileType="45637" CompNumb="18" />
-      <File Name="Generated_Code/TU1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299146" FileType="45637" CompNumb="86" />
-      <File Name="Documentation/doxygen/pex.css" FileDate="2015-02-07, 11:34:54" FileAge="1423326894000" FileType="16384" CompNumb="23" />
-      <File Name="Documentation/doxygen/PwmLdd1.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299162" FileType="45637" CompNumb="83" />
-      <File Name="Generated_Code/GI2C1.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299317" FileType="45637" CompNumb="17" />
-      <File Name="Generated_Code/Oruga2BackwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299127" FileType="45637" CompNumb="84" />
-      <File Name="Generated_Code/GI2C1.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299301" FileType="45637" CompNumb="17" />
-      <File Name="Generated_Code/Oruga2BackwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299123" FileType="45637" CompNumb="84" />
-      <File Name="Generated_Code/AdcTemp.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299621" FileType="45637" CompNumb="10" />
-      <File Name="Documentation/doxygen/PwmLdd6.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299034" FileType="45637" CompNumb="90" />
-      <File Name="Generated_Code/Rng1Gal.h" FileDate="2015-03-25, 16:08:27" FileAge="1427317707909" FileType="45637" CompNumb="113" />
-      <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2015-03-13, 19:35:00" FileAge="1426293300194" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/AdcTemp.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299667" FileType="45637" CompNumb="10" />
-      <File Name="Generated_Code/Rng1Gal.c" FileDate="2015-03-25, 16:08:27" FileAge="1427317707860" FileType="45637" CompNumb="113" />
-      <File Name="Generated_Code/Oruga1ForwardPWM.h" FileDate="2015-03-13, 20:44:29" FileAge="1426297469983" FileType="45637" CompNumb="82" />
-      <File Name="Generated_Code/Oruga1BackwardPWM.h" FileDate="2015-03-13, 19:34:59" FileAge="1426293299822" FileType="45637" CompNumb="47" />
-      <File Name="Generated_Code/Oruga1ForwardPWM.c" FileDate="2015-03-13, 20:44:29" FileAge="1426297469992" FileType="45637" CompNumb="82" />
-      <File Name="Generated_Code/Oruga1BackwardPWM.c" FileDate="2015-03-13, 19:34:59" FileAge="1426293299835" FileType="45637" CompNumb="47" />
-      <File Name="Documentation/doxygen/BitIoLdd2.txt" FileDate="2015-03-13, 19:34:58" FileAge="1426293298925" FileType="45637" CompNumb="103" />
-      <File Name="Generated_Code/Luz.h" FileDate="2015-03-14, 12:06:50" FileAge="1426352810424" FileType="45637" CompNumb="100" />
-      <File Name="Generated_Code/Luz.c" FileDate="2015-03-14, 12:06:50" FileAge="1426352810867" FileType="45637" CompNumb="100" />
-      <File Name="Generated_Code/BitsIoLdd1.h" FileDate="2015-03-13, 19:34:58" FileAge="1426293298969" FileType="45637" CompNumb="99" />
-      <File Name="Documentation/doxygen/RoutingReport.txt" FileDate="2015-02-07, 11:34:54" FileAge="1423326894000" FileType="45637" CompNumb="23" />
-      <File Name="Generated_Code/BitsIoLdd1.c" FileDate="2015-03-13, 19:34:58" FileAge="1426293298963" FileType="45637" CompNumb="99" />
-      <File Name="Documentation/doxygen/ComGalileo.txt" FileDate="2015-03-13, 20:34:41" FileAge="1426296881506" FileType="45637" CompNumb="22" />
-      <File Name="Documentation/doxygen/PwmLdd5.txt" FileDate="2015-03-13, 19:34:59" FileAge="1426293299058" FileType="45637" CompNumb="88" />
-      <File Name="Documentation/ZZZ_Robocol_SIGNALS.txt" FileDate="2015-03-25, 16:37:32" FileAge="1427319452361" FileType="3072" />
-      <File Name="Documentation/ZZZ_Robocol_Settings.xml" FileDate="2015-03-25, 16:08:43" FileAge="1427317723610" FileType="3072" />
+      <File Name="Static_Code/PDD/UART_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Documentation/doxygen/pex.css" FileDate="2015-06-12, 18:12:05" FileAge="1434150725871" FileType="16384" CompNumb="23" />
+      <File Name="Generated_Code/RingBuffer.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470026" FileType="45637" CompNumb="12" />
+      <File Name="Static_Code/PDD/TPM_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/BrazoFrontalBackwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470825" FileType="45637" CompNumb="89" />
+      <File Name="Generated_Code/PwmLdd7.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470852" FileType="45637" CompNumb="92" />
+      <File Name="Generated_Code/PwmLdd6.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470780" FileType="45637" CompNumb="90" />
+      <File Name="Generated_Code/RingBuffer.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470007" FileType="45637" CompNumb="12" />
+      <File Name="Generated_Code/PwmLdd6.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470780" FileType="45637" CompNumb="90" />
+      <File Name="Generated_Code/PwmLdd5.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470720" FileType="45637" CompNumb="88" />
+      <File Name="Generated_Code/AS1.h" FileDate="2015-06-12, 18:41:11" FileAge="1434152471050" FileType="45637" CompNumb="116" />
+      <File Name="Generated_Code/PE_LDD.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472761" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/AdcLdd1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470219" FileType="45637" CompNumb="11" />
+      <File Name="Generated_Code/PwmLdd5.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470735" FileType="45637" CompNumb="88" />
+      <File Name="Generated_Code/AS1.c" FileDate="2015-06-12, 18:41:11" FileAge="1434152471112" FileType="45637" CompNumb="116" />
+      <File Name="Generated_Code/PwmLdd4.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470583" FileType="45637" CompNumb="85" />
+      <File Name="Documentation/doxygen/PwmLdd1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725824" FileType="45637" CompNumb="83" />
+      <File Name="Generated_Code/BrazoPostBackwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470867" FileType="45637" CompNumb="91" />
+      <File Name="Generated_Code/PE_LDD.c" FileDate="2015-06-12, 18:41:12" FileAge="1434152472745" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/AdcLdd1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470236" FileType="45637" CompNumb="11" />
+      <File Name="Generated_Code/PwmLdd4.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470598" FileType="45637" CompNumb="85" />
+      <File Name="Generated_Code/BrazoPostForwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470689" FileType="45637" CompNumb="93" />
+      <File Name="Generated_Code/PwmLdd3.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470434" FileType="45637" CompNumb="76" />
+      <File Name="Generated_Code/BrazoPostBackwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470882" FileType="45637" CompNumb="91" />
+      <File Name="Static_Code/PDD/CMP_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/COP_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/BrazoPostForwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470703" FileType="45637" CompNumb="93" />
+      <File Name="Generated_Code/PwmLdd3.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470448" FileType="45637" CompNumb="76" />
+      <File Name="Documentation/doxygen/PwmLdd6.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725840" FileType="45637" CompNumb="90" />
+      <File Name="Generated_Code/PwmLdd2.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470343" FileType="45637" CompNumb="48" />
+      <File Name="Documentation/doxygen/BitIoLdd2.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725809" FileType="45637" CompNumb="103" />
+      <File Name="Generated_Code/PwmLdd2.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470357" FileType="45637" CompNumb="48" />
+      <File Name="Generated_Code/Oruga1ForwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470521" FileType="45637" CompNumb="82" />
+      <File Name="Generated_Code/PwmLdd1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470491" FileType="45637" CompNumb="83" />
+      <File Name="Generated_Code/BateriaInput.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470914" FileType="45637" CompNumb="98" />
+      <File Name="Generated_Code/Oruga1ForwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470537" FileType="45637" CompNumb="82" />
+      <File Name="Generated_Code/PwmLdd1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470507" FileType="45637" CompNumb="83" />
+      <File Name="Generated_Code/BateriaInput.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470929" FileType="45637" CompNumb="98" />
+      <File Name="Static_Code/PDD/SAI_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/BrazoFrontalForwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470461" FileType="45637" CompNumb="75" />
+      <File Name="Static_Code/PDD/DMA_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/PDD_Types.h" FileDate="2013-04-18, 00:55:42" FileAge="1366264542000" FileType="262144" />
+      <File Name="Sources/Events.h" FileDate="2015-06-12, 18:12:08" FileAge="1434150728211" FileType="131328" />
+      <File Name="Static_Code/PDD/SysTick_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/SPI_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/PE_Error.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472642" FileType="45637" />
+      <File Name="Generated_Code/BrazoFrontalForwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470477" FileType="45637" CompNumb="75" />
+      <File Name="Static_Code/PDD/SIM_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/IO_Map.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472673" FileType="45637" />
+      <File Name="Sources/Events.c" FileDate="2015-06-12, 18:12:08" FileAge="1434150728211" FileType="131328" />
+      <File Name="Static_Code/PDD/ADC_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/DAC_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Documentation/doxygen/PwmLdd5.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725840" FileType="45637" CompNumb="88" />
+      <File Name="Documentation/doxygen/BitIoLdd1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725809" FileType="45637" CompNumb="101" />
+      <File Name="Static_Code/PDD/GPIO_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/DMAMUX_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/Rng1Gal.h" FileDate="2015-06-12, 18:41:09" FileAge="1434152469686" FileType="45637" CompNumb="113" />
+      <File Name="Generated_Code/AdcTemp.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470251" FileType="45637" CompNumb="10" />
+      <File Name="Documentation/doxygen/AdcLdd1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725809" FileType="45637" CompNumb="11" />
+      <File Name="Documentation/doxygen/TU3.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725855" FileType="45637" CompNumb="77" />
+      <File Name="Generated_Code/Rng1Gal.c" FileDate="2015-06-12, 18:41:09" FileAge="1434152469666" FileType="45637" CompNumb="113" />
+      <File Name="Generated_Code/AdcTemp.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470266" FileType="45637" CompNumb="10" />
+      <File Name="Sources/main.c" FileDate="2015-06-12, 18:41:09" FileAge="1434152469544" FileType="128" />
+      <File Name="Generated_Code/TU3.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470404" FileType="45637" CompNumb="77" />
+      <File Name="Generated_Code/Cpu.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472691" FileType="45637" CompNumb="23" />
+      <File Name="Documentation/ZZZ_Robocol.txt" FileDate="2015-06-12, 18:41:13" FileAge="1434152473316" FileType="3072" />
+      <File Name="Generated_Code/Cpu.c" FileDate="2015-06-12, 18:41:12" FileAge="1434152472701" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/TU3.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470419" FileType="45637" CompNumb="77" />
+      <File Name="Generated_Code/TU2.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470312" FileType="45637" CompNumb="44" />
+      <File Name="Generated_Code/TU2.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470328" FileType="45637" CompNumb="44" />
+      <File Name="Generated_Code/TU1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470553" FileType="45637" CompNumb="86" />
+      <File Name="Documentation/doxygen/PwmLdd4.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725840" FileType="45637" CompNumb="85" />
+      <File Name="Generated_Code/Acelerometro.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470188" FileType="45637" CompNumb="6" />
+      <File Name="Static_Code/PDD/UART0_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/TU1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470568" FileType="45637" CompNumb="86" />
+      <File Name="Generated_Code/Acelerometro.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470204" FileType="45637" CompNumb="6" />
+      <File Name="Generated_Code/Oruga2ForwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470747" FileType="45637" CompNumb="87" />
+      <File Name="Project_Settings/Debugger/MKL46Z256.mem" FileDate="2015-06-12, 18:12:07" FileAge="1434150727743" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/Oruga2ForwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470763" FileType="45637" CompNumb="87" />
+      <File Name="Documentation/doxygen/TU2.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725855" FileType="45637" CompNumb="44" />
+      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2015-06-12, 18:41:12" FileAge="1434152472773" FileType="8" CompNumb="23" />
+      <File Name="Generated_Code/CI2C1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470145" FileType="45637" CompNumb="19" />
+      <File Name="Static_Code/IO_Map/MKL46Z4.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/CI2C1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470172" FileType="45637" CompNumb="19" />
+      <File Name="Documentation/ZZZ_Robocol_SIGNALS.txt" FileDate="2015-06-12, 18:41:13" FileAge="1434152473004" FileType="3072" />
+      <File Name="Generated_Code/Oruga2BackwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470614" FileType="45637" CompNumb="84" />
+      <File Name="Static_Code/PDD/PIT_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/MCM_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/Oruga2BackwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470629" FileType="45637" CompNumb="84" />
+      <File Name="Documentation/doxygen/PwmLdd3.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725824" FileType="45637" CompNumb="76" />
+      <File Name="Generated_Code/BitsIoLdd1.h" FileDate="2015-06-12, 18:41:09" FileAge="1434152469755" FileType="45637" CompNumb="99" />
+      <File Name="Documentation/doxygen/ZZZ_Robocol.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725855" FileType="45637" CompNumb="23" />
+      <File Name="Static_Code/PDD/FTFA_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/Luz.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470974" FileType="45637" CompNumb="100" />
+      <File Name="Generated_Code/BitsIoLdd1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470897" FileType="45637" CompNumb="99" />
+      <File Name="Documentation/doxygen/CI2C1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725824" FileType="45637" CompNumb="19" />
+      <File Name="Generated_Code/Luz.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470986" FileType="45637" CompNumb="100" />
+      <File Name="Documentation/doxygen/PwmLdd8.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725840" FileType="45637" CompNumb="94" />
+      <File Name="Generated_Code/Buzzer.h" FileDate="2015-06-12, 18:41:11" FileAge="1434152471019" FileType="45637" CompNumb="102" />
+      <File Name="Documentation/doxygen/TU1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725855" FileType="45637" CompNumb="86" />
+      <File Name="Static_Code/PDD/I2C_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Documentation/doxygen/ComGalileo.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725824" FileType="45637" CompNumb="22" />
+      <File Name="Generated_Code/Buzzer.c" FileDate="2015-06-12, 18:41:11" FileAge="1434152471035" FileType="45637" CompNumb="102" />
+      <File Name="Generated_Code/PE_Types.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472626" FileType="45637" />
+      <File Name="Static_Code/PDD/RTC_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Static_Code/PDD/LPTMR_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/MAG1.h" FileDate="2015-06-12, 18:41:09" FileAge="1434152469638" FileType="45637" CompNumb="117" />
+      <File Name="Static_Code/PDD/USB_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/MAG1.c" FileDate="2015-06-12, 18:41:09" FileAge="1434152469616" FileType="45637" CompNumb="117" />
+      <File Name="Static_Code/PDD/LCD_PDD.h" FileDate="2013-07-12, 16:59:32" FileAge="1373666372000" FileType="262144" />
+      <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2015-06-12, 18:41:12" FileAge="1434152472733" FileType="45637" CompNumb="23" />
+      <File Name="Static_Code/PDD/PORT_PDD.h" FileDate="2014-02-20, 13:18:46" FileAge="1392920326000" FileType="262144" />
+      <File Name="Generated_Code/GI2C1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470091" FileType="45637" CompNumb="17" />
+      <File Name="Generated_Code/Oruga1BackwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470372" FileType="45637" CompNumb="47" />
+      <File Name="Documentation/doxygen/AS1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725793" FileType="45637" CompNumb="116" />
+      <File Name="Documentation/ZZZ_Robocol_Settings.xml" FileDate="2015-06-12, 18:41:13" FileAge="1434152473233" FileType="3072" />
+      <File Name="Documentation/doxygen/PwmLdd2.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725824" FileType="45637" CompNumb="48" />
+      <File Name="Generated_Code/Vectors.c" FileDate="2015-06-12, 18:41:12" FileAge="1434152472798" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/GI2C1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470073" FileType="45637" CompNumb="17" />
+      <File Name="Generated_Code/ComGalileo.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470282" FileType="45637" CompNumb="22" />
+      <File Name="Generated_Code/Oruga1BackwardPWM.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470383" FileType="45637" CompNumb="47" />
+      <File Name="Generated_Code/WAIT1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470141" FileType="45637" CompNumb="18" />
+      <File Name="Generated_Code/BitIoLdd2.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470989" FileType="45637" CompNumb="103" />
+      <File Name="Generated_Code/ComGalileo.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470298" FileType="45637" CompNumb="22" />
+      <File Name="Documentation/doxygen/BitsIoLdd1.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725809" FileType="45637" CompNumb="99" />
+      <File Name="Generated_Code/WAIT1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470122" FileType="45637" CompNumb="18" />
+      <File Name="Generated_Code/BitIoLdd2.c" FileDate="2015-06-12, 18:41:11" FileAge="1434152471015" FileType="45637" CompNumb="103" />
+      <File Name="Generated_Code/BitIoLdd1.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470944" FileType="45637" CompNumb="101" />
+      <File Name="Documentation/doxygen/PwmLdd7.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725840" FileType="45637" CompNumb="92" />
+      <File Name="Generated_Code/PwmLdd8.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470644" FileType="45637" CompNumb="94" />
+      <File Name="Generated_Code/BitIoLdd1.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470959" FileType="45637" CompNumb="101" />
+      <File Name="Generated_Code/PE_Const.h" FileDate="2015-06-12, 18:41:12" FileAge="1434152472657" FileType="45637" />
+      <File Name="Generated_Code/PwmLdd8.c" FileDate="2015-06-12, 18:41:10" FileAge="1434152470659" FileType="45637" CompNumb="94" />
+      <File Name="Documentation/doxygen/RoutingReport.txt" FileDate="2015-06-12, 18:12:05" FileAge="1434150725855" FileType="45637" CompNumb="23" />
+      <File Name="Generated_Code/BrazoFrontalBackwardPWM.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470796" FileType="45637" CompNumb="89" />
+      <File Name="Generated_Code/PwmLdd7.h" FileDate="2015-06-12, 18:41:10" FileAge="1434152470838" FileType="45637" CompNumb="92" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>34</CodeGenReference>
+  <CodeGenReference>35</CodeGenReference>
 </CodeGenerationInfo>

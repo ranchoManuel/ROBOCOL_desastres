@@ -40,7 +40,7 @@
 "./Project_Settings/Startup_Code/__arm_start.o"
 "./Project_Settings/Startup_Code/__arm_end.o"
 "./Sources/sa_mtb.o"
-"./Sources/ZZZ_Robocol.o"
+"./Sources/main.o"
 "./Sources/Utiles.o"
 "./Sources/Events.o"
 "./Sources/Comunicacion.o"
@@ -51,10 +51,10 @@
 -g3
 -gdwarf-2
 -gstrict-dwarf
--T"C:/Users/FTAVSAN/Google Drive/Uniandes/Robocol/Desastres/ZZZ_Robocol/Project_Settings/Linker_Files/ProcessorExpert.ld"
+-T"C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Project_Settings/Linker_Files/ProcessorExpert.ld"
 -Xlinker
 --gc-sections
--L"C:/Freescale/CW MCU v10.5/MCU/ARM_GCC_Support/ewl/lib/armv6-m"
+-L"C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/lib/armv6-m"
 -Wl,-Map,ZZZ_Robocol.map
 -n
 -specs=ewl_c.specs

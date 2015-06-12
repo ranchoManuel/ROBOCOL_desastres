@@ -4,9 +4,9 @@
 **     Project     : ZZZ_Robocol
 **     Processor   : MKL46Z256VLL4
 **     Component   : TimerUnit_LDD
-**     Version     : Component 01.158, Driver 01.11, CPU db: 3.00.000
+**     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-13, 19:34, # CodeGen: 26
+**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -74,11 +74,36 @@
 **         GetOffsetTicks     - LDD_TError TU1_GetOffsetTicks(LDD_TDeviceData *DeviceDataPtr, uint8_t...
 **         SelectOutputAction - LDD_TError TU1_SelectOutputAction(LDD_TDeviceData *DeviceDataPtr, uint8_t...
 **
-**     Copyright : 1997 - 2013 Freescale Semiconductor, Inc. All Rights Reserved.
-**     SOURCE DISTRIBUTION PERMISSIBLE as directed in End User License Agreement.
+**     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
+**     All Rights Reserved.
 **     
-**     http      : www.freescale.com
-**     mail      : support@freescale.com
+**     Redistribution and use in source and binary forms, with or without modification,
+**     are permitted provided that the following conditions are met:
+**     
+**     o Redistributions of source code must retain the above copyright notice, this list
+**       of conditions and the following disclaimer.
+**     
+**     o Redistributions in binary form must reproduce the above copyright notice, this
+**       list of conditions and the following disclaimer in the documentation and/or
+**       other materials provided with the distribution.
+**     
+**     o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+**       contributors may be used to endorse or promote products derived from this
+**       software without specific prior written permission.
+**     
+**     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+**     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+**     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+**     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+**     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+**     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+**     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+**     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+**     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+**     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**     
+**     http: www.freescale.com
+**     mail: support@freescale.com
 ** ###################################################################*/
 /*!
 ** @file TU1.c
@@ -166,7 +191,7 @@ LDD_TDeviceData* TU1_Init(LDD_TUserData *UserDataPtr)
     return ((LDD_TDeviceData *)DeviceDataPrv); /* Return pointer to the device data structure */
   }
   /* SIM_SCGC6: TPM2=1 */
-  SIM_SCGC6 |= SIM_SCGC6_TPM2_MASK;                                   
+  SIM_SCGC6 |= SIM_SCGC6_TPM2_MASK;
   /* TPM2_SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,DMA=0,TOF=0,TOIE=0,CPWMS=0,CMOD=0,PS=0 */
   TPM2_SC = (TPM_SC_CMOD(0x00) | TPM_SC_PS(0x00)); /* Clear status and control register */
   /* TPM2_CNT: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,COUNT=0 */
@@ -191,14 +216,14 @@ LDD_TDeviceData* TU1_Init(LDD_TUserData *UserDataPtr)
                  PORT_PCR_MUX(0x04)
                 )) | (uint32_t)(
                  PORT_PCR_MUX(0x03)
-                ));                                  
+                ));
   /* PORTB_PCR18: ISF=0,MUX=3 */
   PORTB_PCR18 = (uint32_t)((PORTB_PCR18 & (uint32_t)~(uint32_t)(
                  PORT_PCR_ISF_MASK |
                  PORT_PCR_MUX(0x04)
                 )) | (uint32_t)(
                  PORT_PCR_MUX(0x03)
-                ));                                  
+                ));
   /* TPM2_SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,DMA=0,TOF=0,TOIE=0,CPWMS=0,CMOD=1,PS=0 */
   TPM2_SC = (TPM_SC_CMOD(0x01) | TPM_SC_PS(0x00)); /* Set up status and control register */
   /* Registration of the device structure */
@@ -451,7 +476,7 @@ LDD_TError TU1_SelectOutputAction(LDD_TDeviceData *DeviceDataPtr, uint8_t Channe
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################

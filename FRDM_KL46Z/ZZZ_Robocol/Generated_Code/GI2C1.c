@@ -4,9 +4,9 @@
 **     Project     : ZZZ_Robocol
 **     Processor   : MKL46Z256VLL4
 **     Component   : GenericI2C
-**     Version     : Component 01.020, Driver 01.00, CPU db: 3.00.000
+**     Version     : Component 01.023, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-13, 19:34, # CodeGen: 26
+**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
 **     Abstract    :
 **         This component implements a generic I2C driver wrapper to work both with LDD and non-LDD I2C components.
 **     Settings    :
@@ -506,7 +506,7 @@ byte GI2C1_ProbeACK(void* data, word dataSize, GI2C1_EnumSendFlags flags, word W
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################

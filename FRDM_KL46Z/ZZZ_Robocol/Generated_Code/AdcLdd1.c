@@ -4,9 +4,9 @@
 **     Project     : ZZZ_Robocol
 **     Processor   : MKL46Z256VLL4
 **     Component   : ADC_LDD
-**     Version     : Component 01.182, Driver 01.08, CPU db: 3.00.000
+**     Version     : Component 01.183, Driver 01.08, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-13, 19:34, # CodeGen: 26
+**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
 **     Abstract    :
 **         This device "ADC_LDD" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -71,11 +71,36 @@
 **         StartCalibration             - LDD_TError AdcLdd1_StartCalibration(LDD_TDeviceData *DeviceDataPtr);
 **         GetCalibrationResultStatus   - LDD_TError AdcLdd1_GetCalibrationResultStatus(LDD_TDeviceData *DeviceDataPtr);
 **
-**     Copyright : 1997 - 2013 Freescale Semiconductor, Inc. All Rights Reserved.
-**     SOURCE DISTRIBUTION PERMISSIBLE as directed in End User License Agreement.
+**     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
+**     All Rights Reserved.
 **     
-**     http      : www.freescale.com
-**     mail      : support@freescale.com
+**     Redistribution and use in source and binary forms, with or without modification,
+**     are permitted provided that the following conditions are met:
+**     
+**     o Redistributions of source code must retain the above copyright notice, this list
+**       of conditions and the following disclaimer.
+**     
+**     o Redistributions in binary form must reproduce the above copyright notice, this
+**       list of conditions and the following disclaimer in the documentation and/or
+**       other materials provided with the distribution.
+**     
+**     o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+**       contributors may be used to endorse or promote products derived from this
+**       software without specific prior written permission.
+**     
+**     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+**     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+**     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+**     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+**     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+**     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+**     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+**     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+**     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+**     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**     
+**     http: www.freescale.com
+**     mail: support@freescale.com
 ** ###################################################################*/
 /*!
 ** @file AdcLdd1.c
@@ -159,32 +184,33 @@ LDD_TDeviceData* AdcLdd1_Init(LDD_TUserData *UserDataPtr)
   DeviceDataPrv->SampleCount = 0U;     /* Initializing SampleCount for right access of some methods to SC1n registers before first conversion is done */
   DeviceDataPrv->CompleteStatus = FALSE; /* Clear measurement complete status flag */
   /* SIM_SCGC6: ADC0=1 */
-  SIM_SCGC6 |= SIM_SCGC6_ADC0_MASK;                                   
+  SIM_SCGC6 |= SIM_SCGC6_ADC0_MASK;
   /* Interrupt vector(s) priority setting */
   /* NVIC_IPR3: PRI_15=0x80 */
   NVIC_IPR3 = (uint32_t)((NVIC_IPR3 & (uint32_t)~(uint32_t)(
                NVIC_IP_PRI_15(0x7F)
               )) | (uint32_t)(
                NVIC_IP_PRI_15(0x80)
-              ));                                  
+              ));
   /* NVIC_ISER: SETENA|=0x8000 */
-  NVIC_ISER |= NVIC_ISER_SETENA(0x8000);                                   
+  NVIC_ISER |= NVIC_ISER_SETENA(0x8000);
   /* PORTE_PCR22: ISF=0,MUX=0 */
-  PORTE_PCR22 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));                                   
+  PORTE_PCR22 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));
   /* ADC0_CFG1: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADLPC=0,ADIV=0,ADLSMP=0,MODE=0,ADICLK=0 */
   ADC0_CFG1 = ADC_CFG1_ADIV(0x00) |
               ADC_CFG1_MODE(0x00) |
-              ADC_CFG1_ADICLK(0x00);       
-  /* ADC0_CFG2: ADACKEN=0,ADHSC=0,ADLSTS=0 */
+              ADC_CFG1_ADICLK(0x00);
+  /* ADC0_CFG2: MUXSEL=0,ADACKEN=0,ADHSC=0,ADLSTS=0 */
   ADC0_CFG2 &= (uint32_t)~(uint32_t)(
+                ADC_CFG2_MUXSEL_MASK |
                 ADC_CFG2_ADACKEN_MASK |
                 ADC_CFG2_ADHSC_MASK |
                 ADC_CFG2_ADLSTS(0x03)
-               );                                   
+               );
   /* ADC0_SC2: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADACT=0,ADTRG=0,ACFE=0,ACFGT=0,ACREN=0,DMAEN=0,REFSEL=0 */
-  ADC0_SC2 = ADC_SC2_REFSEL(0x00);                                   
+  ADC0_SC2 = ADC_SC2_REFSEL(0x00);
   /* ADC0_SC3: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CAL=0,CALF=1,??=0,??=0,ADCO=0,AVGE=0,AVGS=0 */
-  ADC0_SC3 = (ADC_SC3_CALF_MASK | ADC_SC3_AVGS(0x00));                                   
+  ADC0_SC3 = (ADC_SC3_CALF_MASK | ADC_SC3_AVGS(0x00));
   /* Registration of the device structure */
   PE_LDD_RegisterDeviceStructure(PE_LDD_COMPONENT_AdcLdd1_ID,DeviceDataPrv);
   return ((LDD_TDeviceData *)DeviceDataPrv); /* Return pointer to the data data structure */
@@ -522,7 +548,7 @@ PE_ISR(AdcLdd1_MeasurementCompleteInterrupt)
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################
