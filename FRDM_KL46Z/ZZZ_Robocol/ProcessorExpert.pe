@@ -3,7 +3,7 @@
   <Header>
     <Name>ZZZ_Robocol</Name>
     <SavedBy>USER</SavedBy>
-    <ModificationStamp>33</ModificationStamp>
+    <ModificationStamp>34</ModificationStamp>
     <Date>2015-06-13</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.0.RT6_b1411-0406</PEversion>
@@ -29592,7 +29592,7 @@
         <ItemSymbol>_Pin</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P10/PTB10/SPI1_PCS0</Value>
+        <Value>LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -29635,7 +29635,7 @@
               <ItemSymbol>_Pin</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>LCD_P10/PTB10/SPI1_PCS0</Value>
+              <Value>LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS</Value>
               <SharedPrphMode>false</SharedPrphMode>
             </ItemState>
             <ItemState>
@@ -30179,7 +30179,7 @@
         <ItemSymbol>_Pin</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P11/PTB11/SPI1_SCK</Value>
+        <Value>LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -30222,7 +30222,7 @@
               <ItemSymbol>_Pin</ItemSymbol>
               <ReadOnly>false</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
-              <Value>LCD_P11/PTB11/SPI1_SCK</Value>
+              <Value>LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0</Value>
               <SharedPrphMode>false</SharedPrphMode>
             </ItemState>
             <ItemState>

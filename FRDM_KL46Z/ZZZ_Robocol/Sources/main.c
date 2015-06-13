@@ -161,7 +161,7 @@ int main(void)
 	mandarCadena("1) Drivers iniciados\r\n");
 
 	MAG1_Init();
-	//MAG1_Enable();
+	MAG1_Enable();
 	
 	
 	/* Write your code here */
@@ -248,13 +248,13 @@ int main(void)
 
 				break;
 			case TGL: //Enciende/apaga luces
-				//5.2) Cambiar estado Actuadores
+				//5.2) Cambiar estado de Luz
 				toogleIluminacion();
 				mandarCadena("OK;\r\n");
 
 				break;
 			case TGB: //Enciende/apaga buzzer
-				//5.2) Cambiar estado Actuadores
+				//5.2) Cambiar estado de Buzzer
 				toggleBuzzer();
 				mandarCadena("OK;\r\n");
 

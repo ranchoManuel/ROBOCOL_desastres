@@ -60,7 +60,7 @@
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
       <GenExtraFileSrcDir21>lib\doxygen\</GenExtraFileSrcDir21>
-      <XtraAge23>1187812646</XtraAge23>
+      <XtraAge23>1187871212</XtraAge23>
       <XtraAge24>1187812646</XtraAge24>
       <XtraAge26>1187812646</XtraAge26>
       <GenExtraFileType26>4</GenExtraFileType26>
@@ -214,7 +214,7 @@
     </GenFiles>
     <SignalListFile>Documentation\ZZZ_Robocol_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>33</ProjectModificationStamp>
+    <ProjectModificationStamp>34</ProjectModificationStamp>
   </Options>
   <CpuID_23>
     <Generated>true</Generated>
@@ -4046,8 +4046,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1187812645</HeaderAge>
-    <CodeAge>1187812645</CodeAge>
+    <HeaderAge>1187871212</HeaderAge>
+    <CodeAge>1187871212</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>11</GenNumMethods>
     <GetDir>false</GetDir>
@@ -4143,8 +4143,8 @@
       <GenComponentVersion>01.033</GenComponentVersion>
       <GenDriverVersion>01.03</GenDriverVersion>
       <GenEventModule />
-      <HeaderAge>1187812645</HeaderAge>
-      <CodeAge>1187812645</CodeAge>
+      <HeaderAge>1187871212</HeaderAge>
+      <CodeAge>1187871212</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>13</GenNumMethods>
       <Init>true</Init>
@@ -4259,8 +4259,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1187812645</HeaderAge>
-    <CodeAge>1187812645</CodeAge>
+    <HeaderAge>1187871212</HeaderAge>
+    <CodeAge>1187871212</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>11</GenNumMethods>
     <GetDir>false</GetDir>
@@ -4356,8 +4356,8 @@
       <GenComponentVersion>01.033</GenComponentVersion>
       <GenDriverVersion>01.03</GenDriverVersion>
       <GenEventModule />
-      <HeaderAge>1187812645</HeaderAge>
-      <CodeAge>1187812645</CodeAge>
+      <HeaderAge>1187871212</HeaderAge>
+      <CodeAge>1187871212</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>13</GenNumMethods>
       <Init>true</Init>
