@@ -59,10 +59,10 @@
 -n
 -specs=ewl_c.specs
 -Xlinker
---undefined=__pformatter_
+--undefined=__pformatterFP
 -Xlinker
---defsym=__pformatter=__pformatter_
+--defsym=__pformatter=__pformatterFP
 -Xlinker
---undefined=__sformatter
+--undefined=__sformatter_FP
 -Xlinker
---defsym=__sformatter=__sformatter
+--defsym=__sformatter=__sformatter_FP

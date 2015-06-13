@@ -69,7 +69,21 @@ Sources/Actuadores.o: ../Sources/Actuadores.c \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/BrazoPostForwardPWM.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Luz.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Buzzer.h \
- ../Sources/Utiles.h
+ ../Sources/Utiles.h ../Sources/Comunicacion.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdio.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdio \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstddef \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/null.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/size_t.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/wchar_t.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_rsize_t.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/eof.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/va_list.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/file_struc.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdio_api.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdarg.h \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdarg \
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/stdarg.ARM.h
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -212,3 +226,33 @@ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generate
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Buzzer.h:
 
 ../Sources/Utiles.h:
+
+../Sources/Comunicacion.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdio.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdio:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstddef:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/null.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/size_t.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/wchar_t.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/ewl_rsize_t.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/eof.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/va_list.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/file_struc.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdio_api.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/stdarg.h:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdarg:
+
+C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/stdarg.ARM.h:
