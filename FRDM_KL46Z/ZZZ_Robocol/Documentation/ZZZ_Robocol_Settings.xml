@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PE_PROJECT_SETTINGS_DOCUMENTATION>
   <PE_product_version v="version 10.3 for Freescale Microcontrollers" />
-  <PE_core_version v="Processor Expert Version 0508" />
+  <PE_core_version v="Processor Expert Version 0509" />
   <CPU_Bean name="Cpu" type="MKL46Z256LL4">
     <Enabled v="Y" />
     <Properties>
@@ -48,7 +48,7 @@
                 <group name="FLL settings">
                   <FLL_module v="Enabled" />
                   <FLL_output__MHz_ v="20.971520000000" />
-                  <MCGFFCLK_clock__kHz_ v="16.384000000000" />
+                  <MCGFFCLK_clock__kHz_ v="32.768000000000" />
                   <enumgroup name="Reference clock source" v="Slow internal clock">
                     <EmptySection_DummyValue />
                   </enumgroup>
@@ -75,13 +75,11 @@
         <list name="Shared NMI settings" v="1">
           <boolgroup name="NMI pin" v="Enabled">
             <NMI_Pin v="TSI0_CH5/PTA4/I2C1_SDA/TPM0_CH1/NMI_b" />
-            <NMI_Pin_signal v="" />
           </boolgroup>
         </list>
         <list name="Shared Reset settings" v="1">
           <boolgroup name="Reset control" v="Enabled">
             <Reset_pin v="PTA20/RESET_b" />
-            <Reset_pin_signal v="" />
             <Filter_in_STOP v="Disabled" />
             <Filter_in_RUN_WAIT v="Disabled" />
             <Filter_width v="1" />
@@ -113,7 +111,7 @@
         <list name="Shared Flash Config settings" v="1">
           <boolgroup name="Flash configuration field" v="Enabled">
             <group name="Security settings">
-              <Flash_security v="Disabled" />
+              <boolgroup name="Flash security" v="Disabled" />
               <Freescale_failure_analysis_access v="Enabled" />
               <Mass_erase v="Enabled" />
               <Backdoor_key_security v="Disabled" />
@@ -210,12 +208,12 @@
           <boolgroup name="Usage Fault" v="Disabled" />
           <boolgroup name="Supervisor Call" v="Disabled" />
           <boolgroup name="Pendable Service" v="Disabled" />
-          <boolgroup name="MCG Loss of lock" v="Disabled" />
+          <boolgroup name="MCG" v="Disabled" />
         </group>
       </list>
       <group name="Low power mode settings">
         <list name="Shared Low Power Settings" v="1">
-          <group name="Allowed low power modes">
+          <group name="Allowed power modes">
             <Very_low_power_modes v="Not allowed" />
             <Low_leakage_stop_mode v="Not allowed" />
             <Very_low_leakage_stop_mode v="Not allowed" />
@@ -246,7 +244,7 @@
             <MCGIRCLK_clock__MHz_ v="0.032768" />
             <OSCERCLK_clock__MHz_ v="0" />
             <ERCLK32K__clock__MHz_ v="0.001" />
-            <MCGFFCLK__kHz_ v="16.384" />
+            <MCGFFCLK__kHz_ v="32.768" />
           </enumgroup>
           <group name="System clocks">
             <Core_clock_prescaler v="Auto select" />
@@ -271,6 +269,7 @@
         <EnableInt v="don&amp;apos;t generate code" />
         <DisableInt v="don&amp;apos;t generate code" />
         <GetLLSWakeUpFlags v="don&amp;apos;t generate code" />
+        <OpenBackDoor v="don&amp;apos;t generate code" />
         <MCGAutoTrim v="don&amp;apos;t generate code" />
         <VLPModeEnable v="don&amp;apos;t generate code" />
         <VLPModeDisable v="don&amp;apos;t generate code" />
@@ -366,6 +365,7 @@ PE_DEBUGHALT();
       <Component_Name v="Acelerometro" />
       <Slave_Address v="1D" />
       <I2C_Bus v="GI2C1" />
+      <Wait v="WAIT1" />
       <boolgroup name="Constant Offsets" v="Enabled">
         <X_offset v="0" />
         <Y_offset v="0" />
@@ -377,6 +377,9 @@ PE_DEBUGHALT();
       <Enable v="generate code" />
       <Disable v="generate code" />
       <isEnabled v="generate code" />
+      <SwReset v="generate code" />
+      <ReadReg8 v="generate code" />
+      <WriteReg8 v="generate code" />
       <GetX v="generate code" />
       <GetY v="generate code" />
       <GetZ v="generate code" />
@@ -397,12 +400,14 @@ PE_DEBUGHALT();
       <GetY1gValue v="generate code" />
       <GetZ1gValue v="generate code" />
       <SetFastMode v="generate code" />
+      <WhoAmI v="generate code" />
       <Init v="generate code" />
       <Deinit v="generate code" />
       <ParseCommand v="don&amp;apos;t generate code" />
     </Methods>
     <Events>
-      <EmptySection_DummyValue />
+      <Event_module_name v="Events" />
+      <event name="OnError" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
   <Bean name="AdcTemp" type="ADC">
@@ -428,7 +433,6 @@ PE_DEBUGHALT();
               <enumgroup name="Channel mode" v="Single Ended">
                 <group name="Input">
                   <A_D_channel__pin_ v="ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX" />
-                  <A_D_channel__pin__signal v="" />
                 </group>
               </enumgroup>
             </group>
@@ -451,11 +455,9 @@ PE_DEBUGHALT();
           <group name="Voltage reference">
             <group name="High voltage reference">
               <Volt__ref__pin v="VREFH" />
-              <Volt__ref_pin_signal v="" />
             </group>
             <group name="Low voltage reference">
               <Volt__ref__pin v="VREFL" />
-              <Volt__ref_pin_signal v="" />
             </group>
           </group>
           <group name="Initialization">
@@ -523,7 +525,6 @@ PE_DEBUGHALT();
       <list name="A/D channels" v="1">
         <group name="Channel0">
           <A_D_channel__pin_ v="ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX" />
-          <A_D_channel__pin__signal v="" />
           <boolgroup name="Mode select" v="Single Ended" />
         </group>
       </list>
@@ -642,6 +643,7 @@ PE_DEBUGHALT();
       <event name="OnMasterBlockReceived" v="don&amp;apos;t generate code" />
       <event name="OnRequestBus" v="don&amp;apos;t generate code" />
       <event name="OnReleaseBus" v="don&amp;apos;t generate code" />
+      <event name="OnError" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
   <Bean name="ComGalileo" type="Serial_LDD">
@@ -671,11 +673,9 @@ PE_DEBUGHALT();
         <Break_generation_length v="10/11 bits" />
         <boolgroup name="Receiver" v="Enabled">
           <RxD v="TSI0_CH2/PTA1/UART0_RX/TPM2_CH0" />
-          <RxD_pin_signal v="" />
         </boolgroup>
         <boolgroup name="Transmitter" v="Enabled">
           <TxD v="TSI0_CH3/PTA2/UART0_TX/TPM2_CH1" />
-          <TxD_pin_signal v="" />
         </boolgroup>
         <enumgroup name="Flow control" v="None">
           <EmptySection_DummyValue />
@@ -803,11 +803,9 @@ PE_DEBUGHALT();
         <group name="Pins">
           <group name="SDA pin">
             <SDA_pin v="PTE25/TPM0_CH1/I2C0_SDA" />
-            <SDA_pin_signal v="" />
           </group>
           <group name="SCL pin">
             <SCL_pin v="PTE24/TPM0_CH0/I2C0_SCL" />
-            <SCL_pin_signal v="" />
           </group>
           <High_drive_select v="Disabled" />
           <Input_Glitch_filter v="0" />
@@ -937,7 +935,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="LCD_P0/ADC0_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/TPM1_CH0" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -950,7 +947,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="LCD_P1/ADC0_SE9/TSI0_CH6/PTB1/I2C0_SDA/TPM1_CH1" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1030,7 +1026,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM1_C0V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P0/ADC0_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/TPM1_CH0" />
-      <Output_pin_signal v="" />
       <Counter v="TPM1_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -1055,7 +1050,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM1_MOD" />
             <Duty_device v="TPM1_C0V" />
             <Output_pin v="LCD_P0/ADC0_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/TPM1_CH0" />
-            <Output_pin_signal v="" />
             <Counter v="TPM1_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1140,11 +1134,10 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="BrazoFrontalForwardPWM" />
-      <PWM_or_PPG_device v="TPM0_C0V" />
+      <PWM_or_PPG_device v="TPM0_C4V" />
       <Duty_compare v="" />
-      <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
-      <Output_pin_signal v="" />
-      <Counter v="TPM0_CNT" />
+      <Output_pin v="PTA7/TPM0_CH4" />
+      <Counter v="" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1166,9 +1159,8 @@ PE_DEBUGHALT();
           <Properties>
             <Component_name v="PwmLdd3" />
             <Period_device v="TPM0_MOD" />
-            <Duty_device v="TPM0_C0V" />
-            <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
-            <Output_pin_signal v="" />
+            <Duty_device v="TPM0_C4V" />
+            <Output_pin v="PTA7/TPM0_CH4" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1269,26 +1261,24 @@ PE_DEBUGHALT();
       <list name="Channel list" v="4">
         <group name="Channel 0">
           <enumgroup name="Mode" v="Compare">
-            <Compare v="TPM0_C0V" />
+            <Compare v="TPM0_C4V" />
             <Offset v="40 &amp;#181;s" />
             <enumgroup name="Output on compare" v="Set">
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
-              <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
-              <Output_pin_signal v="" />
+              <Output_pin v="PTA7/TPM0_CH4" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
         </group>
         <group name="Channel 1">
           <enumgroup name="Mode" v="Compare">
-            <Compare v="TPM0_C1V" />
+            <Compare v="TPM0_C5V" />
             <Offset v="40 &amp;#181;s" />
             <enumgroup name="Output on compare" v="Set">
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
-              <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
-              <Output_pin_signal v="" />
+              <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1301,7 +1291,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="PTA5/USB_CLKIN/TPM0_CH2/I2S0_TX_BCLK" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1314,7 +1303,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="LCD_P24/PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/TPM0_CH3/I2S0_MCLK" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1394,7 +1382,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM1_C1V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P1/ADC0_SE9/TSI0_CH6/PTB1/I2C0_SDA/TPM1_CH1" />
-      <Output_pin_signal v="" />
       <Counter v="TPM1_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -1419,7 +1406,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM1_MOD" />
             <Duty_device v="TPM1_C1V" />
             <Output_pin v="LCD_P1/ADC0_SE9/TSI0_CH6/PTB1/I2C0_SDA/TPM1_CH1" />
-            <Output_pin_signal v="" />
             <Counter v="TPM1_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1507,7 +1493,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM2_C1V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P15/TSI0_CH12/PTB19/TPM2_CH1/I2S0_TX_FS" />
-      <Output_pin_signal v="" />
       <Counter v="TPM2_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -1532,7 +1517,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM2_MOD" />
             <Duty_device v="TPM2_C1V" />
             <Output_pin v="LCD_P15/TSI0_CH12/PTB19/TPM2_CH1/I2S0_TX_FS" />
-            <Output_pin_signal v="" />
             <Counter v="TPM2_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1639,7 +1623,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="LCD_P15/TSI0_CH12/PTB19/TPM2_CH1/I2S0_TX_FS" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1652,7 +1635,6 @@ PE_DEBUGHALT();
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
               <Output_pin v="LCD_P14/TSI0_CH11/PTB18/TPM2_CH0/I2S0_TX_BCLK" />
-              <Output_pin_signal v="" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1732,7 +1714,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C3V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P24/PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/TPM0_CH3/I2S0_MCLK" />
-      <Output_pin_signal v="" />
       <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -1757,7 +1738,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM0_MOD" />
             <Duty_device v="TPM0_C3V" />
             <Output_pin v="LCD_P24/PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/TPM0_CH3/I2S0_MCLK" />
-            <Output_pin_signal v="" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1845,7 +1825,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM2_C0V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P14/TSI0_CH11/PTB18/TPM2_CH0/I2S0_TX_BCLK" />
-      <Output_pin_signal v="" />
       <Counter v="TPM2_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -1870,7 +1849,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM2_MOD" />
             <Duty_device v="TPM2_C0V" />
             <Output_pin v="LCD_P14/TSI0_CH11/PTB18/TPM2_CH0/I2S0_TX_BCLK" />
-            <Output_pin_signal v="" />
             <Counter v="TPM2_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1955,11 +1933,10 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="BrazoFrontalBackwardPWM" />
-      <PWM_or_PPG_device v="TPM0_C1V" />
+      <PWM_or_PPG_device v="TPM0_C5V" />
       <Duty_compare v="" />
-      <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
-      <Output_pin_signal v="" />
-      <Counter v="TPM0_CNT" />
+      <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
+      <Counter v="" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1981,9 +1958,8 @@ PE_DEBUGHALT();
           <Properties>
             <Component_name v="PwmLdd6" />
             <Period_device v="TPM0_MOD" />
-            <Duty_device v="TPM0_C1V" />
-            <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
-            <Output_pin_signal v="" />
+            <Duty_device v="TPM0_C5V" />
+            <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -2071,7 +2047,6 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C2V" />
       <Duty_compare v="" />
       <Output_pin v="PTA5/USB_CLKIN/TPM0_CH2/I2S0_TX_BCLK" />
-      <Output_pin_signal v="" />
       <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
@@ -2096,7 +2071,6 @@ PE_DEBUGHALT();
             <Period_device v="TPM0_MOD" />
             <Duty_device v="TPM0_C2V" />
             <Output_pin v="PTA5/USB_CLKIN/TPM0_CH2/I2S0_TX_BCLK" />
-            <Output_pin_signal v="" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -2191,19 +2165,15 @@ PE_DEBUGHALT();
           <list name="Pins" v="4">
             <group name="Pin0">
               <Pin v="LCD_P43/PTD3/SPI0_MISO/UART2_TX/TPM0_CH3/SPI0_MOSI" />
-              <Pin_signal v="" />
             </group>
             <group name="Pin1">
               <Pin v="LCD_P44/PTD4/LLWU_P14/SPI1_PCS0/UART2_RX/TPM0_CH4" />
-              <Pin_signal v="" />
             </group>
             <group name="Pin2">
               <Pin v="LCD_P45/ADC0_SE6b/PTD5/SPI1_SCK/UART2_TX/TPM0_CH5" />
-              <Pin_signal v="" />
             </group>
             <group name="Pin3">
               <Pin v="LCD_P46/ADC0_SE7b/PTD6/LLWU_P15/SPI1_MOSI/UART0_RX/SPI1_MISO" />
-              <Pin_signal v="" />
             </group>
           </list>
           <Direction v="Output" />
@@ -2239,19 +2209,15 @@ PE_DEBUGHALT();
       <list name="Pins" v="4">
         <group name="Pin0">
           <Pin v="LCD_P43/PTD3/SPI0_MISO/UART2_TX/TPM0_CH3/SPI0_MOSI" />
-          <Pin_signal v="" />
         </group>
         <group name="Pin1">
           <Pin v="LCD_P44/PTD4/LLWU_P14/SPI1_PCS0/UART2_RX/TPM0_CH4" />
-          <Pin_signal v="" />
         </group>
         <group name="Pin2">
           <Pin v="LCD_P45/ADC0_SE6b/PTD5/SPI1_SCK/UART2_TX/TPM0_CH5" />
-          <Pin_signal v="" />
         </group>
         <group name="Pin3">
           <Pin v="LCD_P46/ADC0_SE7b/PTD6/LLWU_P15/SPI1_MOSI/UART0_RX/SPI1_MISO" />
-          <Pin_signal v="" />
         </group>
       </list>
       <Direction v="Output" />
@@ -2286,15 +2252,13 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Luz" />
-      <Pin_for_I_O v="LCD_P10/PTB10/SPI1_PCS0" />
-      <Pin_signal v="" />
+      <Pin_for_I_O v="LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS" />
       <inhrbean type="BitIO_LDD">
         <Enabled v="Y" />
         <Template v="BitIO_LDD" />
         <Properties>
           <Component_name v="BitIoLdd1" />
-          <Pin_for_I_O v="LCD_P10/PTB10/SPI1_PCS0" />
-          <Pin_signal v="" />
+          <Pin_for_I_O v="LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS" />
           <Direction v="Output" />
           <group name="Initialization">
             <Init__direction v="Output" />
@@ -2351,15 +2315,13 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Buzzer" />
-      <Pin_for_I_O v="LCD_P11/PTB11/SPI1_SCK" />
-      <Pin_signal v="" />
+      <Pin_for_I_O v="LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0" />
       <inhrbean type="BitIO_LDD">
         <Enabled v="Y" />
         <Template v="BitIO_LDD" />
         <Properties>
           <Component_name v="BitIoLdd2" />
-          <Pin_for_I_O v="LCD_P11/PTB11/SPI1_SCK" />
-          <Pin_signal v="" />
+          <Pin_for_I_O v="LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0" />
           <Direction v="Output" />
           <group name="Initialization">
             <Init__direction v="Output" />
@@ -2458,11 +2420,9 @@ PE_DEBUGHALT();
         <Break_generation_length v="10/11 bits" />
         <boolgroup name="Receiver" v="Enabled">
           <RxD v="EXTAL0/PTA18/UART1_RX/TPM_CLKIN0" />
-          <RxD_pin_signal v="" />
         </boolgroup>
         <boolgroup name="Transmitter" v="Enabled">
           <TxD v="XTAL0/PTA19/UART1_TX/TPM_CLKIN1/LPTMR0_ALT1" />
-          <TxD_pin_signal v="" />
         </boolgroup>
         <enumgroup name="Flow control" v="None">
           <EmptySection_DummyValue />

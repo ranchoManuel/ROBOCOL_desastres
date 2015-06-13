@@ -14,9 +14,9 @@ Oruga2BackwardPWM		PTB19
 Oruga2ForwardPWM		PTB18
 
 Pines para Brazos
-BrazoFrontalForwardPWM	PTC1
+BrazoFrontalForwardPWM	PTA7
+BrazoFrontalBackwardPWM	PTC9
 BrazoPostForwardPWM		PTC4
-BrazoFrontalBackwardPWM	PTC2
 BrazoPostBackwardPWM	PTA5
 
 Pines ADC 
@@ -41,5 +41,5 @@ Bateria Pin2			PTD5
 Bateria Pin3			PTD6
 
 Pines LuzBuzzer
-Luz 					PTB10
-Buzzer					PTB11
+Luz 					PTC10
+Buzzer					PTC11

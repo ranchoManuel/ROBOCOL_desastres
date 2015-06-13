@@ -6,7 +6,7 @@
 **     Component   : BitIO_LDD
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-14, 12:06, # CodeGen: 31
+**     Date/Time   : 2015-06-13, 15:14, # CodeGen: 40
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -16,7 +16,7 @@
 **         portable to various microprocessors.
 **     Settings    :
 **          Component name                                 : BitIoLdd2
-**          Pin for I/O                                    : LCD_P11/PTB11/SPI1_SCK
+**          Pin for I/O                                    : LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0
 **          Pin signal                                     : 
 **          Direction                                      : Output
 **          Initialization                                 : 
@@ -32,11 +32,36 @@
 **         SetVal - void BitIoLdd2_SetVal(LDD_TDeviceData *DeviceDataPtr);
 **         NegVal - void BitIoLdd2_NegVal(LDD_TDeviceData *DeviceDataPtr);
 **
-**     Copyright : 1997 - 2013 Freescale Semiconductor, Inc. All Rights Reserved.
-**     SOURCE DISTRIBUTION PERMISSIBLE as directed in End User License Agreement.
+**     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
+**     All Rights Reserved.
 **     
-**     http      : www.freescale.com
-**     mail      : support@freescale.com
+**     Redistribution and use in source and binary forms, with or without modification,
+**     are permitted provided that the following conditions are met:
+**     
+**     o Redistributions of source code must retain the above copyright notice, this list
+**       of conditions and the following disclaimer.
+**     
+**     o Redistributions in binary form must reproduce the above copyright notice, this
+**       list of conditions and the following disclaimer in the documentation and/or
+**       other materials provided with the distribution.
+**     
+**     o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+**       contributors may be used to endorse or promote products derived from this
+**       software without specific prior written permission.
+**     
+**     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+**     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+**     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+**     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+**     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+**     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+**     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+**     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+**     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+**     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**     
+**     http: www.freescale.com
+**     mail: support@freescale.com
 ** ###################################################################*/
 /*!
 ** @file BitIoLdd2.h
@@ -77,7 +102,7 @@ extern "C" {
 
 
 /*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
-#define BitIoLdd2_PRPH_BASE_ADDRESS  0x400FF040U
+#define BitIoLdd2_PRPH_BASE_ADDRESS  0x400FF080U
   
 /*! Device data structure pointer used when auto initialization property is enabled. This constant can be passed as a first parameter to all component's methods. */
 #define BitIoLdd2_DeviceData  ((LDD_TDeviceData *)PE_LDD_GetDeviceStructure(PE_LDD_COMPONENT_BitIoLdd2_ID))
@@ -91,8 +116,8 @@ extern "C" {
 #define BitIoLdd2_NegVal_METHOD_ENABLED /*!< NegVal method of the component BitIoLdd2 is enabled (generated) */
 
 /* Definition of implementation constants */
-#define BitIoLdd2_MODULE_BASE_ADDRESS FPTB_BASE_PTR /*!< Name of macro used as the base address */
-#define BitIoLdd2_PORTCONTROL_BASE_ADDRESS PORTB_BASE_PTR /*!< Name of macro used as the base address */
+#define BitIoLdd2_MODULE_BASE_ADDRESS FPTC_BASE_PTR /*!< Name of macro used as the base address */
+#define BitIoLdd2_PORTCONTROL_BASE_ADDRESS PORTC_BASE_PTR /*!< Name of macro used as the base address */
 #define BitIoLdd2_PORT_MASK 0x0800U    /*!< Mask of the allocated pin from the port */
 
 
@@ -231,7 +256,7 @@ void BitIoLdd2_NegVal(LDD_TDeviceData *DeviceDataPtr);
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################

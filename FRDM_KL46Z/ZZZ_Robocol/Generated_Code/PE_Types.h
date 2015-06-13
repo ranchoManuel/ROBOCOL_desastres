@@ -6,7 +6,7 @@
 **     Component   : PE_Types
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-25, 16:07, # CodeGen: 32
+**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
 **     Abstract    :
 **         PE_Types.h - contains definitions of basic types,
 **         register access macros and hardware specific macros
@@ -15,11 +15,36 @@
 **     Contents    :
 **         No public methods
 **
-**     Copyright : 1997 - 2013 Freescale Semiconductor, Inc. All Rights Reserved.
-**     SOURCE DISTRIBUTION PERMISSIBLE as directed in End User License Agreement.
+**     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
+**     All Rights Reserved.
 **     
-**     http      : www.freescale.com
-**     mail      : support@freescale.com
+**     Redistribution and use in source and binary forms, with or without modification,
+**     are permitted provided that the following conditions are met:
+**     
+**     o Redistributions of source code must retain the above copyright notice, this list
+**       of conditions and the following disclaimer.
+**     
+**     o Redistributions in binary form must reproduce the above copyright notice, this
+**       list of conditions and the following disclaimer in the documentation and/or
+**       other materials provided with the distribution.
+**     
+**     o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+**       contributors may be used to endorse or promote products derived from this
+**       software without specific prior written permission.
+**     
+**     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+**     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+**     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+**     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+**     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+**     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+**     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+**     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+**     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+**     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**     
+**     http: www.freescale.com
+**     mail: support@freescale.com
 ** ###################################################################*/
 /*!
 ** @file PE_Types.h
@@ -53,7 +78,9 @@
 
 /* PE types definition */
 #ifndef __cplusplus
+  #ifndef bool 
 typedef unsigned char           bool;
+  #endif
 #endif
 typedef unsigned char           byte;
 typedef unsigned short          word;
@@ -85,7 +112,7 @@ typedef unsigned long int       uint32;
 #define __EI()\
  do {\
   /*lint -save  -e950 Disable MISRA rule (1.1) checking. */\
-     asm("CPSIE i");\
+     __asm("CPSIE i");\
   /*lint -restore Enable MISRA rule (1.1) checking. */\
  } while(0)
 
@@ -93,7 +120,7 @@ typedef unsigned long int       uint32;
 #define __DI() \
  do {\
   /*lint -save  -e950 Disable MISRA rule (1.1) checking. */\
-     asm ("CPSID i");\
+     __asm ("CPSID i");\
   /*lint -restore Enable MISRA rule (1.1) checking. */\
  } while(0)
 
@@ -101,15 +128,17 @@ typedef unsigned long int       uint32;
 /* Save status register and disable interrupts */
 #define EnterCritical() \
  do {\
-   if (++SR_lock == 1u) {\
+  uint8_t SR_reg_local;\
   /*lint -save  -e586 -e950 Disable MISRA rule (2.1,1.1) checking. */\
-     asm ( \
-     "MRS R0, PRIMASK\n\t" \
-     "CPSID i\n\t"            \
-     "STRB R0, %[output]"  \
-     : [output] "=m" (SR_reg)\
-     :: "r0");\
+   __asm ( \
+   "MRS R0, PRIMASK\n\t" \
+   "CPSID i\n\t"            \
+   "STRB R0, %[output]"  \
+   : [output] "=m" (SR_reg_local)\
+   :: "r0");\
   /*lint -restore Enable MISRA rule (2.1,1.1) checking. */\
+   if (++SR_lock == 1u) {\
+     SR_reg = SR_reg_local;\
    }\
  } while(0)
 
@@ -118,7 +147,7 @@ typedef unsigned long int       uint32;
  do {\
    if (--SR_lock == 0u) { \
   /*lint -save  -e586 -e950 Disable MISRA rule (2.1,1.1) checking. */\
-     asm (                 \
+     __asm (                 \
        "ldrb r0, %[input]\n\t"\
        "msr PRIMASK,r0;\n\t" \
        ::[input] "m" (SR_reg)  \
@@ -130,17 +159,17 @@ typedef unsigned long int       uint32;
 
 #define PE_DEBUGHALT() \
   /*lint -save  -e586 -e950 Disable MISRA rule (2.1,1.1) checking. */\
-  asm( "BKPT 255") \
+  __asm( "BKPT 255") \
   /*lint -restore Enable MISRA rule (2.1,1.1) checking. */
 
 #define PE_NOP() \
   /*lint -save  -e586 -e950 Disable MISRA rule (2.1,1.1) checking. */\
-  asm( "NOP") \
+  __asm( "NOP") \
   /*lint -restore Enable MISRA rule (2.1,1.1) checking. */
 
 #define PE_WFI() \
   /*lint -save  -e586 -e950 Disable MISRA rule (2.1,1.1) checking. */\
-  asm("WFI") \
+  __asm("WFI") \
   /*lint -restore Enable MISRA rule (2.1,1.1) checking. */
 
 
@@ -888,7 +917,6 @@ typedef uint32_t LDD_CAN_TMessageID;   /*!< Type specifying the ID mask variable
 typedef uint8_t LDD_CAN_TErrorCounter; /*!< Type specifying the error counter variable. */
 typedef uint32_t LDD_CAN_TErrorMask;   /*!< Type specifying the error mask variable. */
 typedef uint16_t LDD_CAN_TBufferMask;  /*!< Type specifying the message buffer mask variable. */
-
 #define LDD_CAN_RX_PIN            0x01U /*!< Rx pin mask */
 #define LDD_CAN_TX_PIN            0x02U /*!< Tx pin mask */
 
@@ -2487,7 +2515,7 @@ typedef enum {
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################

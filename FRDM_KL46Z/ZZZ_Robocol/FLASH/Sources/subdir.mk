@@ -10,7 +10,7 @@ C_SRCS_QUOTED += \
 "../Sources/Comunicacion.c" \
 "../Sources/Events.c" \
 "../Sources/Utiles.c" \
-"../Sources/ZZZ_Robocol.c" \
+"../Sources/main.c" \
 "../Sources/sa_mtb.c" \
 
 C_SRCS += \
@@ -18,7 +18,7 @@ C_SRCS += \
 ../Sources/Comunicacion.c \
 ../Sources/Events.c \
 ../Sources/Utiles.c \
-../Sources/ZZZ_Robocol.c \
+../Sources/main.c \
 ../Sources/sa_mtb.c \
 
 OBJS += \
@@ -26,7 +26,7 @@ OBJS += \
 ./Sources/Comunicacion.o \
 ./Sources/Events.o \
 ./Sources/Utiles.o \
-./Sources/ZZZ_Robocol.o \
+./Sources/main.o \
 ./Sources/sa_mtb.o \
 
 C_DEPS += \
@@ -34,7 +34,7 @@ C_DEPS += \
 ./Sources/Comunicacion.d \
 ./Sources/Events.d \
 ./Sources/Utiles.d \
-./Sources/ZZZ_Robocol.d \
+./Sources/main.d \
 ./Sources/sa_mtb.d \
 
 OBJS_QUOTED += \
@@ -42,7 +42,7 @@ OBJS_QUOTED += \
 "./Sources/Comunicacion.o" \
 "./Sources/Events.o" \
 "./Sources/Utiles.o" \
-"./Sources/ZZZ_Robocol.o" \
+"./Sources/main.o" \
 "./Sources/sa_mtb.o" \
 
 C_DEPS_QUOTED += \
@@ -50,7 +50,7 @@ C_DEPS_QUOTED += \
 "./Sources/Comunicacion.d" \
 "./Sources/Events.d" \
 "./Sources/Utiles.d" \
-"./Sources/ZZZ_Robocol.d" \
+"./Sources/main.d" \
 "./Sources/sa_mtb.d" \
 
 OBJS_OS_FORMAT += \
@@ -58,7 +58,7 @@ OBJS_OS_FORMAT += \
 ./Sources/Comunicacion.o \
 ./Sources/Events.o \
 ./Sources/Utiles.o \
-./Sources/ZZZ_Robocol.o \
+./Sources/main.o \
 ./Sources/sa_mtb.o \
 
 
@@ -95,11 +95,11 @@ Sources/Utiles.o: ../Sources/Utiles.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Sources/ZZZ_Robocol.o: ../Sources/ZZZ_Robocol.c
+Sources/main.o: ../Sources/main.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #5 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/ZZZ_Robocol.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/ZZZ_Robocol.o"
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/main.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/main.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 

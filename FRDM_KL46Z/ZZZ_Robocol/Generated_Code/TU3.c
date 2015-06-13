@@ -4,9 +4,9 @@
 **     Project     : ZZZ_Robocol
 **     Processor   : MKL46Z256VLL4
 **     Component   : TimerUnit_LDD
-**     Version     : Component 01.158, Driver 01.11, CPU db: 3.00.000
+**     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-13, 19:34, # CodeGen: 26
+**     Date/Time   : 2015-06-13, 15:01, # CodeGen: 39
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -26,22 +26,22 @@
 **          Channel list                                   : 4
 **            Channel 0                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C0V
+**                Compare                                  : TPM0_C4V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0
+**                  Output pin                             : PTA7/TPM0_CH4
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 1                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C1V
+**                Compare                                  : TPM0_C5V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS
+**                  Output pin                             : LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 2                                    : 
@@ -94,11 +94,36 @@
 **         GetOffsetTicks     - LDD_TError TU3_GetOffsetTicks(LDD_TDeviceData *DeviceDataPtr, uint8_t...
 **         SelectOutputAction - LDD_TError TU3_SelectOutputAction(LDD_TDeviceData *DeviceDataPtr, uint8_t...
 **
-**     Copyright : 1997 - 2013 Freescale Semiconductor, Inc. All Rights Reserved.
-**     SOURCE DISTRIBUTION PERMISSIBLE as directed in End User License Agreement.
+**     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
+**     All Rights Reserved.
 **     
-**     http      : www.freescale.com
-**     mail      : support@freescale.com
+**     Redistribution and use in source and binary forms, with or without modification,
+**     are permitted provided that the following conditions are met:
+**     
+**     o Redistributions of source code must retain the above copyright notice, this list
+**       of conditions and the following disclaimer.
+**     
+**     o Redistributions in binary form must reproduce the above copyright notice, this
+**       list of conditions and the following disclaimer in the documentation and/or
+**       other materials provided with the distribution.
+**     
+**     o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+**       contributors may be used to endorse or promote products derived from this
+**       software without specific prior written permission.
+**     
+**     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+**     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+**     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+**     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+**     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+**     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+**     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+**     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+**     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+**     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**     
+**     http: www.freescale.com
+**     mail: support@freescale.com
 ** ###################################################################*/
 /*!
 ** @file TU3.c
@@ -123,7 +148,7 @@ extern "C" {
 #endif 
 
 /* List of channels used by component */
-static const uint8_t ChannelDevice[TU3_NUMBER_OF_CHANNELS] = {0x00U,0x01U,0x02U,0x03U};
+static const uint8_t ChannelDevice[TU3_NUMBER_OF_CHANNELS] = {0x04U,0x05U,0x02U,0x03U};
 
 /* Table of channels mode / 0 - compare mode, 1 - capture mode */
 static const uint8_t ChannelMode[TU3_NUMBER_OF_CHANNELS] = {0x00U,0x00U,0x00U,0x00U};
@@ -186,7 +211,7 @@ LDD_TDeviceData* TU3_Init(LDD_TUserData *UserDataPtr)
     return ((LDD_TDeviceData *)DeviceDataPrv); /* Return pointer to the device data structure */
   }
   /* SIM_SCGC6: TPM0=1 */
-  SIM_SCGC6 |= SIM_SCGC6_TPM0_MASK;                                   
+  SIM_SCGC6 |= SIM_SCGC6_TPM0_MASK;
   /* TPM0_SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,DMA=0,TOF=0,TOIE=0,CPWMS=0,CMOD=0,PS=0 */
   TPM0_SC = (TPM_SC_CMOD(0x00) | TPM_SC_PS(0x00)); /* Clear status and control register */
   /* TPM0_CNT: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,COUNT=0 */
@@ -205,14 +230,14 @@ LDD_TDeviceData* TU3_Init(LDD_TUserData *UserDataPtr)
   TPM0_C5SC = 0x00U;                   /* Clear channel status and control register */
   /* TPM0_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=0x0346 */
   TPM0_MOD = TPM_MOD_MOD(0x0346);      /* Set up modulo register */
-  /* TPM0_C0SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  TPM0_C0SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* TPM0_C0V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
-  TPM0_C0V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
-  /* TPM0_C1SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  TPM0_C1SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* TPM0_C1V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
-  TPM0_C1V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
+  /* TPM0_C4SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
+  TPM0_C4SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
+  /* TPM0_C4V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
+  TPM0_C4V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
+  /* TPM0_C5SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
+  TPM0_C5SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
+  /* TPM0_C5V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
+  TPM0_C5V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
   /* TPM0_C2SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
   TPM0_C2SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
   /* TPM0_C2V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
@@ -221,34 +246,34 @@ LDD_TDeviceData* TU3_Init(LDD_TUserData *UserDataPtr)
   TPM0_C3SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
   /* TPM0_C3V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
   TPM0_C3V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
-  /* PORTC_PCR1: ISF=0,MUX=4 */
-  PORTC_PCR1 = (uint32_t)((PORTC_PCR1 & (uint32_t)~(uint32_t)(
+  /* PORTA_PCR7: ISF=0,MUX=3 */
+  PORTA_PCR7 = (uint32_t)((PORTA_PCR7 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_MUX(0x03)
-               )) | (uint32_t)(
                 PORT_PCR_MUX(0x04)
-               ));                                  
-  /* PORTC_PCR2: ISF=0,MUX=4 */
-  PORTC_PCR2 = (uint32_t)((PORTC_PCR2 & (uint32_t)~(uint32_t)(
+               )) | (uint32_t)(
+                PORT_PCR_MUX(0x03)
+               ));
+  /* PORTC_PCR9: ISF=0,MUX=3 */
+  PORTC_PCR9 = (uint32_t)((PORTC_PCR9 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_MUX(0x03)
-               )) | (uint32_t)(
                 PORT_PCR_MUX(0x04)
-               ));                                  
+               )) | (uint32_t)(
+                PORT_PCR_MUX(0x03)
+               ));
   /* PORTA_PCR5: ISF=0,MUX=3 */
   PORTA_PCR5 = (uint32_t)((PORTA_PCR5 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
                 PORT_PCR_MUX(0x04)
                )) | (uint32_t)(
                 PORT_PCR_MUX(0x03)
-               ));                                  
+               ));
   /* PORTC_PCR4: ISF=0,MUX=4 */
   PORTC_PCR4 = (uint32_t)((PORTC_PCR4 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
                 PORT_PCR_MUX(0x03)
                )) | (uint32_t)(
                 PORT_PCR_MUX(0x04)
-               ));                                  
+               ));
   /* TPM0_SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,DMA=0,TOF=0,TOIE=0,CPWMS=0,CMOD=1,PS=0 */
   TPM0_SC = (TPM_SC_CMOD(0x01) | TPM_SC_PS(0x00)); /* Set up status and control register */
   /* Registration of the device structure */
@@ -501,7 +526,7 @@ LDD_TError TU3_SelectOutputAction(LDD_TDeviceData *DeviceDataPtr, uint8_t Channe
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################

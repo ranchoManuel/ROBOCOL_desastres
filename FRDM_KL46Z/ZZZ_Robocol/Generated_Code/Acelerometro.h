@@ -5,9 +5,9 @@
 **     Project     : ZZZ_Robocol
 **     Processor   : MKL46Z256VLL4
 **     Component   : MMA8451Q
-**     Version     : Component 01.028, Driver 01.00, CPU db: 3.00.000
+**     Version     : Component 01.036, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-03-13, 19:34, # CodeGen: 26
+**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
 **     Abstract    :
 **         Implements a Driver for the MMA8451 accelerometer from Freescale.
 **     Settings    :
@@ -20,9 +20,12 @@
 **            Z offset                                     : 0
 **          Shell                                          : Disabled
 **     Contents    :
-**         Enable         - byte Acelerometro_Enable(void);
-**         Disable        - byte Acelerometro_Disable(void);
-**         isEnabled      - byte Acelerometro_isEnabled(bool *isEnabled);
+**         Enable         - uint8_t Acelerometro_Enable(void);
+**         Disable        - uint8_t Acelerometro_Disable(void);
+**         isEnabled      - uint8_t Acelerometro_isEnabled(bool *isEnabled);
+**         SwReset        - uint8_t Acelerometro_SwReset(void);
+**         ReadReg8       - uint8_t Acelerometro_ReadReg8(void* addr, void* *val);
+**         WriteReg8      - uint8_t Acelerometro_WriteReg8(void* addr, void* val);
 **         GetX           - int16_t Acelerometro_GetX(void);
 **         GetY           - int16_t Acelerometro_GetY(void);
 **         GetZ           - int16_t Acelerometro_GetZ(void);
@@ -33,21 +36,22 @@
 **         GetXmg         - int16_t Acelerometro_GetXmg(void);
 **         GetYmg         - int16_t Acelerometro_GetYmg(void);
 **         GetZmg         - int16_t Acelerometro_GetZmg(void);
-**         MeasureGetRawX - word Acelerometro_MeasureGetRawX(void);
-**         MeasureGetRawY - word Acelerometro_MeasureGetRawY(void);
-**         MeasureGetRawZ - word Acelerometro_MeasureGetRawZ(void);
+**         MeasureGetRawX - uint16_t Acelerometro_MeasureGetRawX(void);
+**         MeasureGetRawY - uint16_t Acelerometro_MeasureGetRawY(void);
+**         MeasureGetRawZ - uint16_t Acelerometro_MeasureGetRawZ(void);
 **         GetXOffset     - int16_t Acelerometro_GetXOffset(void);
 **         GetYOffset     - int16_t Acelerometro_GetYOffset(void);
 **         GetZOffset     - int16_t Acelerometro_GetZOffset(void);
 **         GetX1gValue    - int16_t Acelerometro_GetX1gValue(void);
 **         GetY1gValue    - int16_t Acelerometro_GetY1gValue(void);
 **         GetZ1gValue    - int16_t Acelerometro_GetZ1gValue(void);
-**         SetFastMode    - byte Acelerometro_SetFastMode(bool on);
+**         SetFastMode    - uint8_t Acelerometro_SetFastMode(bool on);
+**         WhoAmI         - uint8_t Acelerometro_WhoAmI(void* *value);
 **         Init           - uint8_t Acelerometro_Init(void);
 **         Deinit         - uint8_t Acelerometro_Deinit(void);
 **
 **     License : Open Source (LGPL)
-**     Copyright : (c) Copyright Erich Styger, 2013, all rights reserved.
+**     Copyright : (c) Copyright Erich Styger, 2013-2014, all rights reserved.
 **     http://www.mcuoneclipse.com
 **     This an open source software in the form of a Processor Expert Embedded Component.
 **     This is a free software and is opened for education, research and commercial developments under license policy of following terms:
@@ -78,11 +82,37 @@
 #include "IO_Map.h"
 /* Include inherited components */
 #include "GI2C1.h"
+#include "WAIT1.h"
 
 #include "Cpu.h"
 
 
 #define Acelerometro_PARSE_COMMAND_ENABLED  0 /* set to 1 if method ParseCommand() is present, 0 otherwise */
+
+/* 3-axis accelerometer control register addresses */
+#define Acelerometro_CTRL_REG_1 0x2A
+/* 3-axis accelerometer control register bit masks */
+#define Acelerometro_ACTIVE_BIT_MASK 0x01
+#define Acelerometro_F_READ_BIT_MASK 0x02
+
+#define Acelerometro_CTRL_REG_2 0x2B
+#define Acelerometro_CTRL_REG_2_MASK_RST (1<<4) /* software reset */
+
+/* External 3-axis accelerometer data register addresses */
+#define Acelerometro_OUT_X_MSB 0x01
+#define Acelerometro_OUT_X_LSB 0x02
+#define Acelerometro_OUT_Y_MSB 0x03
+#define Acelerometro_OUT_Y_LSB 0x04
+#define Acelerometro_OUT_Z_MSB 0x05
+#define Acelerometro_OUT_Z_LSB 0x06
+
+#define Acelerometro_WHO_AM_I  0x0D    /* Who am I register, should return 0xC4 for preproduction devices and 0xC7 for production devices */
+#define Acelerometro_WHO_AM_I_VAL 0x1A /* production device value */
+
+#define Acelerometro_XYZ_DATA_CFG 0x0E  /* XYZ Data Configuration Register */
+
+#define Acelerometro_I2C_ADDR   (0x1D) /* I2C slave device address as set in the properties */
+
 
 uint8_t Acelerometro_GetRaw8XYZ(uint8_t *xyz);
 /*
@@ -143,7 +173,7 @@ void Acelerometro_CalibrateY1g(void);
 **     Method      :  Acelerometro_CalibrateY1g (component MMA8451Q)
 **     Description :
 **         Performs a calibration of the sensor. It is assumed that the
-**         Y and Z sensors have 0 g, and the X sensor has 1 g.
+**         X and Z sensors have 0 g, and the Y sensor has 1 g.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
@@ -155,7 +185,7 @@ void Acelerometro_CalibrateZ1g(void);
 **     Method      :  Acelerometro_CalibrateZ1g (component MMA8451Q)
 **     Description :
 **         Performs a calibration of the sensor. It is assumed that the
-**         X and Y sensors have 0 g, and the X sensor has 1 g.
+**         X and Y sensors have 0 g, and the Z sensor has 1 g.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
@@ -197,7 +227,7 @@ int16_t Acelerometro_GetZmg(void);
 ** ===================================================================
 */
 
-word Acelerometro_MeasureGetRawX(void);
+uint16_t Acelerometro_MeasureGetRawX(void);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_MeasureGetRawX (component MMA8451Q)
@@ -210,7 +240,7 @@ word Acelerometro_MeasureGetRawX(void);
 ** ===================================================================
 */
 
-word Acelerometro_MeasureGetRawY(void);
+uint16_t Acelerometro_MeasureGetRawY(void);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_MeasureGetRawY (component MMA8451Q)
@@ -223,7 +253,7 @@ word Acelerometro_MeasureGetRawY(void);
 ** ===================================================================
 */
 
-word Acelerometro_MeasureGetRawZ(void);
+uint16_t Acelerometro_MeasureGetRawZ(void);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_MeasureGetRawZ (component MMA8451Q)
@@ -350,7 +380,7 @@ int16_t Acelerometro_GetZ(void);
 ** ===================================================================
 */
 
-byte Acelerometro_SetFastMode(bool on);
+uint8_t Acelerometro_SetFastMode(bool on);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_SetFastMode (component MMA8451Q)
@@ -364,7 +394,7 @@ byte Acelerometro_SetFastMode(bool on);
 ** ===================================================================
 */
 
-byte Acelerometro_Enable(void);
+uint8_t Acelerometro_Enable(void);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_Enable (component MMA8451Q)
@@ -377,7 +407,7 @@ byte Acelerometro_Enable(void);
 ** ===================================================================
 */
 
-byte Acelerometro_Disable(void);
+uint8_t Acelerometro_Disable(void);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_Disable (component MMA8451Q)
@@ -390,7 +420,7 @@ byte Acelerometro_Disable(void);
 ** ===================================================================
 */
 
-byte Acelerometro_isEnabled(bool *isEnabled);
+uint8_t Acelerometro_isEnabled(bool *isEnabled);
 /*
 ** ===================================================================
 **     Method      :  Acelerometro_isEnabled (component MMA8451Q)
@@ -407,6 +437,63 @@ byte Acelerometro_isEnabled(bool *isEnabled);
 ** ===================================================================
 */
 
+uint8_t Acelerometro_WhoAmI(uint8_t *value);
+/*
+** ===================================================================
+**     Method      :  Acelerometro_WhoAmI (component MMA8451Q)
+**     Description :
+**         Returns the value of the WHO_AM_I (0x0D) register
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * value           - Pointer to value to store
+**     Returns     :
+**         ---             - Error code
+** ===================================================================
+*/
+
+uint8_t Acelerometro_ReadReg8(uint8_t addr, uint8_t *val);
+/*
+** ===================================================================
+**     Method      :  Acelerometro_ReadReg8 (component MMA8451Q)
+**     Description :
+**         Reads an 8bit device register
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * addr            - device memory map address
+**       * val             - Pointer to value
+**     Returns     :
+**         ---             - Error code
+** ===================================================================
+*/
+
+uint8_t Acelerometro_WriteReg8(uint8_t addr, uint8_t val);
+/*
+** ===================================================================
+**     Method      :  Acelerometro_WriteReg8 (component MMA8451Q)
+**     Description :
+**         Write an 8bit device register
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * addr            - device memory map address
+**       * val             - value to write
+**     Returns     :
+**         ---             - Error code
+** ===================================================================
+*/
+
+uint8_t Acelerometro_SwReset(void);
+/*
+** ===================================================================
+**     Method      :  Acelerometro_SwReset (component MMA8451Q)
+**     Description :
+**         Perform a software reset using the rst bit in the CTRL
+**         register 2
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code
+** ===================================================================
+*/
+
 /* END Acelerometro. */
 
 #endif
@@ -417,7 +504,7 @@ byte Acelerometro_isEnabled(bool *isEnabled);
 /*
 ** ###################################################################
 **
-**     This file was created by Processor Expert 10.3 [05.08]
+**     This file was created by Processor Expert 10.3 [05.09]
 **     for the Freescale Kinetis series of microcontrollers.
 **
 ** ###################################################################
