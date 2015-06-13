@@ -6,7 +6,7 @@
 **     Component   : PWM
 **     Version     : Component 02.240, Driver 01.01, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-06-13, 15:01, # CodeGen: 39
 **     Abstract    :
 **         This component implements a pulse-width modulation generator
 **         that generates signal with variable duty and fixed cycle. 
@@ -15,22 +15,17 @@
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       72            |  LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS
+**                       85            |  LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK
 **             ----------------------------------------------------
 **
-**         Timer name                  : TPM0_CNT [16-bit]
-**         Counter                     : TPM0_CNT  [0x40038004]
-**         Mode register               : TPM0_SC   [0x40038000]
-**         Run register                : TPM0_SC   [0x40038000]
-**         Prescaler                   : TPM0_SC   [0x40038000]
-**         Compare register            : TPM0_C1V  [0x40038018]
-**         Flip-flop register          : TPM0_C1SC [0x40038014]
+**         Compare register            : TPM0_C5V  [0x40038038]
+**         Flip-flop register          : TPM0_C5SC [0x40038034]
 **
 **         User handling procedure     : not specified
 **
 **         Port name                   : PTC
-**         Bit number (in port)        : 2
-**         Bit mask of the port        : 0x0004
+**         Bit number (in port)        : 9
+**         Bit mask of the port        : 0x0200
 **         Port data register          : GPIOC_PDOR [0x400FF080]
 **         Port control register       : GPIOC_PDDR [0x400FF094]
 **

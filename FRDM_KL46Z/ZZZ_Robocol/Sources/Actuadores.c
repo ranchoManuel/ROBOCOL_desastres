@@ -114,10 +114,12 @@ void setPWMsOrugas(int o1Frontal, int o1Detras, int o2Frontal, int o2Detras)
 	Oruga2BackwardPWM_SetDutyUS((int)o2atras);
 }
 
-void toogleIluminacion(void) {
+void toogleIluminacion(void)
+{
 	Luz_NegVal();
 }
 
-void toggleBuzzer(void) {
+void toggleBuzzer(void)
+{
 	Buzzer_NegVal();
 }

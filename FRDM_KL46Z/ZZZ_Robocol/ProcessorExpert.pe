@@ -3,7 +3,7 @@
   <Header>
     <Name>ZZZ_Robocol</Name>
     <SavedBy>USER</SavedBy>
-    <ModificationStamp>31</ModificationStamp>
+    <ModificationStamp>33</ModificationStamp>
     <Date>2015-06-13</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.0.RT6_b1411-0406</PEversion>
@@ -15181,7 +15181,7 @@
         <ItemSymbol>_Compare</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>TPM0_C0V</Value>
+        <Value>TPM0_C4V</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -15193,7 +15193,7 @@
         <ItemSymbol>Out</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0</Value>
+        <Value>PTA7/TPM0_CH4</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -15204,7 +15204,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>Tmr</ItemSymbol>
-        <Value>TPM0_CNT</Value>
+        <Value />
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -17107,7 +17107,7 @@
         <ItemSymbol>CompareRegister0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>TPM0_C0V</Value>
+        <Value>TPM0_C4V</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -17229,7 +17229,7 @@
         <ItemSymbol>ChanOutPin0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0</Value>
+        <Value>PTA7/TPM0_CH4</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -17326,7 +17326,7 @@
         <ItemSymbol>CompareRegister1</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>TPM0_C1V</Value>
+        <Value>TPM0_C5V</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -17448,7 +17448,7 @@
         <ItemSymbol>ChanOutPin1</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS</Value>
+        <Value>LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -20225,7 +20225,7 @@
         <ItemSymbol>RefComp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InheritedComponent</ItemSymbol>
@@ -23445,7 +23445,7 @@
         <ItemSymbol>RefComp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InheritedComponent</ItemSymbol>
@@ -24863,7 +24863,7 @@
         <ItemSymbol>RefComp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InheritedComponent</ItemSymbol>
@@ -25875,7 +25875,7 @@
         <ItemSymbol>_Compare</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>TPM0_C1V</Value>
+        <Value>TPM0_C5V</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -25887,7 +25887,7 @@
         <ItemSymbol>Out</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS</Value>
+        <Value>LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -25898,7 +25898,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>Tmr</ItemSymbol>
-        <Value>TPM0_CNT</Value>
+        <Value />
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -26281,7 +26281,7 @@
         <ItemSymbol>RefComp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InheritedComponent</ItemSymbol>
@@ -27699,7 +27699,7 @@
         <ItemSymbol>RefComp</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InheritedComponent</ItemSymbol>

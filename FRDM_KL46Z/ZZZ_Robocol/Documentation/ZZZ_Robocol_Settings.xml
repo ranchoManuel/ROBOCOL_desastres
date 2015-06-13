@@ -1134,10 +1134,10 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="BrazoFrontalForwardPWM" />
-      <PWM_or_PPG_device v="TPM0_C0V" />
+      <PWM_or_PPG_device v="TPM0_C4V" />
       <Duty_compare v="" />
-      <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
-      <Counter v="TPM0_CNT" />
+      <Output_pin v="PTA7/TPM0_CH4" />
+      <Counter v="" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1159,8 +1159,8 @@ PE_DEBUGHALT();
           <Properties>
             <Component_name v="PwmLdd3" />
             <Period_device v="TPM0_MOD" />
-            <Duty_device v="TPM0_C0V" />
-            <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
+            <Duty_device v="TPM0_C4V" />
+            <Output_pin v="PTA7/TPM0_CH4" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />
@@ -1261,24 +1261,24 @@ PE_DEBUGHALT();
       <list name="Channel list" v="4">
         <group name="Channel 0">
           <enumgroup name="Mode" v="Compare">
-            <Compare v="TPM0_C0V" />
+            <Compare v="TPM0_C4V" />
             <Offset v="40 &amp;#181;s" />
             <enumgroup name="Output on compare" v="Set">
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
-              <Output_pin v="LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0" />
+              <Output_pin v="PTA7/TPM0_CH4" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
         </group>
         <group name="Channel 1">
           <enumgroup name="Mode" v="Compare">
-            <Compare v="TPM0_C1V" />
+            <Compare v="TPM0_C5V" />
             <Offset v="40 &amp;#181;s" />
             <enumgroup name="Output on compare" v="Set">
               <Output_on_overrun v="Clear" />
               <Initial_state v="Low" />
-              <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
+              <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
             </enumgroup>
             <boolgroup name="Interrupt" v="Disabled" />
           </enumgroup>
@@ -1933,10 +1933,10 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="BrazoFrontalBackwardPWM" />
-      <PWM_or_PPG_device v="TPM0_C1V" />
+      <PWM_or_PPG_device v="TPM0_C5V" />
       <Duty_compare v="" />
-      <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
-      <Counter v="TPM0_CNT" />
+      <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
+      <Counter v="" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1958,8 +1958,8 @@ PE_DEBUGHALT();
           <Properties>
             <Component_name v="PwmLdd6" />
             <Period_device v="TPM0_MOD" />
-            <Duty_device v="TPM0_C1V" />
-            <Output_pin v="LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS" />
+            <Duty_device v="TPM0_C5V" />
+            <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
             <Counter v="TPM0_CNT" />
             <boolgroup name="Interrupt service/event" v="Disabled" />
             <Period v="40 &amp;#181;s" />

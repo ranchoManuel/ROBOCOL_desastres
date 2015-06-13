@@ -6,7 +6,7 @@
 **     Component   : PWM_LDD
 **     Version     : Component 01.013, Driver 01.03, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-06-13, 15:01, # CodeGen: 39
 **     Abstract    :
 **          This component implements a pulse-width modulation generator
 **          that generates signal with variable duty and fixed cycle.
@@ -16,8 +16,8 @@
 **     Settings    :
 **          Component name                                 : PwmLdd6
 **          Period device                                  : TPM0_MOD
-**          Duty device                                    : TPM0_C1V
-**          Output pin                                     : LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS
+**          Duty device                                    : TPM0_C5V
+**          Output pin                                     : LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK
 **          Output pin signal                              : 
 **          Counter                                        : TPM0_CNT
 **          Interrupt service/event                        : Disabled

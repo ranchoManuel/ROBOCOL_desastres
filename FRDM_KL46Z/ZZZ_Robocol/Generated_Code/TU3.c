@@ -6,7 +6,7 @@
 **     Component   : TimerUnit_LDD
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-06-13, 15:01, # CodeGen: 39
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -26,22 +26,22 @@
 **          Channel list                                   : 4
 **            Channel 0                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C0V
+**                Compare                                  : TPM0_C4V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0
+**                  Output pin                             : PTA7/TPM0_CH4
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 1                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C1V
+**                Compare                                  : TPM0_C5V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS
+**                  Output pin                             : LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 2                                    : 
@@ -148,7 +148,7 @@ extern "C" {
 #endif 
 
 /* List of channels used by component */
-static const uint8_t ChannelDevice[TU3_NUMBER_OF_CHANNELS] = {0x00U,0x01U,0x02U,0x03U};
+static const uint8_t ChannelDevice[TU3_NUMBER_OF_CHANNELS] = {0x04U,0x05U,0x02U,0x03U};
 
 /* Table of channels mode / 0 - compare mode, 1 - capture mode */
 static const uint8_t ChannelMode[TU3_NUMBER_OF_CHANNELS] = {0x00U,0x00U,0x00U,0x00U};
@@ -230,14 +230,14 @@ LDD_TDeviceData* TU3_Init(LDD_TUserData *UserDataPtr)
   TPM0_C5SC = 0x00U;                   /* Clear channel status and control register */
   /* TPM0_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=0x0346 */
   TPM0_MOD = TPM_MOD_MOD(0x0346);      /* Set up modulo register */
-  /* TPM0_C0SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  TPM0_C0SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* TPM0_C0V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
-  TPM0_C0V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
-  /* TPM0_C1SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
-  TPM0_C1SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
-  /* TPM0_C1V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
-  TPM0_C1V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
+  /* TPM0_C4SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
+  TPM0_C4SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
+  /* TPM0_C4V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
+  TPM0_C4V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
+  /* TPM0_C5SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
+  TPM0_C5SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
+  /* TPM0_C5V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
+  TPM0_C5V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
   /* TPM0_C2SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=1,MSA=0,ELSB=1,ELSA=1,??=0,DMA=0 */
   TPM0_C2SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
   /* TPM0_C2V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
@@ -246,19 +246,19 @@ LDD_TDeviceData* TU3_Init(LDD_TUserData *UserDataPtr)
   TPM0_C3SC = (TPM_CnSC_MSB_MASK | TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK); /* Set up channel status and control register */
   /* TPM0_C3V: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,VAL=0x0347 */
   TPM0_C3V = TPM_CnV_VAL(0x0347);      /* Set up channel value register */
-  /* PORTC_PCR1: ISF=0,MUX=4 */
-  PORTC_PCR1 = (uint32_t)((PORTC_PCR1 & (uint32_t)~(uint32_t)(
+  /* PORTA_PCR7: ISF=0,MUX=3 */
+  PORTA_PCR7 = (uint32_t)((PORTA_PCR7 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_MUX(0x03)
-               )) | (uint32_t)(
                 PORT_PCR_MUX(0x04)
+               )) | (uint32_t)(
+                PORT_PCR_MUX(0x03)
                ));
-  /* PORTC_PCR2: ISF=0,MUX=4 */
-  PORTC_PCR2 = (uint32_t)((PORTC_PCR2 & (uint32_t)~(uint32_t)(
+  /* PORTC_PCR9: ISF=0,MUX=3 */
+  PORTC_PCR9 = (uint32_t)((PORTC_PCR9 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_MUX(0x03)
-               )) | (uint32_t)(
                 PORT_PCR_MUX(0x04)
+               )) | (uint32_t)(
+                PORT_PCR_MUX(0x03)
                ));
   /* PORTA_PCR5: ISF=0,MUX=3 */
   PORTA_PCR5 = (uint32_t)((PORTA_PCR5 & (uint32_t)~(uint32_t)(

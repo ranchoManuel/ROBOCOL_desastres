@@ -6,7 +6,7 @@
 **     Component   : PWM
 **     Version     : Component 02.240, Driver 01.01, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-06-13, 14:55, # CodeGen: 37
 **     Abstract    :
 **         This component implements a pulse-width modulation generator
 **         that generates signal with variable duty and fixed cycle. 
@@ -15,24 +15,19 @@
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       71            |  LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0
+**                       41            |  PTA7/TPM0_CH4
 **             ----------------------------------------------------
 **
-**         Timer name                  : TPM0_CNT [16-bit]
-**         Counter                     : TPM0_CNT  [0x40038004]
-**         Mode register               : TPM0_SC   [0x40038000]
-**         Run register                : TPM0_SC   [0x40038000]
-**         Prescaler                   : TPM0_SC   [0x40038000]
-**         Compare register            : TPM0_C0V  [0x40038010]
-**         Flip-flop register          : TPM0_C0SC [0x4003800C]
+**         Compare register            : TPM0_C4V  [0x40038030]
+**         Flip-flop register          : TPM0_C4SC [0x4003802C]
 **
 **         User handling procedure     : not specified
 **
-**         Port name                   : PTC
-**         Bit number (in port)        : 1
-**         Bit mask of the port        : 0x0002
-**         Port data register          : GPIOC_PDOR [0x400FF080]
-**         Port control register       : GPIOC_PDDR [0x400FF094]
+**         Port name                   : PTA
+**         Bit number (in port)        : 7
+**         Bit mask of the port        : 0x0080
+**         Port data register          : GPIOA_PDOR [0x400FF000]
+**         Port control register       : GPIOA_PDDR [0x400FF014]
 **
 **         Initialization:
 **              Output level           : low

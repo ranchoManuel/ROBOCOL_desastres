@@ -6,7 +6,7 @@
 **     Component   : TimerUnit_LDD
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-06-13, 15:01, # CodeGen: 39
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -26,22 +26,22 @@
 **          Channel list                                   : 4
 **            Channel 0                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C0V
+**                Compare                                  : TPM0_C4V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P21/ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0/I2S0_TXD0
+**                  Output pin                             : PTA7/TPM0_CH4
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 1                                    : 
 **              Mode                                       : Compare
-**                Compare                                  : TPM0_C1V
+**                Compare                                  : TPM0_C5V
 **                Offset                                   : 40 µs
 **                Output on compare                        : Set
 **                  Output on overrun                      : Clear
 **                  Initial state                          : Low
-**                  Output pin                             : LCD_P22/ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1/I2S0_TX_FS
+**                  Output pin                             : LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK
 **                  Output pin signal                      : 
 **                Interrupt                                : Disabled
 **            Channel 2                                    : 
