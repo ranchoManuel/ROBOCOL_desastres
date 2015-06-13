@@ -15,8 +15,8 @@ Oruga2ForwardPWM		PTB18
 
 Pines para Brazos
 BrazoFrontalForwardPWM	PTC1
-BrazoPostForwardPWM		PTC4
 BrazoFrontalBackwardPWM	PTC2
+BrazoPostForwardPWM		PTC4
 BrazoPostBackwardPWM	PTA5
 
 Pines ADC 
