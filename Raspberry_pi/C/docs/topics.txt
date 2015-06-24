@@ -1,0 +1,8 @@
+USART []
+GALILEO
+SERIAL PROTOCOL
+Threads <pthreads/processes>
+shell / ssh
+
+C codiung standards
+https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard
