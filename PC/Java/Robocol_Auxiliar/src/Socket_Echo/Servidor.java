@@ -21,7 +21,7 @@ public class Servidor
         for(String inputLine; (inputLine = in.readLine()) != null;)
         {
         	System.out.println(inputLine);
-            out.println(inputLine);
+            out.println("Responde: "+inputLine);
         }
         
         out.close(); in.close();
