@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 public class Cliente
 {
 	private static final int PORT = 1234;
-	private static final String HOST = "127.0.0.1";
+	private static final String HOST = "192.168.0.102";
 
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
@@ -20,10 +20,10 @@ public class Cliente
          BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
          String userInput;
-         while ((userInput = stdIn.readLine()) != null)
+         while((userInput = stdIn.readLine()) != null)
          {
              out.println(userInput);
-             System.out.println("echo: " + in.readLine());
+             System.out.println("Responde: "+in.readLine());
          }
          echoSocket.close();
 	}

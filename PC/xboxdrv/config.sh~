@@ -1,0 +1,7 @@
+#-----------Comentar luego de la primera ejecucion---------------------
+sudo apt-get install --install-recommends jstest* joystick xboxdrv 
+#----------------------------------------------------------------------
+sudo echo "blacklist xpad" | sudo tee -a /etc/modprobe.d/blacklist.conf
+sudo rmmod xpad
+#cd ~/xboxdrv
+sudo xboxdrv --silent --config ROBOCOL.xboxdrv
