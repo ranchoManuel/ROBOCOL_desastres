@@ -14,13 +14,11 @@ int main(int argc, char const *argv[]){
 	uart_open(MODEMDEVICE,&newtio);
 	while (1) {
 		if (getWaitFlag()==FALSE ) {
-			uart_read(&buf_rx,255);
+			uart_read(buf_rx,255);
 			printf("%s",buf_rx);
 		}
 		setWaitFlag(TRUE);
-		fgets(buf_tx, 255, stdin);
-		uart_write(&buf_tx, 2);
-		usleep(1000);
+		getchar();
 	}
 	uart_close();
 }

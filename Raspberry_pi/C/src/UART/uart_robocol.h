@@ -32,7 +32,7 @@ struct uart_dev u_dev;
 uart_st uart_open(const char * path,struct termios * termios_p );
 uart_st uart_close(void);
 uart_st uart_write(const void* buff, int size);
-uart_st uart_read(void* buff, int size);
+uart_st uart_read(char* buff, int size);
 void sig_handler(int status);
 uint8_t getWaitFlag(void);
 uart_st setWaitFlag(uint8_t flag);
