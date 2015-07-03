@@ -35,7 +35,7 @@ uart_st uart_open(const char* path ,struct termios * termios_p ){
 
   if(tcgetattr(u_dev.fd,&u_dev.oldt)<0){
   		perror("Error getting the current terminal parameters in uart_open");
-	  return UART_ERROR;	
+	  return UART_ERROR;
   }
   	u_dev.newt=*termios_p;
 

@@ -1,10 +1,10 @@
 #ifndef UART_ROBOCOL
 #define UART_ROBOCOL
 
-#include <stdint.h>                                                          
-#include <stdlib.h> 
-#include <stdio.h>                                                         
-#include <linux/types.h>                                                      
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <linux/types.h>
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -15,6 +15,7 @@
 #define TRUE 1
 #define UART_ERROR 		0x01;
 #define UART_OK 	 	0x00;
+#define MODEMDEVICE		"/dev/ttyAMA0"
 static volatile char WAIT_FLAG=TRUE ;
 typedef unsigned char uart_st;
 
@@ -35,7 +36,6 @@ uart_st uart_read(void* buff, int size);
 void sig_handler(int status);
 uint8_t getWaitFlag(void);
 uart_st setWaitFlag(uint8_t flag);
-
 
 //		TODO: PROVE MEMORY DEPLETION WHEN CLOSING DEVICE.
 

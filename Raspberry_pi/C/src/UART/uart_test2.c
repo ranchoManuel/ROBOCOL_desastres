@@ -11,16 +11,16 @@ int main(int argc, char const *argv[]){
 	newtio.c_lflag = 0;
 	newtio.c_cc[VMIN]=1;
 	newtio.c_cc[VTIME]=0;
-	uart_open("/dev/ttyS0",&newtio);
+	uart_open(MODEMDEVICE,&newtio);
 	while (1) {
-		fgets(buf_tx, 2, stdin);
-		uart_write(&buf_tx, 2);
-		usleep(1000);
 		if (getWaitFlag()==FALSE ) {
 			uart_read(&buf_rx,2);
 			printf("%s",buf_rx);
 		}
 		setWaitFlag(TRUE);
+		fgets(buf_tx, 2, stdin);
+		uart_write(&buf_tx, 2);
+		usleep(1000);
 	}
 	uart_close();
 }
