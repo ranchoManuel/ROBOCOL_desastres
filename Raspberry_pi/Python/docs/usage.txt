@@ -1,0 +1,5 @@
+1. Install the required HW to the RaspberryPi (Network connection, storage, camera and power)
+2. Install python pip's repository manager (sudo apt-get install python-pip)
+3. Go to ../ROBOCOL_desastres/Raspberry_pi/Python/streaming
+4. Install the dependencies, running pip install < requirements.txt
+5. Launch app.py (python app.py)

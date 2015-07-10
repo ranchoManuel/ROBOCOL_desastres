@@ -35,7 +35,7 @@ uart_st uart_open(const char* path ,struct termios * termios_p ){
 
   if(tcgetattr(u_dev.fd,&u_dev.oldt)<0){
   		perror("Error getting the current terminal parameters in uart_open");
-	  return UART_ERROR;	
+	  return UART_ERROR;
   }
   	u_dev.newt=*termios_p;
 
@@ -72,16 +72,18 @@ uart_st uart_write(const void* buff, int size){
     return UART_OK;
 }
 
-uart_st uart_read(void* buff, int size){
-    if(read(u_dev.fd,buff,size)<0){
+uart_st uart_read(char * buff, int size){
+    uint8_t len;
+    if((len=read(u_dev.fd,buff,size))<0){
       perror("Error en lectura de información desde canal UART");
       return UART_ERROR;
     }
+    buff[len]=0;
     return UART_OK;
 }
 
 uint8_t getWaitFlag(void){
-  return WAIT_FLAG;  
+  return WAIT_FLAG;
 }
 
 uart_st setWaitFlag(uint8_t flag){
