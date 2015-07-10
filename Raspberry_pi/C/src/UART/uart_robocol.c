@@ -73,8 +73,8 @@ uart_st uart_write(const void* buff, int size){
 }
 
 uart_st uart_read(char * buff, int size){
-    int len = read(u_dev.fd,buff,size);
-    if(len<0){
+    uint8_t len;
+    if((len=read(u_dev.fd,buff,size))<0){
       perror("Error en lectura de información desde canal UART");
       return UART_ERROR;
     }
@@ -83,7 +83,7 @@ uart_st uart_read(char * buff, int size){
 }
 
 uint8_t getWaitFlag(void){
-  return WAIT_FLAG;  
+  return WAIT_FLAG;
 }
 
 uart_st setWaitFlag(uint8_t flag){
