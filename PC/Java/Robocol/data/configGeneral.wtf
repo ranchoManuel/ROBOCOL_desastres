@@ -1,5 +1,7 @@
 //Dependiendo del valor transmite por Usart o por socket
 ComunicacionPorSocket = false
+//Variables de entorno
+SERIAL_PATH = ./libs/serial/
 
 //Estas 4 son para controlar las orugas
 Tecla.Up = w

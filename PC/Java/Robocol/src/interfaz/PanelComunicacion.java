@@ -83,7 +83,7 @@ public class PanelComunicacion extends JPanel implements KeyListener, ActionList
 		typingArea.requestFocusInWindow();
 	}
 
-	public void displayInfoRecivida(String info)
+	public void displayInfoRecibida(String info)
 	{
 		displayAreaRecivo.append(info+newline);
 		displayAreaRecivo.setCaretPosition(displayAreaRecivo.getDocument().getLength());

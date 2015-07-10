@@ -1,3 +1,3 @@
-Puerto = COM4
+Puerto = /dev/ttyUSB1
 Time_out = 4000
 Data_rate = 115200

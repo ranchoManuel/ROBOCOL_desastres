@@ -10,9 +10,7 @@ public class Control
 	private static final String SERIAL_PATH = "./libs/serial/";
 
 	public static void main(String[] args) throws Exception
-	{
-		new Control();
-	}
+	{new Control();}
 	
 	public Control() throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException
 	{
@@ -25,16 +23,17 @@ public class Control
 		//----------------------------------------------
 		
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		//Puertos en:
+		//Windows: COM4
+		//Linux: /dev/ttyUSB1"
 		Comunicacion_USART comm=new Comunicacion_USART(this, "COM4", 4000, 115200); //Importante! verificar puerto
+	
 		for(String linea; (linea=br.readLine())!=null;)
-		{
 			comm.enviarLinea(linea);
-		}
+		
 		br.close();
 	}
 
 	public void tomarDato(String leido)
-	{
-		System.out.println(leido);
-	}
+	{System.out.println(leido);}
 }

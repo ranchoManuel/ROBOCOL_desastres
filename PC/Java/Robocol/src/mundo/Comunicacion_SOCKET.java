@@ -26,7 +26,7 @@ public class Comunicacion_SOCKET extends Thread implements IComunicacion
 		}
 		catch(NumberFormatException | IOException e)
 		{
-			System.err.println("No se logra conectar con el server");
+			System.err.println("ROBOCOL:: No se logra conectar con el server");
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +49,7 @@ public class Comunicacion_SOCKET extends Thread implements IComunicacion
 			}
 			catch(IOException e)
 			{
-				System.err.println("Problemas al leer lo que llega");
+				System.err.println("ROBOCOL:: Problemas al leer lo que llega.");
 				e.printStackTrace();
 			}
 		}

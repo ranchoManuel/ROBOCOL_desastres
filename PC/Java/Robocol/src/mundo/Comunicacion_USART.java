@@ -4,6 +4,7 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +13,6 @@ import java.util.Enumeration;
 
 public class Comunicacion_USART implements SerialPortEventListener, IComunicacion
 {
-
 	/** The streams to the port, and the port */
 	private BufferedReader input;
 	private OutputStream output;
@@ -29,7 +29,7 @@ public class Comunicacion_USART implements SerialPortEventListener, IComunicacio
 		CommPortIdentifier portId=null;
 		Enumeration portEnum=CommPortIdentifier.getPortIdentifiers();
 
-		System.out.println("Puertos Disponibles");
+		System.out.println("----------Puertos Disponibles----------");
 		// iterate through, looking for the port
 		while(portEnum.hasMoreElements())
 		{
@@ -38,6 +38,7 @@ public class Comunicacion_USART implements SerialPortEventListener, IComunicacio
 
 			if(port_name.equals(currPortId.getName())) portId=currPortId;
 		}
+		System.out.println("---------------------------------------");
 
 		if(portId!=null)
 		{
@@ -59,7 +60,7 @@ public class Comunicacion_USART implements SerialPortEventListener, IComunicacio
 			}
 			catch(Exception e){e.printStackTrace();}
 		}
-		else System.err.println("No se pudo encontara el puerto de comunicacion");
+		else System.err.println("No se pudo encontara el puerto de comunicacion: "+port_name);
 	}
 
 
@@ -80,16 +81,12 @@ public class Comunicacion_USART implements SerialPortEventListener, IComunicacio
 		{
 			try
 			{
-				for(;(leido=input.readLine())!=null;)
+				while((leido=input.readLine())!=null)
 					mainControl.tomarDato(leido);
 			}
-			catch(Exception e)
-			{
-				//e.printStackTrace();
-			}
+			catch(Exception e){/*System.err.print(".");*/}
 		}
-		// Ignore all the other eventTypes, but you should consider the other
-		// ones.
+		else System.out.println("OTRO TIPO DE EVENTO: "+oEvent.getEventType());
 	}
 
 	@Override
