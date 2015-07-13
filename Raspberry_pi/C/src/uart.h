@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <sys/signal.h>
 #include <sys/types.h>
+#include <string.h>
 
 #define BAUDRATE B115200
 #define MODEMDEVICE "/dev/ttyAMA0"
@@ -23,4 +24,5 @@ int wait_flag=TRUE;                    /* TRUE while no signal received */
 int fd,c, res;
 struct termios oldtio,newtio;
 struct sigaction saio;           /* definition of signal action */
-char buf[255];
+char buf[100];
+char buf_tx[100];
