@@ -18,11 +18,8 @@ volatile int STOP=FALSE;
 void signal_handler_IO (int status);   /* definition of signal handler */
 void uart_init();
 
-
-int wait_flag=TRUE;                    /* TRUE while no signal received */
-
 int fd,c, res;
 struct termios oldtio,newtio;
 struct sigaction saio;           /* definition of signal action */
-char buf[100];
-char buf_tx[100];
+char buf[255];
+char buf_tx[255];
