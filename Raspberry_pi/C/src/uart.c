@@ -1,17 +1,5 @@
 #include "uart.h"
 
-int main()
-{
-	uart_init();
-	/* loop while waiting for input. normally we would do something
-	   useful here */
-	while (1){
-	 //Haga lo que se le de
-	 buf_rx[0]='\0';
-	}
-	uart_close()
-}
-
   /***************************************************************************
   * signal handler. This function save the message when the event is 		 *
   * generated
