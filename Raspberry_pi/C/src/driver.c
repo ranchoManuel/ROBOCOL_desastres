@@ -8,6 +8,7 @@
 #include "robocol_queue.h"
 #include "robocol_list.h"
 #include "command.h"
+#include "uart.h"
 
 #define NOT_A_COMMAND_RESPONSE "NAC"
 #define MAX_RESPONSE_DEPTH 3
@@ -15,7 +16,7 @@
 
 #define TOTAL_RESPONSE_SIZE 100
 
-// gcc -o program driver.c robocol_queue.c robocol_list.c
+// gcc -o program driver.c robocol_queue.c robocol_list.c uart.c
 
 float hum, ten, dis;
 float acy, acx, acz;
@@ -161,7 +162,7 @@ char* get_command_proposal(char* name) {
 }
 
 int main(void) {
-	
+	uart_init();
     queue *q1 = init_robocol_queue(8);
     queue *q2 = init_robocol_queue(8);
     queue *q3 = init_robocol_queue(8);
@@ -183,5 +184,5 @@ int main(void) {
     //format_string("name", list, sizeof(list) / sizeof(list[0]), &val);
 
     printf("%s\n", get_command_response("SEN", &val));
-
+	uart_close();
 }

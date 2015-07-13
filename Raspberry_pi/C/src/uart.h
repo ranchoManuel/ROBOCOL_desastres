@@ -17,6 +17,7 @@ volatile int STOP=FALSE;
 
 void signal_handler_IO (int status);   /* definition of signal handler */
 void uart_init();
+void uart_close();
 
 int fd,c, res;
 struct termios oldtio,newtio;

@@ -9,8 +9,7 @@ int main()
 	 //Haga lo que se le de
 	 buf[0]='\0';
 	}
-	/* restore old port settings */
-	tcsetattr(fd,TCSANOW,&oldtio);
+	uart_close()
 }
 
   /***************************************************************************
@@ -55,4 +54,9 @@ void signal_handler_IO (int status)
 	newtio.c_cc[VTIME]=0;
 	tcflush(fd, TCIFLUSH);
 	tcsetattr(fd,TCSANOW,&newtio);
+}
+
+void uart_close(){
+	/* restore old port settings */
+	tcsetattr(fd,TCSANOW,&oldtio);
 }
