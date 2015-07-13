@@ -11,7 +11,7 @@ void signal_handler_IO (int status)
 	usleep(10000);
 	res = read(fd,buf_rx,255);
 	buf_rx[res]=0;
-	//printf("%s\n", buf_rx);
+	printf("%s\n", buf_rx);
 }
 
   void uart_init(){

@@ -169,6 +169,11 @@ int main(void) {
     enqueue(q1, 5);
     display_queue(q1);
     
+    while(1){
+	
+    }
+
+
 	/*
     command* c = init_command("ZAS", "PWD", "");
     display_command(c);
