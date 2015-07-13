@@ -22,5 +22,5 @@ void uart_close();
 int fd,c, res;
 struct termios oldtio,newtio;
 struct sigaction saio;           /* definition of signal action */
-char buf[255];
+char buf_rx[255];
 char buf_tx[255];

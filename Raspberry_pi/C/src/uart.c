@@ -7,7 +7,7 @@ int main()
 	   useful here */
 	while (1){
 	 //Haga lo que se le de
-	 buf[0]='\0';
+	 buf_rx[0]='\0';
 	}
 	uart_close()
 }
@@ -21,9 +21,9 @@ void signal_handler_IO (int status)
 {
 	/* We sleep the program because we have to wait for a full buffer	*/
 	usleep(10000);
-	res = read(fd,buf,255);
-	buf[res]=0;
-	//printf("%s\n", buf);
+	res = read(fd,buf_rx,255);
+	buf_rx[res]=0;
+	//printf("%s\n", buf_rx);
 }
 
   void uart_init(){
