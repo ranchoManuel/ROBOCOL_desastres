@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="Crear aplicacion" default="Crear el Jar ejecutable" basedir="../">
+
+	<target name="inicializar" description="Inicializa las propiedades">
+		<!-- Definición de Propiedades -->
+		<property name="jar" value="Robocol.jar" />
+		<property name="data" value="./data" />
+		<property name="libs" value="./libs" />
+		<property name="src" value="./src" />
+		<property name="dist" value="./dist" />
+		<property name="bin" value="./bin" />
+		<property name="Robocol_libs" value="${dist}/libs" />
+		<property name="Robocol_data" value="${dist}/data"/>
+		<!-- Borra y crea los directorios nuevamente -->
+		<delete dir="${dist}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${Robocol_libs}" />
+		<mkdir dir="${Robocol_data}" />
+		<delete dir="${bin}" /> <!-- Estas 2 lineas y las del classpath no tocan con el nuevo eclipse -->
+		<mkdir dir="${bin}" />  <!-- Tampoco toca hacer la tarea de compilar -->
+		<!-- Classpath para compilación -->
+		<path id="classpath">
+			<fileset dir="${libs}/Imagen3D">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${libs}/serial">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${libs}/video">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+	</target>
+	
+	<!-- Compilar el codigo -->
+	<target name="compilar" description="Compilar el codigo" depends="inicializar">
+		<!-- Compila -->
+		<javac destdir="${bin}" debug="on" deprecation="on" optimize="on" classpathref="classpath" includeantruntime="false">
+			<src path="${src}" />
+		</javac>
+	</target>
+	
+	<!-- Creación de JAR -->
+	<target name="Crear el Jar ejecutable" depends="compilar">
+		<!-- Mover los archivos que hay que mover -->
+		<copy todir="${Robocol_libs}">
+			<fileset dir="${libs}"/>
+		</copy>
+		<copy todir="${Robocol_data}">
+			<fileset dir="${data}"/>
+		</copy>
+		<copy file="${data}/splash.gif" todir="${bin}"/>
+		<!-- Crear el jarr -->
+		<jar destfile="${dist}/${jar}">
+			<manifest>
+				<attribute name="Main-Class" value="interfaz.InterfazPrincipal"/>
+                <attribute name="SplashScreen-Image" value="splash.gif"/>
+				<!-- Esta fue la linea menos parametrizable de todas -->
+                <attribute name="Class-Path" value=". libs/Imagen3D/core.jar libs/Imagen3D/gluegen-rt-natives-linux-amd64.jar libs/Imagen3D/gluegen-rt-natives-macosx-universal.jar libs/Imagen3D/gluegen-rt-natives-windows-amd64.jar libs/Imagen3D/gluegen-rt.jar libs/Imagen3D/jogl-all-natives-linux-amd64.jar libs/Imagen3D/jogl-all-natives-macosx-universal.jar libs/Imagen3D/jogl-all-natives-windows-amd64.jar libs/Imagen3D/jogl-all.jar libs/serial/RXTXcomm.jar libs/video/jna-3.5.2.jar libs/video/platform-3.5.2.jar libs/video/slf4j-api-1.7.10.jar libs/video/slf4j-nop-1.7.12.jar libs/video/vlcj-3.6.0.jar"/>
+            </manifest>
+            <fileset dir="${bin}"/>
+        </jar>
+    </target>
+	
+</project>
