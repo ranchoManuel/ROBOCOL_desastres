@@ -1,123 +1,141 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Cursor;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.MissingFormatArgumentException;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import mundo.Control;
 
-public class InterfazPrincipal extends JFrame 
+public class InterfazPrincipal extends JFrame
 {
 	private static final long serialVersionUID=1L;
 
-	private static final String MODO_DE_COMINICACION="ComunicacionPorSocket";
-	private static final String[] TECLAS={"Tecla.Up","Tecla.Down","Tecla.Left","Tecla.Rigth","Tecla.Up_b1","Tecla.Down_b1","Tecla.Up_b2","Tecla.Down_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"};
-	private static final String[] MENSAJES={"Mensaje.Orugas","Mensaje.Brazos","Mensaje.SensoresADC","Mensaje.Acel_Magn","Mensaje.Acel_Continuo","Mensaje.Acel_end","Mensaje.Acel_ter","Mensaje.Toggle_Luz","Mensaje.Toggle_Buzzer"};
-	private static final String SERIAL_PATH="SERIAL_PATH";
-	
-	private static Control mundo;
+	private static final String FOLDER="./data/", ARCHIVO="configGeneral.properties";
+	private static final String TITULO = "Robocol Desastres";
+	private static final String LOGO = "logo.png";
+
+	private PanelVideo pvi;
 	private PanelComunicacion pc;
 	private Panel3D p3D;
-	private PanelGraphic p2D;
-	private PanelVideo pvi;
 
-	public static void main(String[] args) throws Exception
+	private Properties propiedades;
+	private static Control mundo;
+
+	public static void main(String[] args)
 	{
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		new InterfazPrincipal();
+		try 
+		{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch(Exception e){/*No hacer nada*/}
+
+		try
+		{
+			new InterfazPrincipal();
+		}
+		catch(IOException e)
+		{
+			JOptionPane.showMessageDialog(null, "El archivo de configuracion no existe en la carpeta data","Error al desplegar la aplicacion", JOptionPane.ERROR_MESSAGE);
+		}
+		catch(IllegalAccessException e)
+		{
+			JOptionPane.showMessageDialog(null, "La aplicacion no cuenta con los permisos necesarios","Error al desplegar la aplicacion", JOptionPane.ERROR_MESSAGE);
+		}
+		catch(NoSuchFieldException e){/*No hacer nada*/}
 	}
 
-	public InterfazPrincipal() throws Exception
+	public InterfazPrincipal() throws IOException, IllegalAccessException, NoSuchFieldException 
 	{
-		Properties p = new Properties();
-		p.load(new FileInputStream(Control.FOLDER+Control.GENERAL));
+		final SplashScreen splash = SplashScreen.getSplashScreen();
+		if(splash == null) System.err.println("SplashScreen.getSplashScreen() returned null");
+		else 
+		{
+			Graphics2D g = splash.createGraphics();
+			if(g == null)
+			{
+				System.err.println("g is null");
+				return;
+			}
+		}
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+		//--------------------------------------------------
+		propiedades = new Properties();
+		propiedades.load(new FileInputStream(FOLDER+ARCHIVO));
 
 		//1) saber con que me voy a comunicar
-		String texto=p.getProperty(MODO_DE_COMINICACION);
-		if(texto==null) throw new MissingFormatArgumentException("Debe existir la propiedad \""+MODO_DE_COMINICACION+"\"");
-
+		String texto=propiedades.getProperty("ComunicacionPorSocket");
 		boolean comSocket = texto.equals("true");
-		if(!comSocket && !texto.equals("false")) throw new IllegalArgumentException("La propiedad ComunicacionPorSocket debe ser \"true\" o \"false\"");
+		System.out.println("paso 1");
 
-		//2) saber donde quedan los jars; Manejo de extensiones de aplicacion
+		//2) saber donde quedan los jars; Manejo de extensiones de aplicacion, hay mas de esto en panelVideo
 		//----------------------------------------------
-		String path = p.getProperty(SERIAL_PATH);
+		String path = propiedades.getProperty("SERIAL_PATH");
 		System.setProperty("java.library.path", path);
-		Field fieldSysPath = ClassLoader.class.getDeclaredField( "sys_paths" );
+		Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 		fieldSysPath.setAccessible( true );
 		fieldSysPath.set( null, null );
 		//----------------------------------------------
+		System.out.println("paso 2");
 
-		//3) saber cuales son las teclas
-		char[] letras=new char[TECLAS.length];
-		for(int i=0; i < TECLAS.length; i++)
-		{
-			texto=p.getProperty(TECLAS[i]);
-			if(texto==null) throw new MissingFormatArgumentException("Debe existir la propiedad \""+TECLAS[i]+"\"");
+		mundo=new Control(this, comSocket, propiedades);
+		System.out.println("paso 3");
 
-			if(texto.length()>1 || !Character.isLetter(texto.charAt(0))) throw new IllegalArgumentException("La propiedad "+TECLAS[i]+" debe ser una sola letra");
-			letras[i]=texto.charAt(0);
-		}
-
-		//4) saber cuales son los encabezados de los mensajes
-		String[] encabezados=new String[MENSAJES.length];
-		for(int i=0; i < encabezados.length; i++)
-		{
-			texto=p.getProperty(MENSAJES[i]);
-			if(texto==null) throw new MissingFormatArgumentException("Debe existir la propiedad \""+MENSAJES[i]+"\"");
-
-			encabezados[i]=texto;
-		}
-
-		mundo=new Control(this, comSocket, letras, encabezados);
-		// Create and set up the window.
-		setTitle("Robocol");
+		setTitle(TITULO);
 		setSize(1000, 800);
-		setIconImage(new ImageIcon(Control.FOLDER+"logo.png").getImage());
+		setIconImage(new ImageIcon(FOLDER+LOGO).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
+		System.out.println("paso 4");
 
-		JPanel aux=new JPanel();
-		aux.setLayout(new GridLayout(2,1));
-
-		pvi=new PanelVideo();
+		String ipVideo=propiedades.getProperty("ipVideo");
+		int portVideo=Integer.parseInt(propiedades.getProperty("puertoVideo"));
+		String vlcPath=propiedades.getProperty("VLC_PATH");
+		pvi=new PanelVideo(ipVideo, portVideo, vlcPath);
 		add(pvi, BorderLayout.CENTER);
+		System.out.println("paso 5");
 
-		p2D=new PanelGraphic(this);
-		aux.add(p2D);
-
-		pc=new PanelComunicacion(this);
-		aux.add(pc);
-		add(aux, BorderLayout.EAST);
+		pc=new PanelComunicacion();
+		add(pc, BorderLayout.SOUTH);
+		System.out.println("paso 6");
 
 		p3D=new Panel3D();
-		p3D.main();
-		// Display the window.
+		add(p3D, BorderLayout.WEST);
+		p3D.init();
+		System.out.println("paso 7");
+
+		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		if(splash!=null) splash.close();
 		setVisible(true);
 	}
 
-	public void enviarCaracterLeido(char c)
-	{mundo.enviarOrden(c);}
-
 	public Control getMundo() {return mundo;}
 
-	public void Graficar_3D(char key)
-	{p3D.procesarComando(key);}
-
-	public void Graficar_2D(char key)
-	{p2D.procesarComando(key);}
+	public void enviarCaracterLeido(char c)
+	{mundo.enviarOrden(c);}
 
 	public void displayInfoRecibida(String mensajeDelOtro)
 	{pc.displayInfoRecibida(mensajeDelOtro);}
 
 	public void displayInfoEnviada(String orden)
-	{pc.displayInfoEnviada(orden);}
+	{if(pc!=null) pc.displayInfoEnviada(orden);}
+
+	public void Graficar_CAD(double[] valores)
+	{p3D.graficar_CAD(valores[0], valores[1], valores[2],valores[3], valores[4], valores[5]);}
+
+	public void Graficar_ACE(double[] valores)
+	{p3D.graficar_ACE(valores[0], valores[1], valores[2]);}
+
+	public void Graficar_SEN(double[] valores)
+	{p3D.graficar_SEN(valores[0], valores[1], valores[2]);}
 }

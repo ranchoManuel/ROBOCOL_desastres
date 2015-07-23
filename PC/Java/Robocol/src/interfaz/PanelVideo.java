@@ -1,53 +1,44 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 
 public class PanelVideo extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID=1L;
-	private static final String VLC_PATH = "C:\\Program Files\\VideoLAN\\VLC";
 
-	private final static String PLAY = "Play";
-	private final static String STOP = "Stop";
+	private final static String PLAY_STOP = "Play_Stop";
+	private static final String PLAY = "Play";
+	private static final String STOP = "Stop";
 
-	private static final String IP="10.5.5.9";
-	private static final int PORT=8080;
+	private JButton play_stop;
 
-	private JButton play;
-	private JButton stop;
+	private String ip;
+	private int port;
 
 	private EmbeddedMediaPlayerComponent mediaPlayer;
 
-	public PanelVideo( ) throws Exception
+	public PanelVideo(String ipP, int portP, String vlcPath)
 	{
-		System.setProperty("jna.library.path", VLC_PATH);
+		ip=ipP;
+		port=portP;
+		System.setProperty("jna.library.path", vlcPath);
 
 		setLayout(new BorderLayout());
 		mediaPlayer = new EmbeddedMediaPlayerComponent();
 		add(mediaPlayer, BorderLayout.CENTER);
-		
-		play = new JButton("Play");
-		play.addActionListener(this);
-		play.setActionCommand(PLAY);
 
-		stop = new JButton("Stop");
-		stop.addActionListener(this);
-		stop.setActionCommand(STOP);
+		play_stop = new JButton(PLAY);
+		play_stop.addActionListener(this);
+		play_stop.setActionCommand(PLAY_STOP);
 
-		JPanel opciones=new JPanel();
-		opciones.setLayout(new GridLayout(1, 2));
-
-		opciones.add(play);
-		opciones.add(stop);
-
-		// Se agrega el panel de botones a la interfaz
-		add(opciones, BorderLayout.SOUTH);
+		add(play_stop, BorderLayout.SOUTH);
 		setVisible(true);
 	}
 
@@ -55,16 +46,28 @@ public class PanelVideo extends JPanel implements ActionListener
 	{
 		String comando=e.getActionCommand();
 
-		if(comando.equals(PLAY)) conectarStreaming( IP, PORT);
-		else if(comando.equals(STOP)) mediaPlayer.getMediaPlayer().stop();
+		if(comando.equals(PLAY_STOP)) 
+		{
+			if(play_stop.getText().equals(PLAY))
+			{
+				conectarStreaming();
+				play_stop.setText(STOP);
+			}
+			else
+			{
+				mediaPlayer.getMediaPlayer().stop();
+				play_stop.setText(PLAY);				
+			}
+		}
 	}
 
-	public void conectarStreaming( String nIp, int nPuerto )
+	public void conectarStreaming()
 	{
 		//rtsp://@192.168.0.145:1234/
 		//mediaPlayer.getMediaPlayer().playMedia("rtp://@" + nIp + ":" + nPuerto );
 		//mediaPlayer.getMediaPlayer().playMedia("http://" + nIp + ":" + nPuerto );
 		//mediaPlayer.getMediaPlayer().playMedia("http://10.5.5.9:8080/live/amba.m3u8");
 		mediaPlayer.getMediaPlayer().playMedia("./data/video.mp4");
+		System.out.println(ip+" "+port);
 	}
 }
