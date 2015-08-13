@@ -1,3 +1,12 @@
+/*
+	Aqui se define la estructura general de los comandos, esto es su nombre y sus argumentos.
+	Asimismo, se define la intercción de los mismos con el ambiente, la definición de sus
+	prioridades y su ciclo de vida.
+
+	autor: Sebastián Valencia
+	email: sc.valencia606@gmail.com
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
