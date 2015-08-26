@@ -16,6 +16,7 @@
 void signal_handler_IO (int status);   /* definition of signal handler */
 void uart_init();
 void uart_close();
+void uart_write();
 
 int fd,c, res;
 struct termios oldtio,newtio;
