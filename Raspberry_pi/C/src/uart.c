@@ -50,8 +50,8 @@
   }
 
   void uart_write(char *buff){
-  	int size=strlen (buff);
-  	buf_tx=buff;
+  	int size=strlen(buff);
+  	strcpy(buf_tx,buff);
   	buf_tx[size]='\0';
-  	write(u_dev.fd,buf_tx,size);
+  	write(fd,buf_tx,size);
   }
