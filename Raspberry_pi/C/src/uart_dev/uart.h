@@ -13,16 +13,13 @@
 #define FALSE 0
 #define TRUE 1
 
-volatile int STOP=FALSE; 
-
 void signal_handler_IO (int status);   /* definition of signal handler */
 void uart_init();
-
-
-int wait_flag=TRUE;                    /* TRUE while no signal received */
+void uart_close();
+int uart_write(char* buff);
 
 int fd,c, res;
 struct termios oldtio,newtio;
 struct sigaction saio;           /* definition of signal action */
-char buf[100];
-char buf_tx[100];
+char buf_rx[255];
+char buf_tx[255];
