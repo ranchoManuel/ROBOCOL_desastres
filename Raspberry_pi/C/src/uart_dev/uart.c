@@ -1,47 +1,21 @@
 #include "uart.h"
 
-int main()
-{
-	uart_init();
-	/* loop while waiting for input. normally we would do something
-	   useful here */
-	while (STOP==FALSE) {
-	 /* after receiving SIGIO, wait_flag = FALSE, input is available
-	 and can be read */
-	// printf("escriba");
-	
-	// printf("escribio");
-	// if(strlen(buf_tx)>0){
-		
-	// }
-	//if (res==1) STOP=TRUE; /* stop loop if only a CR was input */
-	//wait_flag = TRUE;      /* wait for new input */
-	buf[0]=0;
-	}
-	/* restore old port settings */
-	tcsetattr(fd,TCSANOW,&oldtio);
-}
-
   /***************************************************************************
-  * signal handler. sets wait_flag to FALSE, to indicate above loop that     *
-  * characters have been received.                                           *
+  * signal handler. This function save the message when the event is 		 *
+  * generated
   ***************************************************************************/
 
 void signal_handler_IO (int status)
 {
-	//printf("received SIGIO signal.\n");
+	/* We sleep the program because we have to wait for a full buffer	*/
 	usleep(10000);
-	//wait_flag = FALSE;
-	res = read(fd,buf,255);
-	buf[res]=0;
-	printf("%s\n", buf);
-	fgets(buf_tx, 100, stdin);
-	buf_tx[strlen(buf_tx)-1]=0;
-	write(fd, buf_tx, 100);
-	buf_tx[0]=0;
+	res = read(fd,buf_rx,255);
+	buf_rx[res]=0;
+	printf("%s\n", buf_rx);
 }
 
-  void uart_init(){
+  void uart_init()
+  {
 	/* open the device to be non-blocking (read will return immediatly) */
 	fd = open(MODEMDEVICE, O_RDWR | O_NOCTTY | O_NONBLOCK);
 	if (fd <0) {perror(MODEMDEVICE); exit(-1); }
@@ -69,4 +43,15 @@ void signal_handler_IO (int status)
 	newtio.c_cc[VTIME]=0;
 	tcflush(fd, TCIFLUSH);
 	tcsetattr(fd,TCSANOW,&newtio);
+}
+
+void uart_close(){
+	/* restore old port settings */
+	tcsetattr(fd,TCSANOW,&oldtio);
+}
+
+int uart_write(char * buff){
+	int size = strlen(buff);
+	strcpy(buf_tx,buff);
+	return write(fd,buf_tx,size);
 }
