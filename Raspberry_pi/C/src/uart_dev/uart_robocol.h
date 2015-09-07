@@ -19,13 +19,12 @@
 static volatile char WAIT_FLAG=TRUE ;
 typedef unsigned char uart_st;
 
-typedef struct uart_dev
-{
+typedef struct uart_dev {
 	int fd;
 	struct termios oldt;
 	struct termios newt;
 	struct sigaction saio;
-}uart_dev;
+} uart_dev;
 
 struct uart_dev u_dev;
 

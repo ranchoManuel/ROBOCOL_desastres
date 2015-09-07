@@ -16,65 +16,74 @@
 
 #define TOTAL_RESPONSE_SIZE 100
 
+#define HIGH_PRIORITY 1
+#define MEDIUM_PRIORITY 2
+#define LOW_PRIORITY 3
+#define NO_PRIORITY -1
+
 // gcc -o program driver.c robocol_queue.c robocol_list.c uart.c
 
 float hum, ten, dis;
 float acy, acx, acz;
 float max, may, maz;
 
+queue *q1;
+queue *q2;
+queue *q3;
+
 int split_line(char *buf, char **argv, int max_args) {
-    int arg = 0;
+	int arg = 0;
 
-    while (isspace(*buf)) buf++;
+	while (isspace(*buf)) buf++;
 
-    for (; arg < max_args && *buf != '\0'; arg++) {
-    	argv[arg] = buf;
-      	while (*buf != '\0' && !isspace(*buf)) buf++;
-      	if (*buf != '\0') {
-        	*buf = '\0';
-        	buf++;
-      	}
-      	while (isspace(*buf)) buf++;
-    }
-    return arg;
+	for (; arg < max_args && *buf != '\0'; arg++) {
+		argv[arg] = buf;
+		while (*buf != '\0' && !isspace(*buf)) buf++;
+		if (*buf != '\0') {
+			*buf = '\0';
+			buf++;
+		}
+		while (isspace(*buf)) buf++;
+	}
+	return arg;
 }
 
 void reverse(char *str, int len) {
-    int i = 0, j = len - 1, temp;
-    while(i < j) {
-        temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-        i++; j--;
-    }
+	int i = 0, j = len - 1, temp;
+	while(i < j) {
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		i++; j--;
+	}
 }
 
 int int_string(int x, char* str, int d) {
-    int i = 0;
-    while(x != 0) {
-        str[i++] = (x%10) + '0';
-        x = x/10;
-    }
+	int i = 0;
+	while(x != 0) {
+		str[i++] = (x%10) + '0';
+		x = x/10;
+	}
 
-    while (i < d)
-        str[i++] = '0';
- 
-    reverse(str, i);
-    str[i] = '\0';
-    return i;
+	while (i < d)
+		str[i++] = '0';
+	
+	reverse(str, i);
+	str[i] = '\0';
+	return i;
 }
 
 void float_string(float n, char *res, int afterpoint) {
-    int ipart = (int) n;
-    float fpart = n - (float) ipart;
- 
-    int i = int_string(ipart, res, 0);
- 
-    if (afterpoint != 0) {
-        res[i] = '.';
-        fpart = fpart * pow(10, afterpoint); 
-        int_string((int)fpart, res + i + 1, afterpoint);
-    }
+	int ipart = (int) n;
+	float fpart = n - (float) ipart;
+	
+	int i = int_string(ipart, res, 0);
+	
+	if (afterpoint != 0) {
+		res[i] = '.';
+		fpart = fpart * pow(10, afterpoint); 
+		int_string((int)fpart, res + i + 1, afterpoint);
+	}
 }
 
 char* format_string(char* id, float args[], int n, int* new_size) {
@@ -161,33 +170,48 @@ char* get_command_proposal(char* name) {
 	return ans;
 }
 
+void* command_classification(void* thread_id) {
+	char* command_input;
+	scanf("%s", command_input);
+
+	command* c = init_command(command_input, "FLAG", "");
+
+	int priority = get_priority(c);
+
+	if(priority == HIGH_PRIORITY)
+		enqueue(q1, 1);
+
+	else if(priority == MEDIUM_PRIORITY)
+		enqueue(q2, 2);
+
+	else if(priority == LOW_PRIORITY)
+		enqueue(q3, 2);
+
+	return (void*) NULL;
+
+}
+
 int main(void) {
 	uart_init();
-    queue *q1 = init_robocol_queue(8);
-    queue *q2 = init_robocol_queue(8);
-    queue *q3 = init_robocol_queue(8);
+    q1 = init_robocol_queue(8);
+    q2 = init_robocol_queue(8);
+    q3 = init_robocol_queue(8);
     enqueue(q1, 5);
     display_queue(q1);
-    
-    while(1){
 	
-    }
+	while(1){
 
-
+	}
 	/*
     command* c = init_command("ZAS", "PWD", "");
     display_command(c);
     destroy_command(c);
     display_command(c);
     */
-
     //float list[] = {1.0, 2.0, 3.0};
     int val = 0;
-
     //printf("%s\n", format_string("name", list, sizeof(list) / sizeof(list[0])));
-
     //format_string("name", list, sizeof(list) / sizeof(list[0]), &val);
-
     printf("%s\n", get_command_response("SEN", &val));
-	uart_close();
+    uart_close();
 }
