@@ -1,0 +1,5 @@
+gnome-terminal -e "bash -c \"./chatServer 1234 1235; exec bash\""
+#gnome-terminal -e "bash -c \"java -jar ClienteChat.jar 127.0.0.1 1234; exec bash\""
+#gnome-terminal -e "bash -c \"java -jar ClienteChat.jar 127.0.0.1 1235; exec bash\""
+gnome-terminal -e "bash -c \"./chatClient 127.0.0.1 1234; exec bash\""
+gnome-terminal -e "bash -c \"./chatClient 127.0.0.1 1235; exec bash\""

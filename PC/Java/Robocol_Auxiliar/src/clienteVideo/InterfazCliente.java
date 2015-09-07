@@ -78,6 +78,6 @@ public class InterfazCliente extends JFrame implements ActionListener
 		//mediaPlayer.getMediaPlayer().playMedia("rtp://@" + nIp + ":" + nPuerto );
 		//mediaPlayer.getMediaPlayer().playMedia("http://" + nIp + ":" + nPuerto );
 		//mediaPlayer.getMediaPlayer().playMedia("http://10.5.5.9:8080/live/amba.m3u8");
-		mediaPlayer.getMediaPlayer().playMedia("./data/video.mp4");
+		mediaPlayer.getMediaPlayer().playMedia("udp://@:10000");
 	}
 }

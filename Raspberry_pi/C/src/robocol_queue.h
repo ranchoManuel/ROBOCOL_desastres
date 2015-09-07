@@ -1,4 +1,5 @@
-typedef struct queue {
+typedef struct queue
+{
     int space;
     int size;
     int front;

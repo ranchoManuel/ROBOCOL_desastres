@@ -9,8 +9,8 @@ import java.net.UnknownHostException;
 
 public class Cliente
 {
-	private static final int PORT = 1234;
-	private static final String HOST = "192.168.0.102";
+	private static final int PORT = 1235;
+	private static final String HOST = "127.0.0.1";
 
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{

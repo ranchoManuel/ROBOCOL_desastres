@@ -1,4 +1,5 @@
-typedef struct command {
+typedef struct command
+{
     char* name;
     char* arg1;
     char* arg2;

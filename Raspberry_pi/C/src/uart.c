@@ -14,7 +14,8 @@ void signal_handler_IO (int status)
 	printf("%s\n", buf_rx);
 }
 
-  void uart_init(){
+  void uart_init()
+  {
 	/* open the device to be non-blocking (read will return immediatly) */
 	fd = open(MODEMDEVICE, O_RDWR | O_NOCTTY | O_NONBLOCK);
 	if (fd <0) {perror(MODEMDEVICE); exit(-1); }
