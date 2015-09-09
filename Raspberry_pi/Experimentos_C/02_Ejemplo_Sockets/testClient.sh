@@ -1,2 +1,2 @@
 gcc -o client client.c
-./client 192.168.0.12 1235
+./client 127.0.0.1 1235

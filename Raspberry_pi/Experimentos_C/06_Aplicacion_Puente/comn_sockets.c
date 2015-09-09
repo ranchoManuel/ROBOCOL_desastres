@@ -1,23 +1,23 @@
-#include "comn_sockets1.h"
+#include "comn_sockets.h"
 #include <stdio.h>		//printf, puts
 #include <string.h>		//strlen
-#include <sys/socket.h>	//socket
-#include <arpa/inet.h>	//inet_addr
 #include <unistd.h>		//write
 #include <stdlib.h>
+#include <sys/socket.h>	//socket
+#include <arpa/inet.h>	//inet_addr
 #include "main.h"
 
-char buffRead [BUFFSIZE];
+char buffReadSocket [BUFFSIZE];
 
 //Este es para el thread de lectrua
 pthread_t tid;
 
 //Estos son para el socket
-int socket_desc ,socket_fd ,c ,read_size;
+int socket_desc ,socket_fd ,c ,read_size, crearConeccion;
 struct sockaddr_in server , client;
 
 //METODO QUE METO EN EL THREAD
-void* leerEntrada_1()
+void* leerEntradaSocket()
 {
 	while(1)
 	{
@@ -29,11 +29,11 @@ void* leerEntrada_1()
       //Receive a message from client
       while(1)
       {
-				read_size=recv(socket_fd ,buffRead ,sizeof(buffRead) ,0);
+				read_size=recv(socket_fd ,buffReadSocket ,sizeof(buffReadSocket) ,0);
         //Enviar el mensaje al otro pc
-        enviarMensajeComp2(buffRead);
+        enviarMensaje_a_Serial(buffReadSocket);
 
-        memset(buffRead, 0, sizeof(buffRead));
+        memset(buffReadSocket, 0, sizeof(buffReadSocket));
         if(read_size == 0)
         {
 					puts("Client 1 disconnected");
@@ -47,15 +47,15 @@ void* leerEntrada_1()
 	}
 }
 
-void closeWithError_1(char *error)
+void closeWithErrorSocket(char *error)
 {
-    char errMsj[50];
-    sprintf(errMsj, KRED"%s"RESET, error);
-    perror(errMsj);
-    exit(1);
+	char errMsj[50];
+  sprintf(errMsj, KRED"%s"RESET, error);
+  perror(errMsj);
+  exit(1);
 }
 
-void init_1(unsigned short puerto)
+void initSocket(unsigned short puerto)
 {
 	//Estos son para el Thread de lectura
 	int err;
@@ -63,8 +63,8 @@ void init_1(unsigned short puerto)
 
 	//Create socket
   socket_desc = socket(AF_INET , SOCK_STREAM , 0);
-  if(socket_desc == -1) closeWithError_1("Could not create socket(1)");
-  puts("Server Socket created(1)");
+  if(socket_desc == -1) closeWithErrorSocket("Could not create socket(1)");
+  puts("Socket created(1)");
 
   //Prepare the sockaddr_in structure
   server.sin_family = AF_INET;
@@ -72,7 +72,7 @@ void init_1(unsigned short puerto)
   server.sin_port = htons(puerto);
 
   //Bind
-  if(bind(socket_desc, (struct sockaddr *)&server , sizeof(server)) < 0) closeWithError_1("bind failed(1). Error");
+  if(bind(socket_desc, (struct sockaddr *)&server , sizeof(server)) < 0) closeWithErrorSocket("bind failed(1). Error");
   puts("bind done(1)");
 
   //Listen
@@ -83,17 +83,17 @@ void init_1(unsigned short puerto)
   puts("Waiting for incoming connections(1)...");
 
   //Aqui se crea el thread de lectura
-  err = pthread_create(&(tid), NULL, &leerEntrada_1, NULL);
+  err = pthread_create(&(tid), NULL, &leerEntradaSocket, NULL);
   if(err != 0)
 	{
 		sprintf(errMsj,"Can't create thread 1:[%s]", strerror(err));
-    closeWithError_1(errMsj);
+    closeWithErrorSocket(errMsj);
   }
   else printf("Thread 1 created successfully\n");
 }
 
-void enviarCadena_1(char* texto)
+void enviarCadenaSocket(char* texto)
 {write(socket_fd ,texto ,strlen(texto));}
 
-void cerrarSocket_1()
+void cerrarSocket()
 {close(socket_fd);}

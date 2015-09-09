@@ -1,9 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void enviarMensajeComp1(char *texto);
+void enviarMensaje_a_Socket(char *texto);
 
-void enviarMensajeComp2(char *texto);
+void enviarMensaje_a_Serial(char *texto);
 
 #define BUFFSIZE 110
 

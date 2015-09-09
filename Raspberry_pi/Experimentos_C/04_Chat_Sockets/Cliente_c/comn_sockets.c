@@ -27,9 +27,8 @@ char buffRead[BUFFSIZE];
 pthread_t tid;
 
 //Estos son para el socket
-int client_socktfd;
+int client_socktfd, read_size;
 struct sockaddr_in client_address;
-int client_length;
 
 //METODO QUE METO EN EL THREAD
 void* leerEntrada()
@@ -37,9 +36,17 @@ void* leerEntrada()
 	while(1)
 	{
 		memset(buffRead, 0, sizeof(buffRead));
-		read(client_socktfd, &buffRead, BUFFSIZE);
+		read_size=recv(client_socktfd ,buffRead ,sizeof(buffRead) ,0);
+		//Enviar el mensaje al otro pc
 		imprimirEnConsola(buffRead);
-		fflush (stdout);
+
+		if(read_size == 0)
+		{
+			puts("Client 1 disconnected");
+			fflush(stdout);
+			break;
+		}
+		else if(read_size == -1) perror("recv 1 failed");
 	}
 }
 
@@ -58,38 +65,34 @@ void init(char *server_address, unsigned short server_port)
 	char errMsj[50];//posible mensaje de error
 
 	//Aqui se establece la conexion con el socket
-	if((client_socktfd=socket(AF_INET,SOCK_STREAM,0))<0)
-			closeWithError("socket() fallo");
+	client_socktfd=socket(AF_INET, SOCK_STREAM, 0);
+	if(client_socktfd<0) closeWithError("Could not create socket");
+	puts("Client Socket created");
 
 	memset(&client_address,0,sizeof(client_address));
 	client_address.sin_family=AF_INET;
 	client_address.sin_addr.s_addr=inet_addr(server_address);
 	client_address.sin_port=htons(server_port);
-	client_length=sizeof(client_address);
 	puts("Triying Connection...");
 
-	if(connect(client_socktfd, (struct sockaddr *)&client_address, client_length)==-1)
+	if(connect(client_socktfd, (struct sockaddr *)&client_address, sizeof(client_address))==-1)
 		closeWithError("Connection failed");
 
 	puts(KGRN"Successful Connection"RESET);
 
 	//Aqui se crea el thread de lectura
-    err = pthread_create(&(tid), NULL, &leerEntrada, NULL);
-    if(err != 0)
+  err = pthread_create(&(tid), NULL, &leerEntrada, NULL);
+  if(err != 0)
 	{
-        sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
-        closeWithError(errMsj);
-    }
-    else printf("Thread created successfully\n");
-    printf(KCYN"___________________________\n"RESET);
+		sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
+    closeWithError(errMsj);
+  }
+  else printf("Thread created successfully\n");
+  printf(KCYN"___________________________\n"RESET);
 }
 
 void enviarCadena(char *texto)
-{
-	write(client_socktfd, texto, strlen(texto));
-}
+{write(client_socktfd, texto, strlen(texto));}
 
 void cerrarSocket()
-{
-	close(client_socktfd);
-}
+{close(client_socktfd);}

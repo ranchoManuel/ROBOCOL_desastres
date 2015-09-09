@@ -26,18 +26,17 @@ int main(int argc, char *argv[])
 	int client_length;
 
 	/*Handling function arguments*/
-	if((argc < 2)||(argc>3)){
+	if((argc < 2)||(argc>3))
+	{
 		fprintf(stderr, "Uso: %s <Server IP> [<Echo Port>]\n",argv[0]);
 		exit(1);
 	}
 
 	server_address=argv[1];
 
-	if(argc==3)
-		server_port=atoi(argv[2]);
-	else
-		server_port=DEFAULT_PORT;
-	
+	if(argc==3) server_port=atoi(argv[2]);
+	else server_port=DEFAULT_PORT;
+
 	if((client_socktfd=socket(AF_INET,SOCK_STREAM,0))<0)
 		closeWithError("socket() fallo");
 
@@ -47,7 +46,6 @@ int main(int argc, char *argv[])
 	client_address.sin_port=htons(server_port);
 	client_length=sizeof(client_address);
 	printf("%s\n", "Triying Connection..." );
-
 
 	if(connect(client_socktfd, (struct sockaddr *)&client_address, client_length)==-1)
 		closeWithError("Connection failed");
@@ -61,7 +59,7 @@ int main(int argc, char *argv[])
 		buff[0]='\0';
 		fgets (buff, BUFFSIZE, stdin);
 		write(client_socktfd, &buff, strlen(buff));
-		
+
 		memset(buff, 0, sizeof(buff));
 		read(client_socktfd, &buff, BUFFSIZE);
 		printf("Server:%s", buff);
