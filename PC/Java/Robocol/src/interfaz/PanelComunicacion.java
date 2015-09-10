@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class PanelComunicacion extends JPanel implements ActionListener
+public class PanelComunicacion extends JPanel implements KeyListener, ActionListener
 {
 	private static final long serialVersionUID=1L;
 	private static final String NEW_LINE=System.getProperty("line.separator");
@@ -21,13 +23,16 @@ public class PanelComunicacion extends JPanel implements ActionListener
 	private JTextArea displayAreaRecivo;
 	private JTextField typingArea;
 	private JTextArea displayAreaEnvio;
+	private InterfazPrincipal ventana;
 
-	public PanelComunicacion()
+	public PanelComunicacion(InterfazPrincipal padre)
 	{
+		ventana=padre;
 		JButton button=new JButton("Clear");
 		button.addActionListener(this);
 
 		typingArea=new JTextField(30);
+		typingArea.addKeyListener(this);
 
 		displayAreaEnvio=new JTextArea();
 		displayAreaEnvio.setEditable(false);
@@ -78,4 +83,20 @@ public class PanelComunicacion extends JPanel implements ActionListener
 		displayAreaEnvio.append(info+NEW_LINE);
 		displayAreaEnvio.setCaretPosition(displayAreaEnvio.getDocument().getLength());
 	}
+
+	/** Handle the key typed event from the text field. */
+	public void keyTyped(KeyEvent e)
+	{
+		ventana.enviarCaracterLeido(e.getKeyChar());
+		typingArea.setText("");
+		typingArea.requestFocusInWindow();
+	}
+
+	//No hace nada
+	/** Handle the key pressed event from the text field. */
+	public void keyPressed(KeyEvent e){}
+
+	//No hace nada
+	public void keyReleased(KeyEvent e){}
+	
 }

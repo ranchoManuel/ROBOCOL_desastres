@@ -9,7 +9,7 @@ public class Control
 {
 	//{"Mensaje.Orugas","Mensaje.Brazos","Mensaje.SensoresADC","Mensaje.Acel_Magn","Mensaje.Acel_Continuo","Mensaje.Acel_end","Mensaje.Acel_ter","Mensaje.Toggle_Luz","Mensaje.Toggle_Buzzer"};
 	private static final String[] COMANDOS={"MCA:","MBR:","SEN;","CAD;","ZAR;","END;","TER;","TGL;","TGB;"};
-	
+
 	//{"Tecla.Up","Tecla.Down","Tecla.Left","Tecla.Rigth","Tecla.Up_b1","Tecla.Down_b1","Tecla.Up_b2","Tecla.Down_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"};
 	private static final char[] letras={'w','s','a','d','t','g','y','h','o','p','z','x','c','n','m'};
 
@@ -17,7 +17,7 @@ public class Control
 
 	private IComunicacion comunicacion;
 	private InterfazPrincipal interfaz;
-	private ThreadCAD threadCAD;
+	private Thread_CAD_SEN thread_CAD_SEN;
 
 	private int m1,m2;
 	private StringBuilder sb;
@@ -34,7 +34,7 @@ public class Control
 		{
 			String hostname=propiedades.getProperty("ipComandos");
 			String port_name=propiedades.getProperty("PuertoComandos");
-			
+
 			comunicacion=new Comunicacion_SOCKET(this,hostname,port_name);
 		}
 		else
@@ -42,24 +42,23 @@ public class Control
 			String puerto = propiedades.getProperty("PuertoUART").trim();
 			int time_out = Integer.parseInt(propiedades.getProperty("Time_out_UART").trim());
 			int data_rate = Integer.parseInt(propiedades.getProperty("Data_rate_UART").trim());
-			
+
 			comunicacion=new Comunicacion_USART(this,puerto,time_out,data_rate);
 		}
 
-		threadCAD=new ThreadCAD(this);
-		threadCAD.start();
+		thread_CAD_SEN=new Thread_CAD_SEN(this);
+		thread_CAD_SEN.start();
 	}
 
 	public void cerrar()
 	{
-		threadCAD.parar();
+		thread_CAD_SEN.parar();
 		comunicacion.close();
 	}
 
 	public void tomarDato(String mensajeDelOtro)
 	{
 		cadena=mensajeDelOtro.toCharArray();
-
 		boolean mostrar=false;
 		if(cadena[0]=='O' && cadena[1]=='K' && cadena[2]==';') //OK;
 			mostrar=true;
@@ -90,7 +89,7 @@ public class Control
 			interfaz.displayInfoRecibida(mensajeDelOtro);
 			return;
 		}
-		
+
 		//El mensaje de cuando se reinicia la FRDM
 		if(mensajeDelOtro.matches("(-*ON-*)"))
 			interfaz.displayInfoRecibida(mensajeDelOtro);
@@ -100,7 +99,7 @@ public class Control
 	{
 		int num=0, j=numParametros-1, pot=1;
 		//Se usa i>2 por que se quieren ignorar las 3 primeras letras
-		for(int i=cadena.length-1; i>2; i--)
+		for(int i=cadena.length-1; i>2 && j>=0; i--)
 		{
 			if(cadena[i]=='-') num*=-1;
 			else if(Character.isDigit(cadena[i]))
@@ -168,6 +167,12 @@ public class Control
 	public void pedirCAD()
 	{
 		comunicacion.enviarLinea("CAD;");
-		//ventana.displayInfoEnviada("CAD;");
+		interfaz.displayInfoEnviada("CAD;");
+	}
+
+	public void pedirSEN()
+	{
+		comunicacion.enviarLinea("SEN;");
+		interfaz.displayInfoEnviada("SEN;");
 	}
 }

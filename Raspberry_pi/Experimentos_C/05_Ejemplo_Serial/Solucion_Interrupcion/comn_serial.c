@@ -42,9 +42,8 @@ struct sigaction saio;           /* definition of signal action */
 void signal_handler_IO (int status)
 {
 	/* We sleep the program because we have to wait for a full buffer	*/
-	usleep(100000);
 	nReadSerial = read(serial_fd, buffRead, BUFFSIZE);
-	buffRead[nReadSerial]=0;
+	buffRead[nReadSerial]='\0';
 	if(nReadSerial > 0)
 	{
 		imprimirEnConsola(buffRead);
@@ -67,8 +66,8 @@ void initSerial(char *serialport, int baud)
 	char errMsj[1024];//posible mensaje de error
 
 	//Aqui se establece la conexion serial
-	serial_fd = open(serialport, O_RDWR | O_NONBLOCK );
-	if(serial_fd == -1) closeWithError("serialport_init: Unable to open port ");
+	serial_fd = open(serialport, O_RDWR | O_NOCTTY | O_NONBLOCK );
+	if(serial_fd < 0) closeWithError("serialport_init: Unable to open port ");
 
 	/* install the signal handler before making the device asynchronous */
 	saio.sa_handler = signal_handler_IO;
@@ -87,8 +86,8 @@ void initSerial(char *serialport, int baud)
 		closeWithError("serialport_init: Couldn't get term attributes");
 
 	speed_t brate = baud; // let you override switch below if needed
-  switch(baud)
-  {
+	switch(baud)
+	{
 		case 4800:   brate=B4800;   break;
 		case 9600:   brate=B9600;   break;
 		#ifdef B14400
@@ -101,7 +100,7 @@ void initSerial(char *serialport, int baud)
 		case 38400:  brate=B38400;  break;
 		case 57600:  brate=B57600;  break;
 		case 115200: brate=B115200; break;
-  }
+	}
 
 	newtio.c_cflag = brate | CS8 | CLOCAL | CREAD;
 	newtio.c_iflag = IGNPAR;
@@ -110,12 +109,10 @@ void initSerial(char *serialport, int baud)
 	newtio.c_cc[VMIN]=0;
 	newtio.c_cc[VTIME]=0;
 	tcflush(serial_fd, TCIFLUSH);
-
-  tcsetattr(serial_fd, TCSANOW, &newtio);
-  if(tcsetattr(serial_fd, TCSAFLUSH, &newtio) < 0) closeWithError("init_serialport: Couldn't set term attributes");
-
+	tcsetattr(serial_fd, TCSANOW, &newtio);
+	
 	puts(KGRN"Successful Connection"RESET);
-  printf(KCYN"___________________________\n"RESET);
+	printf(KCYN"___________________________\n"RESET);
 }
 
 void enviarCadenaSerial(char *texto)

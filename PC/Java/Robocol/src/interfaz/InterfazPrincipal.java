@@ -57,8 +57,7 @@ public class InterfazPrincipal extends JFrame
 	public InterfazPrincipal() throws IOException, IllegalAccessException, NoSuchFieldException 
 	{
 		final SplashScreen splash = SplashScreen.getSplashScreen();
-		if(splash == null) System.err.println("SplashScreen.getSplashScreen() returned null");
-		else 
+		if(splash != null)
 		{
 			Graphics2D g = splash.createGraphics();
 			if(g == null)
@@ -105,7 +104,7 @@ public class InterfazPrincipal extends JFrame
 		add(pvi, BorderLayout.CENTER);
 		System.out.println("paso 5");
 
-		pc=new PanelComunicacion();
+		pc=new PanelComunicacion(this);
 		add(pc, BorderLayout.SOUTH);
 		System.out.println("paso 6");
 
@@ -116,6 +115,7 @@ public class InterfazPrincipal extends JFrame
 
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		if(splash!=null) splash.close();
+		//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 
@@ -138,4 +138,12 @@ public class InterfazPrincipal extends JFrame
 
 	public void Graficar_SEN(double[] valores)
 	{p3D.graficar_SEN(valores[0], valores[1], valores[2]);}
+	
+	@Override
+	public void dispose()
+	{
+		mundo.cerrar();
+		super.dispose();
+	}
+	
 }

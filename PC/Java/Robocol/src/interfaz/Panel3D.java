@@ -35,7 +35,7 @@ public class Panel3D extends PApplet implements Serializable
 		textAlign(CENTER);
 		textSize(26);
 		String text=String.format("Angulo X: %3.3f\n Angulo Y: %3.3f\n Angulo Z: %3.3f\n Brujula: %3.3f", angleX*TO_ANG, angleY*TO_ANG, angleZ*TO_ANG, heading*TO_ANG);
-		text(text,300,300);
+		text(text,0,300);
 		
 		//Para Rotar Correctamente la Figura
 		pushMatrix();

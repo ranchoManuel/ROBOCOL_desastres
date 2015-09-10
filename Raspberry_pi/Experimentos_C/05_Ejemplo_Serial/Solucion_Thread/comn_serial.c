@@ -110,14 +110,14 @@ void initSerial(char *serialport, int baud)
   tcsetattr(serial_fd, TCSANOW, &newtio);
   if(tcsetattr(serial_fd, TCSAFLUSH, &newtio) < 0) closeWithError("init_serialport: Couldn't set term attributes");
 
-	puts(KGRN"Successful Connection"RESET);
+  puts(KGRN"Successful Connection"RESET);
 
-	//Aqui se crea el thread de lectura
+  //Aqui se crea el thread de lectura
   err = pthread_create(&(tserial), NULL, &leerEntradaSerial, NULL);
   if(err != 0)
-	{
-		sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
-    closeWithError(errMsj);
+  {
+  	sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
+	closeWithError(errMsj);
   }
   else printf("Thread created successfully\n");
   printf(KCYN"___________________________\n"RESET);

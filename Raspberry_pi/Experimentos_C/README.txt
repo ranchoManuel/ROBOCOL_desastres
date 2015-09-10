@@ -18,7 +18,7 @@ interrupciones
 El sexto "06_Aplicacion_Puente", es una aplicacion que pasa todo lo que llega por Socket
 a una terminal serial y viceversa. Es casi la aplicacion completa, sin las colas de prioridad
 
-El septimo "07_Video_v4l" muestra como transmitir video usando v4l
+El septimo "07_Video_v4l" muestra como transmitir video usando v4l y como ver el videl usando sdl
 ----------------------------------------------------------------------------------------------
 										TODO
 ----------------------------------------------------------------------------------------------
