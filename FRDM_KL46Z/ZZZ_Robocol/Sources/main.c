@@ -79,6 +79,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define ERR 0
 #define ADC 1
 #define CAD 2
 #define ZAR 3
@@ -91,47 +92,70 @@
 
 int param1, param2, zar=0, end=0, ter=0;
 
-//TODO hacer mejor
-int interpretarEtiqueta(char* instruccion)
+void agarrar_parametros(char* instr)
 {
-	//mandarCadena("...Interpretando etiqueta\n");
-	int rta=-1,i;
-	char **palabras=split(instruccion,":");
+	param1=param2=0;
+	
+	int i, paramsPorHacer=2, pot=1;
+	for(i=strlen(instr)-1; i>=0 && paramsPorHacer>0; i--)
+	{
+		//cuando estoy pasando por un numero //LOL:225:-225;
+		if(instr[i]=='-')
+		{
+			if(paramsPorHacer==2) param2*=-1;
+			else if(paramsPorHacer==1) param1*=-1;
+		}
+		else if(instr[i]>='0' && instr[i]<='9')
+		{
+			if(paramsPorHacer==2)
+			{
+				param2+=(instr[i]-'0')*pot;
+				pot*=10;
+			}
+			else if(paramsPorHacer==1)
+			{
+				param1+=(instr[i]-'0')*pot;
+				pot*=10;
+			}
+			//Estos son todos los casos posibles
+		}
+		else if(instr[i]==':')
+		{
+			pot=1;
+			paramsPorHacer--;
+		}
+	}
+}
 
+int interpretarEtiqueta(char* instr)
+{
+	//Primero me cuido de que la instruccion no este sin el primer pedaso
+	if(strlen(instr)<4) return ERR;
+
+	int rta=ERR;
 	//Los primeros son cuando nos piden los sensores
-	if(strcmp(palabras[0],"SEN;")==0) rta=ADC;
-	else if(strcmp(palabras[0],"CAD;")==0) rta=CAD;
+	if(instr[0]=='S' && instr[1]=='E' && instr[2]=='N' && instr[3]==';') rta=ADC;		//SEN;
+	else if(instr[0]=='C' && instr[1]=='A' && instr[2]=='D' && instr[3]==';') rta=CAD;	//CAD;
 	//Estos nos piden empezar o finalizar un envio especial
-	else if(strcmp(palabras[0],"ZAR;")==0) rta=ZAR;
-	else if(strcmp(palabras[0],"END;")==0) rta=END;
-	else if(strcmp(palabras[0],"TER;")==0) rta=TER;
+	else if(instr[0]=='Z' && instr[1]=='A' && instr[2]=='R' && instr[3]==';') rta=ZAR;	//ZAR;
+	else if(instr[0]=='E' && instr[1]=='N' && instr[2]=='D' && instr[3]==';') rta=END;	//END
+	else if(instr[0]=='T' && instr[1]=='E' && instr[2]=='R' && instr[3]==';') rta=TER;	//TER
 	//Los demas activan actuadores
-	else if(strcmp(palabras[0],"MCA")==0)
+	else if(instr[0]=='M' && instr[1]=='C' && instr[2]=='A' && instr[3]==':')
 	{
 		rta=MCA;
-		param1=parseInt(palabras[1]);
-		param2=parseInt(palabras[2]);
+		agarrar_parametros(instr);
 	}
-	else if(strcmp(palabras[0],"MBR")==0)
+	else if(instr[0]=='M' && instr[1]=='B' && instr[2]=='R' && instr[3]==':')
 	{
 		rta=MBR;
-		param1=parseInt(palabras[1]);
-		param2=parseInt(palabras[2]);
+		agarrar_parametros(instr);
 	}
-	else if(strcmp(palabras[0],"TGL;")==0) rta=TGL;
-	else if(strcmp(palabras[0],"TGB;")==0) rta=TGB;
-	else rta=0;
-	//Liberando memoria - No funciona XD
-	/*i = 0;
-	while(palabras[i]) {
-	    free(palabras[i]);
-	    i++;
-	}
-	free(palabras);
-	palabras = NULL;
-	*/
+	else if(instr[0]=='T' && instr[1]=='G' && instr[2]=='L' && instr[3]==';') rta=TGL;
+	else if(instr[0]=='T' && instr[1]=='G' && instr[2]=='B' && instr[3]==';') rta=TGB;
+	else rta=ERR;
+
 	return rta;
-	
 }
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
@@ -151,19 +175,17 @@ int main(void)
 
 	//1) Init Drivers
 	initComunicacion();
-	initEspacioMemoria();
-	mandarCadena("---------ON---------\r\n");
+	mandarCadena("---------ON---------");
 	Acelerometro_Enable();
 	Acelerometro_CalibrateX1g();
 	Acelerometro_CalibrateY1g();
 	Acelerometro_CalibrateZ1g();
 	//TODO: Comentar(Debug)
-	mandarCadena("1) Drivers iniciados\r\n");
 
 	MAG1_Init();
 	MAG1_Enable();
-	
-	
+
+
 	/* Write your code here */
 	/* For example: for(;;) { } */
 	for(;;)
@@ -181,15 +203,9 @@ int main(void)
 			instruccion[i]='\0'; 
 
 			//2) Leer mensaje
-			//mandarCadena("2) Mensaje: ");
-			//mandarCadena(instruccion);
-			//mandarCadena("\n");
 
 			//3) Interpretar Mensaje
-			//mandarCadena("3) Interpretar Etiqueta\n");
 			etiqueta=interpretarEtiqueta(instruccion);
-			//sprintf(buffer, "Etiqueta es: %d\n",etiqueta);
-			//mandarCadena(buffer);
 
 			switch(etiqueta)
 			{
@@ -201,7 +217,7 @@ int main(void)
 
 				//5.2) Construir Respuesta ... 5.3) Enviar
 				//Rta esperada "SEN:hum:tem:dis;"
-				sprintf(buffer, "SEN:%5d:%5d:%5d;\r\n", humedad, temperatura, distancia);
+				sprintf(buffer, "SEN:%5d:%5d:%5d;", humedad, temperatura, distancia);
 				mandarCadena(buffer);
 
 				break;
@@ -217,7 +233,7 @@ int main(void)
 
 				//5.2) Construir Respuesta ... 5.3) Enviar
 				//Rta esperada "CAD:acx:acy:acz:mAx:mAy:mAz;"
-				sprintf(buffer, "CAD:%5d:%5d:%5d:%5d:%5d:%5d;\r\n",xAccel, yAccel, zAccel,
+				sprintf(buffer, "CAD:%5d:%5d:%5d:%5d:%5d:%5d;",xAccel, yAccel, zAccel,
 						magX ,magY ,magZ);
 				mandarCadena(buffer);
 
@@ -232,35 +248,35 @@ int main(void)
 				break;
 			case TER: //Termina envío continuo de acelerómetro cortando de una
 				ter=1;
-				mandarCadena("OK;\r\n");
+				mandarCadena("OK;");
 
 				break;
 			case MCA: //Cambia valor de los PWM de las orugas [Derecha, Izquierda], por los valores dados por parámetro
 				//5.2) Cambiar estado Orugas
 				moverOrugas(param1, param2);
-				mandarCadena("OK;\r\n");
+				mandarCadena("OK;");
 
 				break;
 			case MBR: //Cambia valor de los PWM de los brazos [Front, Back], por los valores dados por parámetro
 				//5.2) Cambiar estado Brazos
 				moverBrazos(param1, param2);
-				mandarCadena("OK;\r\n");
+				mandarCadena("OK;");
 
 				break;
 			case TGL: //Enciende/apaga luces
 				//5.2) Cambiar estado de Luz
 				toogleIluminacion();
-				mandarCadena("OK;\r\n");
+				mandarCadena("OK;");
 
 				break;
 			case TGB: //Enciende/apaga buzzer
 				//5.2) Cambiar estado de Buzzer
 				toggleBuzzer();
-				mandarCadena("OK;\r\n");
+				mandarCadena("OK;");
 
 				break;
 			default:
-				mandarCadena("ERR;\r\n");
+				mandarCadena("ERR;");
 				break;
 			}
 		}
@@ -276,7 +292,7 @@ int main(void)
 
 			//5.2) Construir Respuesta ... 5.3) Enviar
 			//Rta esperada "ACE:acx:acy:acz;"
-			sprintf(buffer, "ACE:%5d:%5d:%5d;\r\n", xAccel, yAccel, zAccel);
+			sprintf(buffer, "ACE:%5d:%5d:%5d;", xAccel, yAccel, zAccel);
 			mandarCadena(buffer);
 
 		}
@@ -284,14 +300,14 @@ int main(void)
 	}
 
 	/*** Don't write any code pass this line, or it will be deleted during code generation. ***/
-  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
-  #ifdef PEX_RTOS_START
-    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
-  #endif
-  /*** End of RTOS startup code.  ***/
-  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-  for(;;){}
-  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+	/*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+#ifdef PEX_RTOS_START
+	PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+#endif
+	/*** End of RTOS startup code.  ***/
+	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+	for(;;){}
+	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */

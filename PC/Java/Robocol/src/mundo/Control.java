@@ -10,7 +10,7 @@ public class Control
 	//{"Mensaje.Orugas","Mensaje.Brazos","Mensaje.SensoresADC","Mensaje.Acel_Magn","Mensaje.Acel_Continuo","Mensaje.Acel_end","Mensaje.Acel_ter","Mensaje.Toggle_Luz","Mensaje.Toggle_Buzzer"};
 	private static final String[] COMANDOS={"MCA:","MBR:","SEN;","CAD;","ZAR;","END;","TER;","TGL;","TGB;"};
 
-	//{"Tecla.Up","Tecla.Down","Tecla.Left","Tecla.Rigth","Tecla.Up_b1","Tecla.Down_b1","Tecla.Up_b2","Tecla.Down_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"};
+	//{"Tecla.Up","Tecla.Down","Tecla.Left","Tecla.Rigth","Tecla.Up_br","Tecla.Down_br","Tecla_b1","Tecla_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"};
 	private static final char[] letras={'w','s','a','d','t','g','y','h','o','p','z','x','c','n','m'};
 
 	private static final int MAX_PARAMETROS = 6;
@@ -19,7 +19,7 @@ public class Control
 	private InterfazPrincipal interfaz;
 	private Thread_CAD_SEN thread_CAD_SEN;
 
-	private int m1,m2;
+	private int m1,m2,b1,b2;
 	private StringBuilder sb;
 	private char[] cadena;
 	private double[] parametros=new double[MAX_PARAMETROS];
@@ -119,19 +119,20 @@ public class Control
 
 	public void enviarOrden(char c)
 	{
+		//","","","","","","","Tecla_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"}
 		//Resetear el buffer del string
 		sb.setLength(0);
 		//Para ajustar el movimiento del carros.
-		if(c==letras[0] && m1<255) m1++;
-		else if(c==letras[1] && m2>0) m2--;
-		else if(c==letras[2] && m1>0) m1--;
-		else if(c==letras[3] && m2<255) m2++;
+		if(c==letras[0] && m1<255 && m2<255) {m1+=150; m2+=150;}//Tecla.Up
+		else if(c==letras[1] && m1>-255 && m2>-255) {m1-=150; m2-=150;} //Tecla.Down
+		else if(c==letras[2] && m1<255 && m2>-255) {m1+=150; m2-=150;} //Tecla.Left
+		else if(c==letras[3] && m1>-255 && m2<255) {m1-=150; m2+=150;} //Tecla.Rigth
 
 		//Para ajustar el movimiento de los brazos.
-		else if(c==letras[4]);
-		else if(c==letras[5]);
-		else if(c==letras[6]);
-		else if(c==letras[7]);
+		else if(c==letras[4]); //Tecla.Up_br
+		else if(c==letras[5]); //Tecla.Down_br
+		else if(c==letras[6]); //Tecla_b1
+		else if(c==letras[7]); //Tecla_b2
 
 		//Para preparar el mensaje
 		for(int i=0; i<letras.length; i++)

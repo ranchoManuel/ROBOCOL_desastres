@@ -34,23 +34,23 @@ void moverBrazos(int brazo1, int brazo2)
 	if(brazo1 < 0)
 	{
 		b1Back = -brazo1;
-		if(brazo1 > 255) b1Back = 255;
+		if(b1Back > 255) b1Back = 255;
 	}
 	else if(brazo1 > 0)
 	{
 		b1For = brazo1;
-		if(brazo1 > 255) b1For = 255;
+		if(b1For > 255) b1For = 255;
 	}
 
 	if(brazo2 < 0)
 	{
 		b2Back = -brazo2;
-		if(brazo2 > 255) b2Back = 255;
+		if(b2Back > 255) b2Back = 255;
 	}
 	else if(brazo2 > 0)
 	{
 		b2For = brazo2;
-		if (brazo2 > 255) b2For = 255;
+		if (b2For > 255) b2For = 255;
 	}
 
 	setPWMsBrazos(b1For, b1Back, b2For, b2Back);
@@ -78,23 +78,23 @@ void moverOrugas(int oruga1, int oruga2)
 	if(oruga1 < 0)
 	{
 		o1Detras = -oruga1;
-		if(oruga1 > 255) o1Detras = 255; 
+		if(o1Detras > 255) o1Detras = 255; 
 	}
 	else if(oruga1 > 0)
 	{
 		o1Frontal = oruga1;
-		if(oruga1 > 255) o1Frontal = 255;
+		if(o1Frontal > 255) o1Frontal = 255;
 	}
 	
 	if(oruga2 < 0)
 	{
 		o2Detras = -oruga2;
-		if (oruga2 > 255) o2Detras = 255;
+		if (o2Detras > 255) o2Detras = 255;
 	}
 	else if(oruga2 > 0)
 	{
 		o2Frontal = oruga2;
-		if(oruga2 > 255) o2Frontal = 255;
+		if(o2Frontal > 255) o2Frontal = 255;
 	}
 	setPWMsOrugas(o1Frontal, o1Detras, o2Frontal, o2Detras);
 }
