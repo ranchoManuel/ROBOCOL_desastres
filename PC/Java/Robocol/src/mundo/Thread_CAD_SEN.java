@@ -2,7 +2,7 @@ package mundo;
 
 public class Thread_CAD_SEN extends Thread
 {
-	private static final long MILLISEG_ANTES_ACTIVACION = 5*1000;
+	private static final long MILLISEG_ANTES_ACTIVACION = 10*1000;
 	private static final long MILLISEG_ENTRE_CAD = 100;
 	
 	private Control ventana;
