@@ -10,7 +10,6 @@ Basado en https://github.com/todbot/arduino-serial/blob/master/arduino-serial-li
 #include <string.h> //strlen
 #include <errno.h>
 #include <termios.h>
-#include <sys/signal.h>
 #include "main.h"
 
 #define BUFFSIZE 110
@@ -33,21 +32,21 @@ pthread_t tserial;
 //Estos son para el canal serial
 int serial_fd, nReadSerial; /* File descriptor for the port */
 struct termios oldtio, newtio;
-struct sigaction saio;           /* definition of signal action */
 
-/***************************************************************************
-* signal handler. This function save the message when the event is 		 *
-* generated
-***************************************************************************/
-void signal_handler_IO (int status)
+//METODO QUE METO EN EL THREAD
+void* leerEntradaSerial()
 {
-	/* We sleep the program because we have to wait for a full buffer	*/
-	nReadSerial = read(serial_fd, buffRead, BUFFSIZE);
-	buffRead[nReadSerial]='\0';
-	if(nReadSerial > 0)
+	while(1)
 	{
-		imprimirEnConsola(buffRead);
-		fflush(stdout);
+		memset(buffRead, 0, sizeof(buffRead));
+		/* We sleep the program(10000) because we have to wait for a full buffer */
+		usleep(100000);
+		nReadSerial=read(serial_fd, &buffRead, BUFFSIZE);
+		if(nReadSerial > 0)
+		{
+			imprimirEnConsola(buffRead);
+			fflush(stdout);
+		}
 	}
 }
 
@@ -66,28 +65,15 @@ void initSerial(char *serialport, int baud)
 	char errMsj[1024];//posible mensaje de error
 
 	//Aqui se establece la conexion serial
-	serial_fd = open(serialport, O_RDWR | O_NOCTTY | O_NONBLOCK );
-	if(serial_fd < 0) closeWithError("serialport_init: Unable to open port ");
-
-	/* install the signal handler before making the device asynchronous */
-	saio.sa_handler = signal_handler_IO;
-	sigemptyset(&saio.sa_mask);
-	saio.sa_flags = 0;
-	saio.sa_restorer = NULL;
-	sigaction(SIGIO, &saio, NULL);
-
-	/* allow the process to receive SIGIO */
-	fcntl(serial_fd, F_SETOWN, getpid());
-	/* Make the file descriptor asynchronous (the manual page says only
-	   O_APPEND and O_NONBLOCK, will work with F_SETFL...) */
-	fcntl(serial_fd, F_SETFL, FASYNC);
+	serial_fd = open(serialport, O_RDWR | O_NONBLOCK );
+	if(serial_fd == -1) closeWithError("serialport_init: Unable to open port ");
 
 	if(tcgetattr(serial_fd, &oldtio) < 0) /* if work, save current port settings */
 		closeWithError("serialport_init: Couldn't get term attributes");
 
 	speed_t brate = baud; // let you override switch below if needed
-	switch(baud)
-	{
+  switch(baud)
+  {
 		case 4800:   brate=B4800;   break;
 		case 9600:   brate=B9600;   break;
 		#ifdef B14400
@@ -100,19 +86,41 @@ void initSerial(char *serialport, int baud)
 		case 38400:  brate=B38400;  break;
 		case 57600:  brate=B57600;  break;
 		case 115200: brate=B115200; break;
-	}
+  }
+  cfsetispeed(&newtio, brate);
+  cfsetospeed(&newtio, brate);
 
-	newtio.c_cflag = brate | CS8 | CLOCAL | CREAD;
-	newtio.c_iflag = IGNPAR;
-	newtio.c_oflag = 0;
-	newtio.c_lflag = 0;
-	newtio.c_cc[VMIN]=0;
-	newtio.c_cc[VTIME]=0;
-	tcflush(serial_fd, TCIFLUSH);
-	tcsetattr(serial_fd, TCSANOW, &newtio);
-	
-	puts(KGRN"Successful Connection"RESET);
-	printf(KCYN"___________________________\n"RESET);
+  // 8N1
+  newtio.c_cflag &= ~PARENB;
+  newtio.c_cflag &= ~CSTOPB;
+  newtio.c_cflag &= ~CSIZE;
+  newtio.c_cflag |= CS8;
+  // no flow control
+  newtio.c_cflag &= ~CRTSCTS;
+
+  newtio.c_cflag |= CREAD | CLOCAL;  // turn on READ & ignore ctrl lines
+  newtio.c_iflag &= ~(IXON | IXOFF | IXANY); // turn off s/w flow ctrl
+
+  newtio.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // make raw
+  newtio.c_oflag &= ~OPOST; // make raw
+
+  newtio.c_cc[VMIN]  = 0;
+  newtio.c_cc[VTIME] = 0; //5;            // 0.5 seconds read timeout
+
+  tcsetattr(serial_fd, TCSANOW, &newtio);
+  if(tcsetattr(serial_fd, TCSAFLUSH, &newtio) < 0) closeWithError("init_serialport: Couldn't set term attributes");
+
+  puts(KGRN"Successful Connection"RESET);
+
+  //Aqui se crea el thread de lectura
+  err = pthread_create(&(tserial), NULL, &leerEntradaSerial, NULL);
+  if(err != 0)
+  {
+  	sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
+	closeWithError(errMsj);
+  }
+  else printf("Thread created successfully\n");
+  printf(KCYN"___________________________\n"RESET);
 }
 
 void enviarCadenaSerial(char *texto)

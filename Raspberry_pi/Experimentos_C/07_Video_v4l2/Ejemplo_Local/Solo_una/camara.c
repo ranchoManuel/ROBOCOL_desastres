@@ -10,10 +10,11 @@
 int camara_fd, type, continuar;
 struct v4l2_format format;
 struct v4l2_buffer bufferinfo;
-char* buffer_start;
+char *buffer_start;
 
 pthread_t tcamara;
 
+//Get a frame
 void* tomarCamara()
 {
 	while(continuar)
@@ -82,23 +83,9 @@ void init_camaras(int cantPuertos, int argc, char* argv[])
 
 		//Here again, think about cleaning up the area.
 		//Your frame is going to be stored in there, you don’t want garbage messing around.
-		buffer_start = mmap
-		(
-			NULL,
-			bufferinfo.length,
-			PROT_READ | PROT_WRITE,
-			MAP_SHARED,
-			camara_fd,
-			bufferinfo.m.offset
-		);
+		buffer_start = mmap(NULL, bufferinfo.length, PROT_READ | PROT_WRITE, MAP_SHARED, camara_fd, bufferinfo.m.offset);
 		if(buffer_start == MAP_FAILED) closeWithError("mmap");
 		memset(buffer_start, 0, bufferinfo.length);
-
-		//6) Get a frame
-		memset(&bufferinfo, 0, sizeof(bufferinfo));
-		bufferinfo.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-		bufferinfo.memory = V4L2_MEMORY_MMAP;
-		bufferinfo.index = 0; /* Queueing buffer index 0. */
 
 		//7) Activate streaming
 		type = bufferinfo.type;
@@ -108,14 +95,13 @@ void init_camaras(int cantPuertos, int argc, char* argv[])
 	//Aqui se crea el thread de lectura
 	continuar=true;
 	err = pthread_create(&(tcamara), NULL, &tomarCamara, NULL);
-  	if(err != 0)
-  	{
-  		sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
+  if(err != 0)
+  {
+		sprintf(errMsj,"Can't create thread:[%s]", strerror(err));
 		closeWithError(errMsj);
-  	}
-  	else printf("Thread created successfully\n");
-  	printf(KCYN"___________________________\n"RESET);
-
+  }
+  else printf("Thread created successfully\n");
+  printf(KCYN"___________________________\n"RESET);
 }
 
 void close_camara()

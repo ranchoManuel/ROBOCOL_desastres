@@ -10,7 +10,6 @@
 #define RESET "\033[0m"
 
 char buffWrite[BUFFSIZE];
-char key[]="FIN";
 
 int main(int argc, char *argv[])
 {
@@ -33,9 +32,15 @@ int main(int argc, char *argv[])
 		fgets(buffWrite, BUFFSIZE, stdin);
 		//Es necesario quitarle el ultimo caracter porque es un enter '\n'
 		buffWrite[strlen(buffWrite)-1] = '\0';
-		if(strcmp(key, buffWrite)==0) break;
-		
-		enviarCadenaSerial(buffWrite);
+		if(strcmp("FIN", buffWrite)==0) break;
+		else if(strcmp("M1", buffWrite)==0)	enviarCadenaSerial("MCA:300:0;");
+		else if(strcmp("M2", buffWrite)==0)	enviarCadenaSerial("MCA:0:300;");
+		else if(strcmp("B1", buffWrite)==0)	enviarCadenaSerial("MBR:300:0;");
+		else if(strcmp("B2", buffWrite)==0)	enviarCadenaSerial("MBR:0:300;");
+		else if(strcmp("S", buffWrite)==0)	enviarCadenaSerial("SEN;");
+		else if(strcmp("C", buffWrite)==0)	enviarCadenaSerial("CAD;");
+		else if(strcmp("L", buffWrite)==0)	enviarCadenaSerial("TGL;");
+		else if(strcmp("P", buffWrite)==0)	enviarCadenaSerial("TGB;");
 	}
 
 	cerrarSerial();
