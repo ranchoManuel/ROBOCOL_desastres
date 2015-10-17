@@ -23,7 +23,7 @@ Sources/Comunicacion.o: ../Sources/Comunicacion.c \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/WAIT1.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Cpu.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/CI2C1.h \
- C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcTemp.h \
+ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ADCs.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcLdd1.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PDD_Types.h \
@@ -60,6 +60,8 @@ Sources/Comunicacion.o: ../Sources/Comunicacion.c \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AS1.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/MAG1.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/RingBuffer.h \
+ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Rng1Gal.h \
+ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AS1.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ComGalileo.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/string.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstring \
@@ -116,7 +118,7 @@ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generate
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/CI2C1.h:
 
-C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcTemp.h:
+C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ADCs.h:
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcLdd1.h:
 
@@ -189,6 +191,10 @@ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generate
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/MAG1.h:
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/RingBuffer.h:
+
+C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Rng1Gal.h:
+
+C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AS1.h:
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ComGalileo.h:
 

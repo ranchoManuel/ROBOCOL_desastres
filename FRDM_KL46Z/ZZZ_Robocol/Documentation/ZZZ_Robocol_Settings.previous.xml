@@ -1137,7 +1137,7 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C4V" />
       <Duty_compare v="" />
       <Output_pin v="PTA7/TPM0_CH4" />
-      <Counter v="" />
+      <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1936,7 +1936,7 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C5V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
-      <Counter v="" />
+      <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -2252,13 +2252,13 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Luz" />
-      <Pin_for_I_O v="LCD_P10/PTB10/SPI1_PCS0" />
+      <Pin_for_I_O v="LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS" />
       <inhrbean type="BitIO_LDD">
         <Enabled v="Y" />
         <Template v="BitIO_LDD" />
         <Properties>
           <Component_name v="BitIoLdd1" />
-          <Pin_for_I_O v="LCD_P10/PTB10/SPI1_PCS0" />
+          <Pin_for_I_O v="LCD_P30/PTC10/I2C1_SCL/I2S0_RX_FS" />
           <Direction v="Output" />
           <group name="Initialization">
             <Init__direction v="Output" />
@@ -2315,13 +2315,13 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Buzzer" />
-      <Pin_for_I_O v="LCD_P11/PTB11/SPI1_SCK" />
+      <Pin_for_I_O v="LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0" />
       <inhrbean type="BitIO_LDD">
         <Enabled v="Y" />
         <Template v="BitIO_LDD" />
         <Properties>
           <Component_name v="BitIoLdd2" />
-          <Pin_for_I_O v="LCD_P11/PTB11/SPI1_SCK" />
+          <Pin_for_I_O v="LCD_P31/PTC11/I2C1_SDA/I2S0_RXD0" />
           <Direction v="Output" />
           <group name="Initialization">
             <Init__direction v="Output" />
@@ -2378,7 +2378,7 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Rng1Gal" />
-      <Buffer_Size v="1" />
+      <Buffer_Size v="32" />
     </Properties>
     <Methods>
       <Put v="generate code" />
@@ -2419,10 +2419,10 @@ PE_DEBUGHALT();
         <Receiver_input v="Not inverted" />
         <Break_generation_length v="10/11 bits" />
         <boolgroup name="Receiver" v="Enabled">
-          <RxD v="EXTAL0/PTA18/UART1_RX/TPM_CLKIN0" />
+          <RxD v="LCD_P49/PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL" />
         </boolgroup>
         <boolgroup name="Transmitter" v="Enabled">
-          <TxD v="XTAL0/PTA19/UART1_TX/TPM_CLKIN1/LPTMR0_ALT1" />
+          <TxD v="LCD_P48/PTE0/SPI1_MISO/UART1_TX/RTC_CLKOUT/CMP0_OUT/I2C1_SDA" />
         </boolgroup>
         <enumgroup name="Flow control" v="None">
           <EmptySection_DummyValue />

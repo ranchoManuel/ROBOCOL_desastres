@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : KL46P121M48SF4RM, Rev.2, Dec 2012
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-10-17, 17:04, # CodeGen: 45
 **     Abstract    :
 **
 **     Settings    :
@@ -61,7 +61,7 @@
 
 /* {Default RTOS Adapter} No RTOS includes */
 #include "Acelerometro.h"
-#include "AdcTemp.h"
+#include "ADCs.h"
 #include "AdcLdd1.h"
 #include "RingBuffer.h"
 #include "GI2C1.h"
@@ -287,8 +287,8 @@ void PE_low_level_init(void)
   GI2C1_Init();
   /* ### MMA8451Q "Acelerometro" init code ... */
   /* Write code here ... */
-  /* ### ADC "AdcTemp" init code ... */
-  AdcTemp_Init();
+  /* ### ADC "ADCs" init code ... */
+  ADCs_Init();
   /* ### RingBufferUInt8 "RingBuffer" init code ... */
   RingBuffer_Init();
   /* ### PWM_LDD "PwmLdd2" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */

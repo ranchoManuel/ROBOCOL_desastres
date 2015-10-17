@@ -6,10 +6,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS_QUOTED += \
+"../Generated_Code/ADCs.c" \
 "../Generated_Code/AS1.c" \
 "../Generated_Code/Acelerometro.c" \
 "../Generated_Code/AdcLdd1.c" \
-"../Generated_Code/AdcTemp.c" \
 "../Generated_Code/BateriaInput.c" \
 "../Generated_Code/BitIoLdd1.c" \
 "../Generated_Code/BitIoLdd2.c" \
@@ -47,10 +47,10 @@ C_SRCS_QUOTED += \
 "../Generated_Code/WAIT1.c" \
 
 C_SRCS += \
+../Generated_Code/ADCs.c \
 ../Generated_Code/AS1.c \
 ../Generated_Code/Acelerometro.c \
 ../Generated_Code/AdcLdd1.c \
-../Generated_Code/AdcTemp.c \
 ../Generated_Code/BateriaInput.c \
 ../Generated_Code/BitIoLdd1.c \
 ../Generated_Code/BitIoLdd2.c \
@@ -88,10 +88,10 @@ C_SRCS += \
 ../Generated_Code/WAIT1.c \
 
 OBJS += \
+./Generated_Code/ADCs.o \
 ./Generated_Code/AS1.o \
 ./Generated_Code/Acelerometro.o \
 ./Generated_Code/AdcLdd1.o \
-./Generated_Code/AdcTemp.o \
 ./Generated_Code/BateriaInput.o \
 ./Generated_Code/BitIoLdd1.o \
 ./Generated_Code/BitIoLdd2.o \
@@ -129,10 +129,10 @@ OBJS += \
 ./Generated_Code/WAIT1.o \
 
 C_DEPS += \
+./Generated_Code/ADCs.d \
 ./Generated_Code/AS1.d \
 ./Generated_Code/Acelerometro.d \
 ./Generated_Code/AdcLdd1.d \
-./Generated_Code/AdcTemp.d \
 ./Generated_Code/BateriaInput.d \
 ./Generated_Code/BitIoLdd1.d \
 ./Generated_Code/BitIoLdd2.d \
@@ -170,10 +170,10 @@ C_DEPS += \
 ./Generated_Code/WAIT1.d \
 
 OBJS_QUOTED += \
+"./Generated_Code/ADCs.o" \
 "./Generated_Code/AS1.o" \
 "./Generated_Code/Acelerometro.o" \
 "./Generated_Code/AdcLdd1.o" \
-"./Generated_Code/AdcTemp.o" \
 "./Generated_Code/BateriaInput.o" \
 "./Generated_Code/BitIoLdd1.o" \
 "./Generated_Code/BitIoLdd2.o" \
@@ -211,10 +211,10 @@ OBJS_QUOTED += \
 "./Generated_Code/WAIT1.o" \
 
 C_DEPS_QUOTED += \
+"./Generated_Code/ADCs.d" \
 "./Generated_Code/AS1.d" \
 "./Generated_Code/Acelerometro.d" \
 "./Generated_Code/AdcLdd1.d" \
-"./Generated_Code/AdcTemp.d" \
 "./Generated_Code/BateriaInput.d" \
 "./Generated_Code/BitIoLdd1.d" \
 "./Generated_Code/BitIoLdd2.d" \
@@ -252,10 +252,10 @@ C_DEPS_QUOTED += \
 "./Generated_Code/WAIT1.d" \
 
 OBJS_OS_FORMAT += \
+./Generated_Code/ADCs.o \
 ./Generated_Code/AS1.o \
 ./Generated_Code/Acelerometro.o \
 ./Generated_Code/AdcLdd1.o \
-./Generated_Code/AdcTemp.o \
 ./Generated_Code/BateriaInput.o \
 ./Generated_Code/BitIoLdd1.o \
 ./Generated_Code/BitIoLdd2.o \
@@ -294,9 +294,17 @@ OBJS_OS_FORMAT += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Generated_Code/AS1.o: ../Generated_Code/AS1.c
+Generated_Code/ADCs.o: ../Generated_Code/ADCs.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #9 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/ADCs.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/ADCs.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Generated_Code/AS1.o: ../Generated_Code/AS1.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #10 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/AS1.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/AS1.o"
 	@echo 'Finished building: $<'
@@ -304,7 +312,7 @@ Generated_Code/AS1.o: ../Generated_Code/AS1.c
 
 Generated_Code/Acelerometro.o: ../Generated_Code/Acelerometro.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #10 $<'
+	@echo 'Executing target #11 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/Acelerometro.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/Acelerometro.o"
 	@echo 'Finished building: $<'
@@ -312,17 +320,9 @@ Generated_Code/Acelerometro.o: ../Generated_Code/Acelerometro.c
 
 Generated_Code/AdcLdd1.o: ../Generated_Code/AdcLdd1.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #11 $<'
-	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/AdcLdd1.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/AdcLdd1.o"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-Generated_Code/AdcTemp.o: ../Generated_Code/AdcTemp.c
-	@echo 'Building file: $<'
 	@echo 'Executing target #12 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/AdcTemp.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/AdcTemp.o"
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Generated_Code/AdcLdd1.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Generated_Code/AdcLdd1.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 

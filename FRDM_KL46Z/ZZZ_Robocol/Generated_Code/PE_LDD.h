@@ -5,7 +5,7 @@
 **     Processor   : MKL46Z256VLL4
 **     Version     : Component 01.003, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-10-17, 17:04, # CodeGen: 45
 **     Abstract    :
 **
 **     Settings    :
@@ -61,7 +61,7 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "Acelerometro.h"
-#include "AdcTemp.h"
+#include "ADCs.h"
 #include "AdcLdd1.h"
 #include "RingBuffer.h"
 #include "GI2C1.h"
