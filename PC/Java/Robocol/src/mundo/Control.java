@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class Control
 {
-	//{"Mensaje.Orugas","Mensaje.Brazos","Mensaje.SensoresADC","Mensaje.Acel_Magn","Mensaje.Acel_Continuo","Mensaje.Acel_end","Mensaje.Acel_ter","Mensaje.Toggle_Luz","Mensaje.Toggle_Buzzer"};
-	private static final String[] COMANDOS={"MCA:","MBR:","SEN;","CAD;","ZAR;","END;","TER;","TGL;","TGB;"};
+	//{"Orugas","Brazos","SensoresADC","Acel_Magn","Acel_Continuo","Acel_end","Acel_ter","Toggle_Luz","Toggle_Buzzer"};
+	// "MCA:"  ,"MBR:"	,"SEN;"		  ,"CAD;"	  ,"ZAR;"		  ,"END;"	 ,"TER;"	,"TGL;"		 ,"TGB;"};
 
-	//{"Tecla.Up","Tecla.Down","Tecla.Left","Tecla.Rigth","Tecla.Up_br","Tecla.Down_br","Tecla_b1","Tecla_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"};
-	private static final char[] letras={'w','s','a','d','t','g','y','h','o','p','z','x','c','n','m'};
+	//{"Up","Down","Left","Right","Up_br1","Down_br1","Up_br2","Down_br2","Acel_Continuo","Acel_End","Acel_Ter","Toggle_Luz","Toggle_Buzzer", "Stop"};
+	private static final char[] letras={'w','s','a','d','t','g','y','h','z','x','c','n','m','e'};
 
 	private static final int MAX_PARAMETROS = 6;
 
@@ -19,16 +19,16 @@ public class Control
 	private InterfazPrincipal interfaz;
 	private Thread_CAD_SEN thread_CAD_SEN;
 
+	protected boolean lockMCA, lockMBR, lockSEN, lockCAD, lockTGL, lockTGB;
 	private int m1,m2,b1,b2;
-	private StringBuilder sb;
 	private char[] cadena;
 	private double[] parametros=new double[MAX_PARAMETROS];
 
 	public Control(InterfazPrincipal ventana, boolean comunicacionPorSocket, Properties propiedades) throws IOException
 	{
-		m2=m1=0;//
+		lockMCA=lockMBR=lockSEN=lockCAD=lockTGL=lockTGB=false;
+		m2=m1=b1=b2=0;
 		interfaz=ventana;
-		sb=new StringBuilder();
 
 		if(comunicacionPorSocket)
 		{
@@ -60,8 +60,14 @@ public class Control
 	{
 		cadena=mensajeDelOtro.toCharArray();
 		boolean mostrar=false;
+		if(mensajeDelOtro.length()<3) return;
 		if(cadena[0]=='O' && cadena[1]=='K' && cadena[2]==';') //OK;
+		{
+			lockMCA=lockMBR=lockTGB=lockTGL=false;
 			mostrar=true;
+		}
+
+		if(mensajeDelOtro.length()<4) return;
 		else if(cadena[0]=='E' && cadena[1]=='R' && cadena[2]=='R' && cadena[3]==';') //ERR;
 			mostrar=true;
 		else if(cadena[0]=='S' && cadena[1]=='E' && cadena[2]=='N') //SEN
@@ -73,14 +79,12 @@ public class Control
 		else if(cadena[0]=='C' && cadena[1]=='A' && cadena[2]=='D') //CAD
 		{
 			mostrar=true;
-			agarrarParamerosEnMensaje(6);
-			interfaz.Graficar_CAD(parametros);
+			if(agarrarParamerosEnMensaje(6)) interfaz.Graficar_CAD(parametros);
 		}
 		else if(cadena[0]=='A' && cadena[1]=='C' && cadena[2]=='E') //ACE
 		{
 			mostrar=true;
-			agarrarParamerosEnMensaje(3);
-			interfaz.Graficar_ACE(parametros);
+			if(agarrarParamerosEnMensaje(3)) interfaz.Graficar_ACE(parametros);
 		}
 
 		//Le presento al usuario lo que estoy reciviendo
@@ -95,8 +99,9 @@ public class Control
 			interfaz.displayInfoRecibida(mensajeDelOtro);
 	}
 
-	private void agarrarParamerosEnMensaje(int numParametros)
+	private boolean agarrarParamerosEnMensaje(int numParametros)
 	{
+		int numLeidos=0;
 		int num=0, j=numParametros-1, pot=1;
 		//Se usa i>2 por que se quieren ignorar las 3 primeras letras
 		for(int i=cadena.length-1; i>2 && j>=0; i--)
@@ -109,59 +114,58 @@ public class Control
 			}
 			else if(cadena[i]==':')
 			{
+				numLeidos++;
 				parametros[j--]=num;
 				num=0;
 				pot=1;
 			}
 			//Ignora los espacios y el ';' del final
-		}		
+		}
+
+		return numLeidos==numParametros;
 	}
 
 	public void enviarOrden(char c)
 	{
-		//","","","","","","","Tecla_b2","Tecla.SensoresADC","Tecla.Acel_Magn","Tecla.Acel_Continuo","Tecla.Acel_End","Tecla.Acel_Ter","Tecla.Toggle_Luz","Tecla.Toggle_Buzzer"}
-		//Resetear el buffer del string
-		sb.setLength(0);
 		//Para ajustar el movimiento del carros.
-		if(c==letras[0] && m1<255 && m2<255) {m1+=150; m2+=150;}//Tecla.Up
-		else if(c==letras[1] && m1>-255 && m2>-255) {m1-=150; m2-=150;} //Tecla.Down
-		else if(c==letras[2] && m1<255 && m2>-255) {m1+=150; m2-=150;} //Tecla.Left
-		else if(c==letras[3] && m1>-255 && m2<255) {m1-=150; m2+=150;} //Tecla.Rigth
+		if(c==letras[0]) {m1=300; m2=300;}			//Up
+		else if(c==letras[1]) {m1=-300; m2=-300;}	//Down
+		else if(c==letras[2]) {m1=300; m2=-300;} 	//Left
+		else if(c==letras[3]) {m1=-300; m2=300;} 	//Rigth
 
 		//Para ajustar el movimiento de los brazos.
-		else if(c==letras[4]); //Tecla.Up_br
-		else if(c==letras[5]); //Tecla.Down_br
-		else if(c==letras[6]); //Tecla_b1
-		else if(c==letras[7]); //Tecla_b2
+		else if(c==letras[4]) {b1=300;}		//Up_br1
+		else if(c==letras[5]) {b1=-300;}		//Down_br1
+		else if(c==letras[6]) {b2=300;}		//Up_br2
+		else if(c==letras[7]) {b2=-300;}		//Down_br2
 
 		//Para preparar el mensaje
-		for(int i=0; i<letras.length; i++)
+		ciclo: for(int i=0; i<letras.length; i++)
 		{
-			if(c==letras[i] && i>=0 && i<4)
+			if(c==letras[i])
 			{
-				//MCA:#:#;
-				sb.append(COMANDOS[0]+m1+":"+m2+";");
-				break;
+				if(i>=0 && i<4)
+				{
+					//MCA:#:#;
+					if(!lockMCA) lockMCA=true;
+					break ciclo;
+				}
+				else if(i>=4 && i<8)
+				{
+					//MBR:#:#;
+					if(!lockMBR) lockMBR=true;
+					break ciclo;
+				}
+				else if(i>=8)
+				{
+					//  8;   9;   10;    11;   12;
+					//ZAR;  END;  TER;  TGL;  TGB;
+					if(i==11 && !lockTGL) lockTGL=true;
+					else if(i==12 && !lockTGB) lockTGB=true;
+					else if(i==letras.length-1) {pararMotores(); return;} //Freno para el operario
+					break ciclo;
+				}
 			}
-			else if(c==letras[i] && i>=4 && i<8)
-			{
-				//MBR:#:#;
-				sb.append(COMANDOS[1]+":"+0+":"+0+";");
-				break;
-			}
-			else if(c==letras[i] && i>=8)
-			{
-				//SEN;  CAD;  ZAR;  END;  TER;  TGL;  TGB;
-				sb.append(COMANDOS[i-6]);
-				break;
-			}
-		}
-
-		//Para enviar
-		if(sb.length()>0) 
-		{
-			comunicacion.enviarLinea(sb.toString());
-			interfaz.displayInfoEnviada(sb.toString());
 		}
 	}
 
@@ -175,5 +179,40 @@ public class Control
 	{
 		comunicacion.enviarLinea("SEN;");
 		interfaz.displayInfoEnviada("SEN;");
+	}
+
+	public void pararMotores()
+	{
+		m1=m2=0;
+		comunicacion.enviarLinea("MCA:0:0;");
+		interfaz.displayInfoEnviada("MCA:0:0;");
+	}
+
+	public void pararBrazos()
+	{
+		b1=b2=0;
+		comunicacion.enviarLinea("MBR:0:0;");
+		interfaz.displayInfoEnviada("MBR:0:0;");
+	}
+
+	public void moverCarro()
+	{
+		comunicacion.enviarLinea("MCA:"+m1+":"+m2+";");
+		interfaz.displayInfoEnviada("MCA:"+m1+":"+m2+";");
+	}
+	public void moverBrazos()
+	{
+		comunicacion.enviarLinea("MBR:"+b1+":"+b2+";");
+		interfaz.displayInfoEnviada("MBR:"+b1+":"+b2+";");
+	}
+	public void toggleBuzzer()
+	{
+		comunicacion.enviarLinea("TGB;");
+		interfaz.displayInfoEnviada("TGB;");
+	}
+	public void toggleLuz()
+	{
+		comunicacion.enviarLinea("TGL;");
+		interfaz.displayInfoEnviada("TGL;");
 	}
 }

@@ -6,7 +6,7 @@
 **     Component   : PWM
 **     Version     : Component 02.240, Driver 01.01, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-13, 14:55, # CodeGen: 37
+**     Date/Time   : 2015-10-17, 14:59, # CodeGen: 41
 **     Abstract    :
 **         This component implements a pulse-width modulation generator
 **         that generates signal with variable duty and fixed cycle. 
@@ -18,6 +18,11 @@
 **                       41            |  PTA7/TPM0_CH4
 **             ----------------------------------------------------
 **
+**         Timer name                  : TPM0_CNT [16-bit]
+**         Counter                     : TPM0_CNT  [0x40038004]
+**         Mode register               : TPM0_SC   [0x40038000]
+**         Run register                : TPM0_SC   [0x40038000]
+**         Prescaler                   : TPM0_SC   [0x40038000]
 **         Compare register            : TPM0_C4V  [0x40038030]
 **         Flip-flop register          : TPM0_C4SC [0x4003802C]
 **

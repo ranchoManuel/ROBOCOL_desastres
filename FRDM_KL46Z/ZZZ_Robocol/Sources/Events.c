@@ -107,9 +107,9 @@ void ComGalileo_OnBlockSent(LDD_TUserData *UserDataPtr)
 
 /*
 ** ===================================================================
-**     Event       :  AdcTemp_OnEnd (module Events)
+**     Event       :  ADCs_OnEnd (module Events)
 **
-**     Component   :  AdcTemp [ADC]
+**     Component   :  ADCs [ADC]
 **     Description :
 **         This event is called after the measurement (which consists
 **         of <1 or more conversions>) is/are finished.
@@ -119,16 +119,16 @@ void ComGalileo_OnBlockSent(LDD_TUserData *UserDataPtr)
 **     Returns     : Nothing
 ** ===================================================================
 */
-void AdcTemp_OnEnd(void)
+void ADCs_OnEnd(void)
 {
   /* Write your code here ... */
 }
 
 /*
 ** ===================================================================
-**     Event       :  AdcTemp_OnCalibrationEnd (module Events)
+**     Event       :  ADCs_OnCalibrationEnd (module Events)
 **
-**     Component   :  AdcTemp [ADC]
+**     Component   :  ADCs [ADC]
 **     Description :
 **         This event is called when the calibration has been finished.
 **         User should check if the calibration pass or fail by
@@ -138,7 +138,7 @@ void AdcTemp_OnEnd(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
-void AdcTemp_OnCalibrationEnd(void)
+void ADCs_OnCalibrationEnd(void)
 {
   /* Write your code here ... */
 }
@@ -162,6 +162,10 @@ void AdcTemp_OnCalibrationEnd(void)
 void AS1_OnBlockReceived(LDD_TUserData *UserDataPtr)
 {
   /* Write your code here ... */
+	UART_Desc *ptr = (UART_Desc*)UserDataPtr;
+	 
+	  (void)ptr->rxPutFct(ptr->rxChar); /* but received character into buffer */
+	  (void)AS1_ReceiveBlock(ptr->handle, (LDD_TData *)&ptr->rxChar, sizeof(ptr->rxChar));
 }
 
 /*
@@ -183,6 +187,10 @@ void AS1_OnBlockReceived(LDD_TUserData *UserDataPtr)
 void AS1_OnBlockSent(LDD_TUserData *UserDataPtr)
 {
   /* Write your code here ... */
+	UART_Desc *ptr = (UART_Desc*)UserDataPtr;
+		 
+	ptr->isSent = TRUE; /* set flag so sender knows we have finished */
+
 }
 
 /* END Events */

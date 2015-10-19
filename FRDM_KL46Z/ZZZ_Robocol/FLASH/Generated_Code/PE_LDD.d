@@ -16,7 +16,7 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/iofiles/MKL46Z4.h \
  ../Generated_Code/GI2C1.h ../Generated_Code/WAIT1.h \
  ../Generated_Code/Cpu.h ../Generated_Code/CI2C1.h \
- ../Generated_Code/AdcTemp.h ../Generated_Code/AdcLdd1.h \
+ ../Generated_Code/ADCs.h ../Generated_Code/AdcLdd1.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PDD_Types.h \
  ../Generated_Code/RingBuffer.h ../Generated_Code/ComGalileo.h \
@@ -82,7 +82,7 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/iofiles/MKL46Z4.h:
 
 ../Generated_Code/CI2C1.h:
 
-../Generated_Code/AdcTemp.h:
+../Generated_Code/ADCs.h:
 
 ../Generated_Code/AdcLdd1.h:
 

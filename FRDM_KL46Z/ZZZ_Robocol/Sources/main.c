@@ -33,7 +33,7 @@
 #include "GI2C1.h"
 #include "WAIT1.h"
 #include "CI2C1.h"
-#include "AdcTemp.h"
+#include "ADCs.h"
 #include "AdcLdd1.h"
 #include "RingBuffer.h"
 #include "ComGalileo.h"
@@ -90,12 +90,16 @@
 #define TGL 8
 #define TGB 9
 
+#define CH_TEMP 0
+#define CH_HUME 1
+#define CH_DIST 2
+
 int param1, param2, zar=0, end=0, ter=0;
 
 void agarrar_parametros(char* instr)
 {
 	param1=param2=0;
-	
+
 	int i, paramsPorHacer=2, pot=1;
 	for(i=strlen(instr)-1; i>=0 && paramsPorHacer>0; i--)
 	{
@@ -175,7 +179,8 @@ int main(void)
 
 	//1) Init Drivers
 	initComunicacion();
-	mandarCadena("---------ON---------");
+	mandarCadena("---------ON---------", 0);
+	mandarCadena("---------ON---------", 1);
 	Acelerometro_Enable();
 	Acelerometro_CalibrateX1g();
 	Acelerometro_CalibrateY1g();
@@ -191,9 +196,9 @@ int main(void)
 	for(;;)
 	{
 		//Cosas de procesar instrucciones
-		if(RingBuffer_NofElements()!=0)//Hay cosas por leer
+		if(RingBuffer_NofElements()!=0)//Hay cosas por leer desde la raspberry
 		{
-
+			//2) Leer mensaje
 			for(i=0; RingBuffer_NofElements()!=0 && i<32; i++)
 			{
 				(void)RingBuffer_Get(&ch); 
@@ -202,23 +207,23 @@ int main(void)
 			}
 			instruccion[i]='\0'; 
 
-			//2) Leer mensaje
-
 			//3) Interpretar Mensaje
 			etiqueta=interpretarEtiqueta(instruccion);
 
 			switch(etiqueta)
 			{
-			case ADC: //Pide datos de humedad, temperatura, y distancia
+			case ADC: //Pide datos de temperatura, humedad, y distancia
 				//5.1) Leer sensores
-				//ADC 
-				AdcTemp_MeasureChan(TRUE, 0);
-				AdcTemp_GetChanValue(0, &temperatura);
+				//ADC
+				ADCs_Measure(TRUE);
+				ADCs_GetChanValue(CH_TEMP, &temperatura);
+				ADCs_GetChanValue(CH_HUME, &humedad);
+				ADCs_GetChanValue(CH_DIST, &distancia);
 
 				//5.2) Construir Respuesta ... 5.3) Enviar
 				//Rta esperada "SEN:hum:tem:dis;"
-				sprintf(buffer, "SEN:%5d:%5d:%5d;", humedad, temperatura, distancia);
-				mandarCadena(buffer);
+				sprintf(buffer, "SEN:%5d:%5d:%5d;", temperatura, humedad, distancia);
+				mandarCadena(buffer, 0);
 
 				break;
 			case CAD: //Pide datos para pintar CAD (Acelerómetro)
@@ -235,7 +240,7 @@ int main(void)
 				//Rta esperada "CAD:acx:acy:acz:mAx:mAy:mAz;"
 				sprintf(buffer, "CAD:%5d:%5d:%5d:%5d:%5d:%5d;",xAccel, yAccel, zAccel,
 						magX ,magY ,magZ);
-				mandarCadena(buffer);
+				mandarCadena(buffer, 0);
 
 				break;
 			case ZAR: //Inicio de envío continuo de acelerómetro
@@ -248,38 +253,54 @@ int main(void)
 				break;
 			case TER: //Termina envío continuo de acelerómetro cortando de una
 				ter=1;
-				mandarCadena("OK;");
+				mandarCadena("OK;", 0);
 
 				break;
 			case MCA: //Cambia valor de los PWM de las orugas [Derecha, Izquierda], por los valores dados por parámetro
 				//5.2) Cambiar estado Orugas
 				moverOrugas(param1, param2);
-				mandarCadena("OK;");
+				mandarCadena("OK;", 0);
 
 				break;
 			case MBR: //Cambia valor de los PWM de los brazos [Front, Back], por los valores dados por parámetro
 				//5.2) Cambiar estado Brazos
 				moverBrazos(param1, param2);
-				mandarCadena("OK;");
+				mandarCadena("OK;", 0);
 
 				break;
 			case TGL: //Enciende/apaga luces
 				//5.2) Cambiar estado de Luz
 				toogleIluminacion();
-				mandarCadena("OK;");
+				mandarCadena("OK;", 0);
 
 				break;
 			case TGB: //Enciende/apaga buzzer
 				//5.2) Cambiar estado de Buzzer
 				toggleBuzzer();
-				mandarCadena("OK;");
+				mandarCadena("OK;", 0);
 
 				break;
 			default:
-				mandarCadena("ERR;");
+				mandarCadena("ERR;", 0);
 				break;
 			}
 		}
+
+		if(Rng1Gal_NofElements()!=0)//Hay cosas por leer desde el sensor
+		{
+			for(i=0; Rng1Gal_NofElements()!=0 && i<32; i++)
+			{
+				(void)Rng1Gal_Get(&ch); 
+				instruccion[i]=ch;
+				WAIT1_Waitms(1); 
+			}
+			instruccion[i]='\0';
+
+			//Lo que llegue por aqui en "instruccion" es lo que se lee del sensor
+			//lo voy a devolver como un echo
+			mandarCadena(instruccion, 0);
+		}
+
 		//Cosas del envio continuo
 		if(ter==1) zar=end=ter=0;
 		if(zar==1)
@@ -293,21 +314,21 @@ int main(void)
 			//5.2) Construir Respuesta ... 5.3) Enviar
 			//Rta esperada "ACE:acx:acy:acz;"
 			sprintf(buffer, "ACE:%5d:%5d:%5d;", xAccel, yAccel, zAccel);
-			mandarCadena(buffer);
+			mandarCadena(buffer, 0);
 
 		}
 		if(end==1) zar=end=ter=0; 
 	}
 
 	/*** Don't write any code pass this line, or it will be deleted during code generation. ***/
-	/*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
-#ifdef PEX_RTOS_START
-	PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
-#endif
-	/*** End of RTOS startup code.  ***/
-	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-	for(;;){}
-	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+  /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+  #ifdef PEX_RTOS_START
+    PEX_RTOS_START();                  /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+  #endif
+  /*** End of RTOS startup code.  ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;){}
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */

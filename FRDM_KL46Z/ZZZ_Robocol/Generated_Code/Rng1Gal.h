@@ -6,7 +6,7 @@
 **     Component   : RingBufferUInt8
 **     Version     : Component 01.003, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-10-17, 15:12, # CodeGen: 42
 **     Abstract    :
 **
 **     Settings    :
@@ -52,7 +52,7 @@
 #include "Cpu.h"
 
 
-#define Rng1Gal_BUF_SIZE   1  /* number of elements in the buffer */
+#define Rng1Gal_BUF_SIZE   32  /* number of elements in the buffer */
 
 
 byte Rng1Gal_Put(byte elem);

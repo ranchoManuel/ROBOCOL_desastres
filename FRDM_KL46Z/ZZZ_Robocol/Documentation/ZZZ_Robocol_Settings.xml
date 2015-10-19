@@ -410,10 +410,10 @@ PE_DEBUGHALT();
       <event name="OnError" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
-  <Bean name="AdcTemp" type="ADC">
+  <Bean name="ADCs" type="ADC">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="AdcTemp" />
+      <Component_name v="ADCs" />
       <A_D_converter v="ADC0" />
       <Sharing v="Disabled" />
       <inhrbean type="ADC_LDD">
@@ -428,11 +428,25 @@ PE_DEBUGHALT();
             <A_D_interrupt_priority v="medium priority" />
           </boolgroup>
           <boolgroup name="DMA" v="Disabled" />
-          <list name="A/D channel list" v="1">
+          <list name="A/D channel list" v="3">
             <group name="Channel 0">
               <enumgroup name="Channel mode" v="Single Ended">
                 <group name="Input">
                   <A_D_channel__pin_ v="ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX" />
+                </group>
+              </enumgroup>
+            </group>
+            <group name="Channel 1">
+              <enumgroup name="Channel mode" v="Single Ended">
+                <group name="Input">
+                  <A_D_channel__pin_ v="LCD_P59/ADC0_DP0/ADC0_SE0/PTE20/TPM1_CH0/UART0_TX" />
+                </group>
+              </enumgroup>
+            </group>
+            <group name="Channel 2">
+              <enumgroup name="Channel mode" v="Single Ended">
+                <group name="Input">
+                  <A_D_channel__pin_ v="LCD_P60/ADC0_DM0/ADC0_SE4a/PTE21/TPM1_CH1/UART0_RX" />
                 </group>
               </enumgroup>
             </group>
@@ -444,12 +458,12 @@ PE_DEBUGHALT();
           <Asynchro_clock_output v="Disabled" />
           <Sample_time v="4 clock periods" />
           <Number_of_conversions v="1" />
-          <Conversion_time v="0.810623 &amp;#181;s" />
-          <ADC_clock v="20.971 MHz (47.684 ns)" />
-          <Single_conversion_time___Single_ended v="1.287 us" />
-          <Single_conversion_time___Differential v="1.764 us" />
-          <Additional_conversion_time___Single_ended v="0.81 us" />
-          <Additional_conversion_time___Differential v="1.287 us" />
+          <Conversion_time v="13.076923 &amp;#181;s" />
+          <ADC_clock v="1.31 MHz (762.939 ns)" />
+          <Single_conversion_time___Single_ended v="17.023 us" />
+          <Single_conversion_time___Differential v="24.652 us" />
+          <Additional_conversion_time___Single_ended v="12.969 us" />
+          <Additional_conversion_time___Differential v="20.599 us" />
           <Result_type v="unsigned 8 bits, right justified" />
           <boolgroup name="Trigger" v="Disabled" />
           <group name="Voltage reference">
@@ -522,14 +536,22 @@ PE_DEBUGHALT();
         <A_D_interrupt v="INT_ADC0" />
         <A_D_interrupt_priority v="medium priority" />
       </boolgroup>
-      <list name="A/D channels" v="1">
+      <list name="A/D channels" v="3">
         <group name="Channel0">
           <A_D_channel__pin_ v="ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX" />
           <boolgroup name="Mode select" v="Single Ended" />
         </group>
+        <group name="Channel1">
+          <A_D_channel__pin_ v="LCD_P59/ADC0_DP0/ADC0_SE0/PTE20/TPM1_CH0/UART0_TX" />
+          <boolgroup name="Mode select" v="Single Ended" />
+        </group>
+        <group name="Channel2">
+          <A_D_channel__pin_ v="LCD_P60/ADC0_DM0/ADC0_SE4a/PTE21/TPM1_CH1/UART0_RX" />
+          <boolgroup name="Mode select" v="Single Ended" />
+        </group>
       </list>
       <A_D_resolution v="8 bits" />
-      <Conversion_time v="0.810623 &amp;#181;s" />
+      <Conversion_time v="13.076923 &amp;#181;s" />
       <Low_power_mode v="Disabled" />
       <High_speed_conversion_mode v="Disabled" />
       <Asynchro_clock_output v="Disabled" />
@@ -577,11 +599,11 @@ PE_DEBUGHALT();
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
       <event name="OnEnd" v="generate code">
-        <Event_procedure_name v="AdcTemp_OnEnd" />
+        <Event_procedure_name v="ADCs_OnEnd" />
         <Priority v="same as interrupt" />
       </event>
       <event name="OnCalibrationEnd" v="generate code">
-        <Event_procedure_name v="AdcTemp_OnCalibrationEnd" />
+        <Event_procedure_name v="ADCs_OnCalibrationEnd" />
         <Priority v="same as interrupt" />
       </event>
     </Events>
@@ -1137,7 +1159,7 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C4V" />
       <Duty_compare v="" />
       <Output_pin v="PTA7/TPM0_CH4" />
-      <Counter v="" />
+      <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -1936,7 +1958,7 @@ PE_DEBUGHALT();
       <PWM_or_PPG_device v="TPM0_C5V" />
       <Duty_compare v="" />
       <Output_pin v="LCD_P29/CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5/I2S0_RX_BCLK" />
-      <Counter v="" />
+      <Counter v="TPM0_CNT" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
       <Period v="40 &amp;#181;s" />
       <Starting_pulse_width v="40 &amp;#181;s" />
@@ -2378,7 +2400,7 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Rng1Gal" />
-      <Buffer_Size v="1" />
+      <Buffer_Size v="32" />
     </Properties>
     <Methods>
       <Put v="generate code" />
@@ -2419,10 +2441,10 @@ PE_DEBUGHALT();
         <Receiver_input v="Not inverted" />
         <Break_generation_length v="10/11 bits" />
         <boolgroup name="Receiver" v="Enabled">
-          <RxD v="EXTAL0/PTA18/UART1_RX/TPM_CLKIN0" />
+          <RxD v="LCD_P49/PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL" />
         </boolgroup>
         <boolgroup name="Transmitter" v="Enabled">
-          <TxD v="XTAL0/PTA19/UART1_TX/TPM_CLKIN1/LPTMR0_ALT1" />
+          <TxD v="LCD_P48/PTE0/SPI1_MISO/UART1_TX/RTC_CLKOUT/CMP0_OUT/I2C1_SDA" />
         </boolgroup>
         <enumgroup name="Flow control" v="None">
           <EmptySection_DummyValue />

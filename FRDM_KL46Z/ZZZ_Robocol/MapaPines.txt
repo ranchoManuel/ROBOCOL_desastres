@@ -20,11 +20,17 @@ BrazoPostForwardPWM		PTC4
 BrazoPostBackwardPWM	PTA5
 
 Pines ADC 
-AdcTemp					PTE22
+ADCs(temp)				PTE22
+ADCs(hum)				PTE20
+ADCs(dist)				PTE21
 
 Pines Comunicacion (UART0)
 ComGalileo - Rx			PTA1
 ComGalileo - Tx			PTA2
+
+Pines Comunicacion (UART1)
+AS1 - Rx				PTE1
+AS1 - Tx				PTE0
 
 Pines Acelerometro
 Acelerometro - SDA		PTE25

@@ -6,7 +6,7 @@
 **     Component   : ADC_LDD
 **     Version     : Component 01.183, Driver 01.08, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2015-06-12, 18:39, # CodeGen: 34
+**     Date/Time   : 2015-10-17, 17:04, # CodeGen: 45
 **     Abstract    :
 **         This device "ADC_LDD" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -18,11 +18,21 @@
 **            A/D interrupt                                : INT_ADC0
 **            A/D interrupt priority                       : medium priority
 **          DMA                                            : Disabled
-**          A/D channel list                               : 1
+**          A/D channel list                               : 3
 **            Channel 0                                    : 
 **              Channel mode                               : Single Ended
 **                Input                                    : 
 **                  A/D channel (pin)                      : ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX
+**                  A/D channel (pin) signal               : 
+**            Channel 1                                    : 
+**              Channel mode                               : Single Ended
+**                Input                                    : 
+**                  A/D channel (pin)                      : LCD_P59/ADC0_DP0/ADC0_SE0/PTE20/TPM1_CH0/UART0_TX
+**                  A/D channel (pin) signal               : 
+**            Channel 2                                    : 
+**              Channel mode                               : Single Ended
+**                Input                                    : 
+**                  A/D channel (pin)                      : LCD_P60/ADC0_DM0/ADC0_SE4a/PTE21/TPM1_CH1/UART0_RX
 **                  A/D channel (pin) signal               : 
 **          Static sample groups                           : Disabled
 **          A/D resolution                                 : 8 bits
@@ -31,12 +41,12 @@
 **          Asynchro clock output                          : Disabled
 **          Sample time                                    : 4 clock periods
 **          Number of conversions                          : 1
-**          Conversion time                                : 0.810623 µs
-**          ADC clock                                      : 20.971 MHz (47.684 ns)
-**          Single conversion time - Single-ended          : 1.287 us
-**          Single conversion time - Differential          : 1.764 us
-**          Additional conversion time - Single-ended      : 0.81 us
-**          Additional conversion time - Differential      : 1.287 us
+**          Conversion time                                : 13.076923 µs
+**          ADC clock                                      : 1.31 MHz (762.939 ns)
+**          Single conversion time - Single-ended          : 17.023 us
+**          Single conversion time - Differential          : 24.652 us
+**          Additional conversion time - Single-ended      : 12.969 us
+**          Additional conversion time - Differential      : 20.599 us
 **          Result type                                    : unsigned 8 bits, right justified
 **          Trigger                                        : Disabled
 **          Voltage reference                              : 
@@ -116,7 +126,7 @@
 
 /* MODULE AdcLdd1. */
 
-#include "AdcTemp.h"
+#include "ADCs.h"
 #include "AdcLdd1.h"
 /* {Default RTOS Adapter} No RTOS includes */
 
@@ -124,14 +134,18 @@
 extern "C" { 
 #endif
 
-#define AdcLdd1_AVAILABLE_CHANNEL0_31_PIN_MASK (LDD_ADC_CHANNEL_0_PIN) /*!< Mask of all allocated channel pins from 0 to 31 */
+#define AdcLdd1_AVAILABLE_CHANNEL0_31_PIN_MASK (LDD_ADC_CHANNEL_0_PIN | LDD_ADC_CHANNEL_1_PIN | LDD_ADC_CHANNEL_2_PIN) /*!< Mask of all allocated channel pins from 0 to 31 */
 #define AdcLdd1_AVAILABLE_CHANNEL32_63_PIN_MASK 0x00U /*!< Mask of all allocated channel pins from 32 to 63 */
 #define AdcLdd1_AVAILABLE_TRIGGER_PIN_MASK 0x00U /*!< Mask of all allocated trigger pins */
 #define AdcLdd1_AVAILABLE_VOLT_REF_PIN_MASK (LDD_ADC_LOW_VOLT_REF_PIN | LDD_ADC_HIGH_VOLT_REF_PIN) /*!< Mask of all allocated voltage reference pins */
 
 static const uint8_t ChannelToPin[] = { /* Channel to pin conversion table */
   /* ADC0_SC1A: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,COCO=0,AIEN=1,DIFF=0,ADCH=3 */
-  0x43U                                /* Status and control register value */
+  0x43U,                               /* Status and control register value */
+  /* ADC0_SC1A: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,COCO=0,AIEN=1,DIFF=0,ADCH=0 */
+  0x40U,                               /* Status and control register value */
+  /* ADC0_SC1A: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,COCO=0,AIEN=1,DIFF=0,ADCH=4 */
+  0x44U                                /* Status and control register value */
 };
 
 typedef struct {
@@ -196,10 +210,16 @@ LDD_TDeviceData* AdcLdd1_Init(LDD_TUserData *UserDataPtr)
   NVIC_ISER |= NVIC_ISER_SETENA(0x8000);
   /* PORTE_PCR22: ISF=0,MUX=0 */
   PORTE_PCR22 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));
-  /* ADC0_CFG1: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADLPC=0,ADIV=0,ADLSMP=0,MODE=0,ADICLK=0 */
-  ADC0_CFG1 = ADC_CFG1_ADIV(0x00) |
+  /* PORTE_PCR20: ISF=0,MUX=0 */
+  PORTE_PCR20 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));
+  /* PORTE_PCR21: ISF=0,MUX=0 */
+  PORTE_PCR21 &= (uint32_t)~(uint32_t)((PORT_PCR_ISF_MASK | PORT_PCR_MUX(0x07)));
+  /* ADC0_CFG2: MUXSEL=0 */
+  ADC0_CFG2 &= (uint32_t)~(uint32_t)(ADC_CFG2_MUXSEL_MASK);
+  /* ADC0_CFG1: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,ADLPC=0,ADIV=3,ADLSMP=0,MODE=0,ADICLK=1 */
+  ADC0_CFG1 = ADC_CFG1_ADIV(0x03) |
               ADC_CFG1_MODE(0x00) |
-              ADC_CFG1_ADICLK(0x00);
+              ADC_CFG1_ADICLK(0x01);
   /* ADC0_CFG2: MUXSEL=0,ADACKEN=0,ADHSC=0,ADLSTS=0 */
   ADC0_CFG2 &= (uint32_t)~(uint32_t)(
                 ADC_CFG2_MUXSEL_MASK |

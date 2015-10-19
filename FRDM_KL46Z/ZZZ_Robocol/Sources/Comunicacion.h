@@ -20,6 +20,6 @@ typedef struct {
  
 void initComunicacion(void);
 
-void mandarCadena(char* str);
+void mandarCadena(char* str, int aQuien);
  
 #endif /* COMUNICACION_H_ */

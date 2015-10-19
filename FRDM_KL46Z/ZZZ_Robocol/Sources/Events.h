@@ -35,7 +35,7 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "Acelerometro.h"
-#include "AdcTemp.h"
+#include "ADCs.h"
 #include "AdcLdd1.h"
 #include "ComGalileo.h"
 #include "TU2.h"
@@ -127,12 +127,12 @@ void ComGalileo_OnBlockReceived(LDD_TUserData *UserDataPtr);
 /* ===================================================================*/
 void ComGalileo_OnBlockSent(LDD_TUserData *UserDataPtr);
 
-void AdcTemp_OnEnd(void);
+void ADCs_OnEnd(void);
 /*
 ** ===================================================================
-**     Event       :  AdcTemp_OnEnd (module Events)
+**     Event       :  ADCs_OnEnd (module Events)
 **
-**     Component   :  AdcTemp [ADC]
+**     Component   :  ADCs [ADC]
 **     Description :
 **         This event is called after the measurement (which consists
 **         of <1 or more conversions>) is/are finished.
@@ -143,12 +143,12 @@ void AdcTemp_OnEnd(void);
 ** ===================================================================
 */
 
-void AdcTemp_OnCalibrationEnd(void);
+void ADCs_OnCalibrationEnd(void);
 /*
 ** ===================================================================
-**     Event       :  AdcTemp_OnCalibrationEnd (module Events)
+**     Event       :  ADCs_OnCalibrationEnd (module Events)
 **
-**     Component   :  AdcTemp [ADC]
+**     Component   :  ADCs [ADC]
 **     Description :
 **         This event is called when the calibration has been finished.
 **         User should check if the calibration pass or fail by

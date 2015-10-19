@@ -29,12 +29,18 @@ by the component.
 <tr><td>0x4004D058</td><td>PORTE_PCR22</td><td>
     0x00000000
  </td><td>PORTE_PCR22 register, peripheral AdcLdd1.</td></tr>
-<tr><td>0x4003B008</td><td>ADC0_CFG1</td><td>
+<tr><td>0x4004D050</td><td>PORTE_PCR20</td><td>
     0x00000000
- </td><td>ADC0_CFG1 register, peripheral AdcLdd1.</td></tr>
+ </td><td>PORTE_PCR20 register, peripheral AdcLdd1.</td></tr>
+<tr><td>0x4004D054</td><td>PORTE_PCR21</td><td>
+    0x00000000
+ </td><td>PORTE_PCR21 register, peripheral AdcLdd1.</td></tr>
 <tr><td>0x4003B00C</td><td>ADC0_CFG2</td><td>
     0x00000000
  </td><td>ADC0_CFG2 register, peripheral AdcLdd1.</td></tr>
+<tr><td>0x4003B008</td><td>ADC0_CFG1</td><td>
+    0x00000061
+ </td><td>ADC0_CFG1 register, peripheral AdcLdd1.</td></tr>
 <tr><td>0x4003B020</td><td>ADC0_SC2</td><td>
     0x00000000
  </td><td>ADC0_SC2 register, peripheral AdcLdd1.</td></tr>
@@ -306,7 +312,7 @@ registers of the peripheral(s) configured by the component.
 <tr><td>1</td><td>PE</td><td>0x00</td><td>Pull Enable</td>
 <tr><td>0</td><td>PS</td><td>0x00</td><td>Pull Select</td>
 </tr></table>
-<div class="reghdr1">ADC0_CFG1</div>
+<div class="reghdr1">PORTE_PCR20</div>
 <div class="regdiag">
 <table class="regtbl">
 <tr class="trd1r">
@@ -316,10 +322,9 @@ registers of the peripheral(s) configured by the component.
 <tr>
 <td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
 <td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">ISF</td><td colspan="1" rowspan="2">-</td>
 <td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
-<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
-<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
-<td colspan="1" rowspan="2">-</td>
+<td colspan="4" rowspan="2">IRQC</td>
 </tr>
 <tr>
 <td class="trd1c">W</td>
@@ -336,10 +341,10 @@ registers of the peripheral(s) configured by the component.
 </tr>
 <tr>
 <td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
-<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
-<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">ADLPC</td>
-<td colspan="2" rowspan="2">ADIV</td><td colspan="1" rowspan="2">ADLSMP</td><td colspan="2" rowspan="2">MODE</td>
-<td colspan="2" rowspan="2">ADICLK</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="3" rowspan="2">MUX</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">DSE</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">PFE</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">SRE</td>
+<td colspan="1" rowspan="2">PE</td><td colspan="1" rowspan="2">PS</td>
 </tr>
 <tr>
 <td class="trd1c">W</td>
@@ -351,15 +356,75 @@ registers of the peripheral(s) configured by the component.
 </table>
         
 </div>
-<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4003B008</td></tr>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004D050</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000000</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
-<tr><td>7</td><td>ADLPC</td><td>0x00</td><td>Low-Power Configuration</td>
-<tr><td>5 - 6</td><td>ADIV</td><td>0x00</td><td>Clock Divide Select</td>
-<tr><td>4</td><td>ADLSMP</td><td>0x00</td><td>Sample time configuration</td>
-<tr><td>2 - 3</td><td>MODE</td><td>0x00</td><td>Conversion mode selection</td>
-<tr><td>0 - 1</td><td>ADICLK</td><td>0x00</td><td>Input Clock Select</td>
+<tr><td>24</td><td>ISF</td><td>0x00</td><td>Interrupt Status Flag</td>
+<tr><td>16 - 19</td><td>IRQC</td><td>0x00</td><td>Interrupt Configuration</td>
+<tr><td>8 - 10</td><td>MUX</td><td>0x00</td><td>Pin Mux Control</td>
+<tr><td>6</td><td>DSE</td><td>0x00</td><td>Drive Strength Enable</td>
+<tr><td>4</td><td>PFE</td><td>0x00</td><td>Passive Filter Enable</td>
+<tr><td>2</td><td>SRE</td><td>0x00</td><td>Slew Rate Enable</td>
+<tr><td>1</td><td>PE</td><td>0x00</td><td>Pull Enable</td>
+<tr><td>0</td><td>PS</td><td>0x00</td><td>Pull Select</td>
+</tr></table>
+<div class="reghdr1">PORTE_PCR21</div>
+<div class="regdiag">
+<table class="regtbl">
+<tr class="trd1r">
+<td class="trd1c">Bit</td><td>31</td><td>30</td><td>29</td><td>28</td><td>27</td><td>26</td><td>25</td><td>24</td><td>23</td>
+<td>22</td><td>21</td><td>20</td><td>19</td><td>18</td><td>17</td><td>16</td>
+</tr>
+<tr>
+<td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">ISF</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="4" rowspan="2">IRQC</td>
+</tr>
+<tr>
+<td class="trd1c">W</td>
+</tr>
+<tr class="trd1r">
+<td class="trd1c">Reset</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+</tr>
+</table>
+<table class="regtbl">
+<tr class="trd1r">
+<td class="trd1c">Bit</td><td>15</td><td>14</td><td>13</td><td>12</td><td>11</td><td>10</td><td>9</td><td>8</td><td>7</td>
+<td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td>
+</tr>
+<tr>
+<td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="3" rowspan="2">MUX</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">DSE</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">PFE</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">SRE</td>
+<td colspan="1" rowspan="2">PE</td><td colspan="1" rowspan="2">PS</td>
+</tr>
+<tr>
+<td class="trd1c">W</td>
+</tr>
+<tr class="trd1r">
+<td class="trd1c">Reset</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+</tr>
+</table>
+        
+</div>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004D054</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000000</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
+<tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
+<tr><td>24</td><td>ISF</td><td>0x00</td><td>Interrupt Status Flag</td>
+<tr><td>16 - 19</td><td>IRQC</td><td>0x00</td><td>Interrupt Configuration</td>
+<tr><td>8 - 10</td><td>MUX</td><td>0x00</td><td>Pin Mux Control</td>
+<tr><td>6</td><td>DSE</td><td>0x00</td><td>Drive Strength Enable</td>
+<tr><td>4</td><td>PFE</td><td>0x00</td><td>Passive Filter Enable</td>
+<tr><td>2</td><td>SRE</td><td>0x00</td><td>Slew Rate Enable</td>
+<tr><td>1</td><td>PE</td><td>0x00</td><td>Pull Enable</td>
+<tr><td>0</td><td>PS</td><td>0x00</td><td>Pull Select</td>
 </tr></table>
 <div class="reghdr1">ADC0_CFG2</div>
 <div class="regdiag">
@@ -414,6 +479,61 @@ registers of the peripheral(s) configured by the component.
 <tr><td>3</td><td>ADACKEN</td><td>0x00</td><td>Asynchronous Clock Output Enable</td>
 <tr><td>2</td><td>ADHSC</td><td>0x00</td><td>High-Speed Configuration</td>
 <tr><td>0 - 1</td><td>ADLSTS</td><td>0x00</td><td>Long Sample Time Select</td>
+</tr></table>
+<div class="reghdr1">ADC0_CFG1</div>
+<div class="regdiag">
+<table class="regtbl">
+<tr class="trd1r">
+<td class="trd1c">Bit</td><td>31</td><td>30</td><td>29</td><td>28</td><td>27</td><td>26</td><td>25</td><td>24</td><td>23</td>
+<td>22</td><td>21</td><td>20</td><td>19</td><td>18</td><td>17</td><td>16</td>
+</tr>
+<tr>
+<td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td>
+</tr>
+<tr>
+<td class="trd1c">W</td>
+</tr>
+<tr class="trd1r">
+<td class="trd1c">Reset</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+</tr>
+</table>
+<table class="regtbl">
+<tr class="trd1r">
+<td class="trd1c">Bit</td><td>15</td><td>14</td><td>13</td><td>12</td><td>11</td><td>10</td><td>9</td><td>8</td><td>7</td>
+<td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td>
+</tr>
+<tr>
+<td class="trd1c">R</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td>
+<td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">-</td><td colspan="1" rowspan="2">ADLPC</td>
+<td colspan="2" rowspan="2">ADIV</td><td colspan="1" rowspan="2">ADLSMP</td><td colspan="2" rowspan="2">MODE</td>
+<td colspan="2" rowspan="2">ADICLK</td>
+</tr>
+<tr>
+<td class="trd1c">W</td>
+</tr>
+<tr class="trd1r">
+<td class="trd1c">Reset</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+</tr>
+</table>
+        
+</div>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4003B008</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000061</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
+<tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
+<tr><td>7</td><td>ADLPC</td><td>0x00</td><td>Low-Power Configuration</td>
+<tr><td>5 - 6</td><td>ADIV</td><td>0x02</td><td>Clock Divide Select</td>
+<tr><td>4</td><td>ADLSMP</td><td>0x00</td><td>Sample time configuration</td>
+<tr><td>2 - 3</td><td>MODE</td><td>0x00</td><td>Conversion mode selection</td>
+<tr><td>0 - 1</td><td>ADICLK</td><td>0x00</td><td>Input Clock Select</td>
 </tr></table>
 <div class="reghdr1">ADC0_SC2</div>
 <div class="regdiag">
@@ -540,11 +660,21 @@ registers of the peripheral(s) configured by the component.
 **            A/D interrupt                                : INT_ADC0
 **            A/D interrupt priority                       : medium priority
 **          DMA                                            : Disabled
-**          A/D channel list                               : 1
+**          A/D channel list                               : 3
 **            Channel 0                                    : 
 **              Channel mode                               : Single Ended
 **                Input                                    : 
 **                  A/D channel (pin)                      : ADC0_DP3/ADC0_SE3/PTE22/TPM2_CH0/UART2_TX
+**                  A/D channel (pin) signal               : 
+**            Channel 1                                    : 
+**              Channel mode                               : Single Ended
+**                Input                                    : 
+**                  A/D channel (pin)                      : LCD_P59/ADC0_DP0/ADC0_SE0/PTE20/TPM1_CH0/UART0_TX
+**                  A/D channel (pin) signal               : 
+**            Channel 2                                    : 
+**              Channel mode                               : Single Ended
+**                Input                                    : 
+**                  A/D channel (pin)                      : LCD_P60/ADC0_DM0/ADC0_SE4a/PTE21/TPM1_CH1/UART0_RX
 **                  A/D channel (pin) signal               : 
 **          Static sample groups                           : Disabled
 **          A/D resolution                                 : 8 bits
@@ -553,12 +683,12 @@ registers of the peripheral(s) configured by the component.
 **          Asynchro clock output                          : Disabled
 **          Sample time                                    : 4 clock periods
 **          Number of conversions                          : 1
-**          Conversion time                                : 0.810623 µs
-**          ADC clock                                      : 20.971 MHz (47.684 ns)
-**          Single conversion time - Single-ended          : 1.287 us
-**          Single conversion time - Differential          : 1.764 us
-**          Additional conversion time - Single-ended      : 0.81 us
-**          Additional conversion time - Differential      : 1.287 us
+**          Conversion time                                : 13.076923 µs
+**          ADC clock                                      : 1.31 MHz (762.939 ns)
+**          Single conversion time - Single-ended          : 17.023 us
+**          Single conversion time - Differential          : 24.652 us
+**          Additional conversion time - Single-ended      : 12.969 us
+**          Additional conversion time - Differential      : 20.599 us
 **          Result type                                    : unsigned 8 bits, right justified
 **          Trigger                                        : Disabled
 **          Voltage reference                              : 

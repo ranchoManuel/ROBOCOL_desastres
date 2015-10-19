@@ -16,7 +16,7 @@ Generated_Code/Vectors.o: ../Generated_Code/Vectors.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/iofiles/MKL46Z4.h \
  ../Generated_Code/Acelerometro.h ../Generated_Code/GI2C1.h \
  ../Generated_Code/WAIT1.h ../Generated_Code/CI2C1.h \
- ../Generated_Code/AdcTemp.h ../Generated_Code/AdcLdd1.h \
+ ../Generated_Code/ADCs.h ../Generated_Code/AdcLdd1.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/ADC_PDD.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/pdd/inc/PDD_Types.h \
  ../Generated_Code/RingBuffer.h ../Generated_Code/ComGalileo.h \
@@ -43,7 +43,7 @@ Generated_Code/Vectors.o: ../Generated_Code/Vectors.c \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/PE_Const.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/IO_Map.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Acelerometro.h \
- C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcTemp.h \
+ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ADCs.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcLdd1.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ComGalileo.h \
  C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/TU2.h \
@@ -121,7 +121,7 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ProcessorExpert/lib/Kinetis/iofiles/MKL46Z4.h:
 
 ../Generated_Code/CI2C1.h:
 
-../Generated_Code/AdcTemp.h:
+../Generated_Code/ADCs.h:
 
 ../Generated_Code/AdcLdd1.h:
 
@@ -205,7 +205,7 @@ C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generate
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/Acelerometro.h:
 
-C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcTemp.h:
+C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/ADCs.h:
 
 C:/Users/USER/Documents/GitHub/ROBOCOL_desastres/FRDM_KL46Z/ZZZ_Robocol/Generated_Code/AdcLdd1.h:
 
