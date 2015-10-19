@@ -144,7 +144,7 @@ void close_camaras()
 {
 	continuar=false;
 	//9) Deactivate streaming
-	usleep(100); //Algo de tiempo para que pare el thread
+	sleep(1); //Algo de tiempo para que pare el thread
 
 	int i;
 	for(i=0; i<cantCamaras; i++) close(camara_fd[i]);

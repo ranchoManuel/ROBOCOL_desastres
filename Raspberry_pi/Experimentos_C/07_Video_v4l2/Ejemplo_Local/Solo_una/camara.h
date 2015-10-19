@@ -1,7 +1,7 @@
 #ifndef CAMARA_H
 #define CAMARA_H
 
-void init_camaras(int cantPuertos, int argc, char* argv[]);
+void init_camara();
 
 void close_camara();
 

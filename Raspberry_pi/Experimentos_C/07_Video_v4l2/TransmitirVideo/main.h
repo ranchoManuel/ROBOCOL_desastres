@@ -1,7 +1,9 @@
-#ifndef COMN_SOCKETS_H
-#define COMN_SOCKETS_H
+#ifndef MAIN_H
+#define MAIN_H
 
-#define BUFFSIZE 110
+#define true 	1
+#define false 	0
+
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -12,10 +14,8 @@
 #define KWHT  "\x1B[37m"
 #define RESET "\033[0m"
 
-void init(char *server_address, unsigned short server_port);
+void pintar_pantalla_paso1(void* mem, int size);
 
-void enviarCadena(char *texto);
-
-void cerrarSocket();
+void closeWithError(char *error);
 
 #endif
