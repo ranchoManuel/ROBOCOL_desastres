@@ -219,10 +219,12 @@ int main(void)
 				ADCs_GetChanValue(CH_TEMP, &temperatura);
 				ADCs_GetChanValue(CH_HUME, &humedad);
 				ADCs_GetChanValue(CH_DIST, &distancia);
-
+				// El valor tomado es el valor en bits. Si todos estan prendidos el resultado obtenido es 15
+				lvlBateria=BateriaInput_GetVal();
+				
 				//5.2) Construir Respuesta ... 5.3) Enviar
-				//Rta esperada "SEN:hum:tem:dis;"
-				sprintf(buffer, "SEN:%5d:%5d:%5d;", temperatura, humedad, distancia);
+				//Rta esperada "SEN:hum:tem:dis;bat;"
+				sprintf(buffer, "SEN:%5d:%5d:%5d:%5d;", temperatura, humedad, distancia, lvlBateria);
 				mandarCadena(buffer, 0);
 
 				break;
