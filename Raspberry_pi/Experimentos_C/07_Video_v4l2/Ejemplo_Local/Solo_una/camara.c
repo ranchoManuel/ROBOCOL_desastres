@@ -39,7 +39,6 @@ void init_camara()
 	char errMsj[1024];//posible mensaje de error
 
 	//1) Open a descriptor to the device. This is done UNIX-style, basic I/O.
-	//camara_fds[i-(cantPuertos+1)]
 	camara_fd = open("/dev/video0", O_RDWR);
 	if(camara_fd == -1) closeWithError("Unable to open camera");
 	puts("1) camera open");

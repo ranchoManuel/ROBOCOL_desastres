@@ -16,9 +16,11 @@ int main(int argc, char* argv[])
 {
 	char buffWrite [BUFFSIZE];
 
+	puts("[Main] Comenzando a prender las camaras");
 	init_camaras(cantPuertos, argc, argv);
+	puts("[Main] Inicializo las camaras");
 	init_pantalla(format);
-	puts("Inicializo todo.");
+	puts("[Main] Inicializo todo.");
 
 	while(1)
 	{

@@ -1,6 +1,7 @@
 #include "pantalla.h"
 #include "SDL.h"
 #include "SDL_image.h"
+#include <stdio.h>
 
 SDL_Surface* screen;
 SDL_RWops* buffer_stream;
@@ -9,15 +10,18 @@ SDL_Rect position = {.x = 0, .y = 0};
 
 void init_pantalla(struct v4l2_format format)
 {
+	puts("[Pantalla]\tVa a preder la pantalla");
 	SDL_Init(SDL_INIT_VIDEO);
-	IMG_Init(IMG_INIT_JPG);	
-	
+	puts("[Pantalla]\t.");
+	IMG_Init(IMG_INIT_JPG);
+	puts("[Pantalla]\t..");
 	// Get the screen's surface.
 	screen = SDL_SetVideoMode(
 			format.fmt.pix.width,
 			format.fmt.pix.height,
 			32, SDL_HWSURFACE
 	);
+	puts("[Pantalla]\t...");
 }
 
 void pintar_pantalla_paso2(void* buffer, int tamBuffer)

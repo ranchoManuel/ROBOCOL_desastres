@@ -128,10 +128,10 @@ public class Control
 	public void enviarOrden(char c)
 	{
 		//Para ajustar el movimiento del carros.
-		if(c==letras[0]) {m1=300; m2=300;}			//Up
-		else if(c==letras[1]) {m1=-300; m2=-300;}	//Down
-		else if(c==letras[2]) {m1=300; m2=-300;} 	//Left
-		else if(c==letras[3]) {m1=-300; m2=300;} 	//Rigth
+		if(c==letras[0]) {m1=300; m2=-300;}			//Up
+		else if(c==letras[1]) {m1=-300; m2=300;}	//Down
+		else if(c==letras[2]) {m1=300; m2=300;} 	//Left
+		else if(c==letras[3]) {m1=-300; m2=-300;} 	//Rigth
 
 		//Para ajustar el movimiento de los brazos.
 		else if(c==letras[4]) {b1=300;}		//Up_br1
@@ -162,7 +162,7 @@ public class Control
 					//ZAR;  END;  TER;  TGL;  TGB;
 					if(i==11 && !lockTGL) lockTGL=true;
 					else if(i==12 && !lockTGB) lockTGB=true;
-					else if(i==letras.length-1) {pararMotores(); return;} //Freno para el operario
+					else if(i==letras.length-1) {pararMotores(); pararBrazos(); return;} //Freno para el operario
 					break ciclo;
 				}
 			}

@@ -8,11 +8,11 @@ import processing.core.PApplet;
 public class Panel3D extends PApplet implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	private int SIZEY = 400, SIZEX = 400;
+	private int SIZEY = 600, SIZEX = 600;
 	private static final double GRAV_TO_RAD = Math.PI/(1000*2);
 	private static final double TO_ANG  = 180.0/Math.PI;
 
-	private static float angleX, angleY, angleZ;
+	private static float angleX, angleY, angleZ, sensT, sensH, sensD;
 	private static double heading;
 
 	public void setup()
@@ -34,8 +34,10 @@ public class Panel3D extends PApplet implements Serializable
 		fill(255);
 		textAlign(CENTER);
 		textSize(26);
-		String text=String.format("Angulo X: %3.3f\n Angulo Y: %3.3f\n Angulo Z: %3.3f\n Brujula: %3.3f", angleX*TO_ANG, angleY*TO_ANG, angleZ*TO_ANG, heading*TO_ANG);
-		text(text,0,300);
+		String text1=String.format("Angulo X: %3.3f\n Angulo Y: %3.3f\n Angulo Z: %3.3f\n Brujula: %3.3f", angleX*TO_ANG, angleY*TO_ANG, angleZ*TO_ANG, heading*TO_ANG);
+		text(text1,0,200);
+		String text2=String.format("Temperatura: %3.3f\n Humedad: %3.3f\n Distancia: %3.3f\n", sensT, sensH, sensD);
+		text(text2,0,400);
 		
 		//Para Rotar Correctamente la Figura
 		pushMatrix();
@@ -77,7 +79,10 @@ public class Panel3D extends PApplet implements Serializable
 		heading=Algoritmos.anguloEntreVectores3D(ref, mag)*2;
 	}
 
-	public void graficar_SEN(double senH, double senT, double senP)
+	public void graficar_SEN(double senT, double senH, double senD)
 	{
+		sensT = (float) senT;
+		sensH = (float) senH;
+		sensD = (float) senD;
 	}
 }
