@@ -1,0 +1,26 @@
+#! /bin/sh
+do_start () {
+	cd /home/pi/Desktop/Robocol/Experimentos_C/06_Aplicacion_Puente
+	gcc -pthread -o appPuente main.c comn_sockets.c comn_serial.c
+	./appPuente 1234 /dev/ttyAMA0 115200
+}
+
+case "$1" in
+  start)
+	do_start
+	;;
+  restart|reload|force-reload)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	# No-op
+	;;
+  *)
+	echo "Usage: $0 start|stop" >&2
+	exit 3
+	;;
+esac
+
+exit 0
+

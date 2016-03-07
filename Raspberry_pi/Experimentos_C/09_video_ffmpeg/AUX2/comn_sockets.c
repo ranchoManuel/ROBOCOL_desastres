@@ -9,13 +9,6 @@
 
 char buffReadSocket [BUFFSIZE];
 
-struct InfoCamaras
-{
-	int argcP;
-	char** argvP;
-	char* ipP;
-};
-
 //Este es para el thread de lectrua
 pthread_t tid;
 
@@ -26,8 +19,6 @@ struct sockaddr_in server , client;
 //METODO QUE METO EN EL THREAD
 void* leerEntradaSocket(void *arg)
 {
-	struct InfoCamaras laInfo=(struct InfoCamaras *)&arg;
-	printf("La info que llego al constructor, PASO 2: argc:%d, ip:%s y camara1:%s\n", laInfo.argcP, laInfo.ipP, laInfo.argvP[3]);
 	while(1)
 	{
 		//accept connection from an incoming client
@@ -41,9 +32,8 @@ void* leerEntradaSocket(void *arg)
 				read_size=recv(socket_fd ,buffReadSocket ,sizeof(buffReadSocket) ,0);
         //Leer la instruccion que llega y decidir que camara mostrar
 
-				printf("La info que uso: argc:%d, ip:%s\n", laInfo.argcP, laInfo.ipP);
-				if(strcmp("W", buffReadSocket)==0) camaraSiguiente(laInfo.argcP, laInfo.argvP, laInfo.ipP);
-				else if(strcmp("Q", buffReadSocket)==0) camaraAnterior(laInfo.argcP, laInfo.argvP, laInfo.ipP);
+				if(strcmp("W", buffReadSocket)==0) camaraSiguiente();
+				else if(strcmp("Q", buffReadSocket)==0) camaraAnterior();
 
         memset(buffReadSocket, 0, sizeof(buffReadSocket));
         if(read_size == 0)
@@ -67,7 +57,7 @@ void closeWithErrorSocket(char *error)
   exit(1);
 }
 
-void initSocket(unsigned short puerto, char* ip, int argc, char** argv)
+void initSocket(unsigned short puerto)
 {
 	//Estos son para el Thread de lectura
 	int err;
@@ -95,12 +85,7 @@ void initSocket(unsigned short puerto, char* ip, int argc, char** argv)
   puts("Waiting for incoming connections(1)...");
 
   //Aqui se crea el thread de lectura
-	struct InfoCamaras info;
-	info.argcP=argc;
-	info.ipP=ip;
-	info.argvP=argv;
-	printf("La info que llego al constructor, PASO 1: argc:%d, ip:%s y camara1:%s\n", info.argcP, info.ipP, info.argvP[3]);
-  err = pthread_create(&(tid), NULL, &leerEntradaSocket, &info);
+  err = pthread_create(&(tid), NULL, &leerEntradaSocket, NULL);
   if(err != 0)
 	{
 		sprintf(errMsj,"Can't create thread 1:[%s]", strerror(err));

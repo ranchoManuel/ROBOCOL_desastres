@@ -1,11 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void camaraSiguiente(int argc, char** argv, char* ip);
+void camaraSiguiente();
 
-void camaraAnterior(int argc, char** argv, char* ip);
+void camaraAnterior();
 
 #define BUFFSIZE 110
+#define PADDING 100000
+#define CANTCAMS 2
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"

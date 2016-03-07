@@ -1,7 +1,7 @@
 #ifndef COMN_SOCKETS_H
 #define COMN_SOCKETS_H
 
-void initSocket(unsigned short puerto, char* ip, int argc, char** argv);
+void initSocket(unsigned short puerto);
 
 void enviarCadenaSocket(char* texto);
 
