@@ -32,8 +32,8 @@ void* leerEntradaSocket(void *arg)
 				read_size=recv(socket_fd ,buffReadSocket ,sizeof(buffReadSocket) ,0);
         //Leer la instruccion que llega y decidir que camara mostrar
 
-				if(strcmp("W", buffReadSocket)==0) camaraSiguiente();
-				else if(strcmp("Q", buffReadSocket)==0) camaraAnterior();
+				if(strcmp("K", buffReadSocket)==0) camaraSiguiente();
+				else if(strcmp("L", buffReadSocket)==0) camaraAnterior();
 
         memset(buffReadSocket, 0, sizeof(buffReadSocket));
         if(read_size == 0)

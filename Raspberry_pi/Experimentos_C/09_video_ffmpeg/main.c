@@ -1,90 +1,94 @@
-//BASADO EN: https://www.gidforums.com/t-3369.html
-#include <sys/types.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
+#include <sys/types.h>
 #include <string.h>
+#include "main.h"
+#include "comn_sockets.h"
 
-#define BUFFSIZE 110
+// ------------------------CONSTANTES------------------------
+const char* parte1="ffmpeg -loglevel quiet -i";
+//parte 2 es una camara ejemplo: /dev/video0
+const char* parte3="-s 640x480 -pix_fmt yuv420p -r 60 -fflags nobuffer -an -f mpegts udp://";
+const char* ip ="127.0.0.1";
+const char* parte5=":10000 &";
 
-int main()
+// ------------------------ATRIBUTOS------------------------
+char buffWrite [BUFFSIZE];
+char comando[BUFFSIZE];
+char** camaras;
+int numCamaras, esta;
+
+// ------------------------METODOS------------------------
+int main(int argc, char** argv)
 {
-  //Para poder parar el proceso
-  char buffWrite  [BUFFSIZE];
-  char buffRead   [BUFFSIZE];
+	//1) Agarrar los parametros del programa
+	esta=2;
+	if(argc<=2)
+	{
+		fprintf(stderr, "Uso: %s <... list of cameras ...>\n",argv[0]);
+		exit(1);
+	}
+	int socketPort=atoi(argv[1]);
 
-  pid_t pid1, pid2;
-  int rv;
-  int	commpipe[2];	/* This holds the fd for the input & output of the pipe */
+	camaras = malloc(argc * PADDING * sizeof(char));
 
-  /* Setup pipeline comunicacion*/
-  if(pipe(commpipe)) {fprintf(stderr,"Pipe error!\n");exit(1);}
+	int i = 0;
+	for(; i < argc; i++)
+	{
+    	*(camaras + i) = malloc(sizeof(char) * (strlen(*(argv + i))));
+    	strcpy(*(camaras + i), *(argv + i));
+			printf("%s\n", *(camaras + i));
+	}
 
-  /* Attempt to fork and check for errors */
-  if((pid1=fork()) == -1) {fprintf(stderr,"Fork error. Exiting.\n"); exit(1);}
+	//2) Inicializar el thread del socket y la camara 1
+	initSocket(socketPort);
 
-  if(pid1) //PROCESO PADRE
-  {
-    dup2(commpipe[1],1);	/* Replace stdout with out side of the pipe */
-    close(commpipe[0]);	/* Close unused side of pipe (in side) */
+	puts("Init de camara");
+	sprintf(comando,"%s %s %s%s%s", parte1, *(camaras + esta), parte3, ip, parte5);
+	printf("Comando: %s\n", comando);
+	system(comando);
 
-    setvbuf(stdout,(char*)NULL,_IONBF,0);	/* Set non-buffered output on stdout */
+	//3) Atrapar todo en un ciclo
+	while(1)
+	{
+		fflush(stdout);
+		fgets(buffWrite, BUFFSIZE, stdin);
+		//Es necesario quitarle el ultimo caracter porque es un enter '\n'
+		buffWrite[strlen(buffWrite)-1] = '\0';
+		if(strcmp("FIN", buffWrite)==0)
+		{
+			system("killall ffmpeg");
+			cerrarSocket();
+			break;
+		}
+		else if(strcmp("K", buffWrite)==0) camaraSiguiente();
+		else if(strcmp("L", buffWrite)==0) camaraAnterior();
+	}
 
-    while(1)
-    {
-      fflush(stdout);
-      fgets(buffWrite, BUFFSIZE, stdin);
-      //Es necesario quitarle el ultimo caracter porque es un enter '\n'
-      buffWrite[strlen(buffWrite)-1] = '\0';
-      if(strcmp("N", buffWrite)==0)
-      {
-        printf("q\n");
-        wait(&rv);
-        fprintf(stderr,"Child exited with a %d value\n",rv);
-        break;
-      }
-      else if(strcmp("q", buffWrite)==0)
-      {
-        printf("q\n");
-        wait(&rv);
-        fprintf(stderr,"Child exited with a %d value\n",rv);
-      }
-      else
-      {
-        printf("%s\n", buffWrite);
-        printf("q\n");
-        wait(&rv);
-        fprintf(stderr,"Child exited with a %d value\n",rv);
-      }
-    }
-    fprintf(stderr,"SALE\n");
-  }
-  else //PROCESO HIJO
-  {
-    /* A zero PID indicates that this is the child process */
-    dup2(commpipe[0],0);	/* Replace stdin with the in side of the pipe */
-    close(commpipe[1]);	/* Close unused side of pipe (out side) */
+	cerrarSocket();
+	return 0;
+}
 
-    char *losArgs[] = { "ffmpeg", "-loglevel", "panic", "-i", "/dev/video0", "-s", "640x480", "-pix_fmt", "yuv420p", "-r", "10", "-fflags", "nobuffer", "-an", "-f", "mpegts", "udp://127.0.0.1:10000", NULL };
-    char *comnd1="ffmpeg -loglevel panic -i /dev/video0 -s 640x480 -pix_fmt yuv420p -r 10 -fflags nobuffer -an -f mpegts udp://127.0.0.1:10000";
-    char *comnd2="ffmpeg -loglevel panic -i /dev/video1 -s 640x480 -pix_fmt yuv420p -r 10 -fflags nobuffer -an -f mpegts udp://127.0.0.1:10000";
+void camaraSiguiente()
+{
+	system("killall ffmpeg");
+	printf("numero de camaras: %d\n", numCamaras);
+	esta=(esta+1<(CANTCAMS+2))?esta+1:2;
+	printf("Esta: %d, Sig: %s\n", esta, *(camaras + esta));
+	sprintf(comando,"%s %s %s%s%s", parte1, *(camaras + esta), parte3, ip, parte5);
+	puts(comando);
+	system(comando);
+	enviarCadenaSocket("OK;");
+}
 
-    char c;
-    while(1)
-    {
-      scanf("%c", &c);
-      system("killall ffmpeg");
-
-      if(c=='1')
-      {
-        system(comnd1);
-      }
-      else if(c=='2')
-      {
-        system(comnd2);
-      }
-    }
-
-  }
-  return 0;
+void camaraAnterior()
+{
+	system("killall ffmpeg");
+	esta=(esta-1>=2)?esta-1:(CANTCAMS+2)-1;
+	printf("Esta: %d, Ant: %s\n", esta, *(camaras + esta));
+	sprintf(comando,"%s %s %s%s%s", parte1, *(camaras + esta), parte3, ip, parte5);
+	puts(comando);
+	system(comando);
+	enviarCadenaSocket("OK;");
 }

@@ -10,12 +10,13 @@ public class Control
 	//{"Orugas","Brazos","SensoresADC","Acel_Magn","Acel_Continuo","Acel_end","Acel_ter","Toggle_Luz","Toggle_Buzzer"};
 	// "MCA:"  ,"MBR:"	,"SEN;"		  ,"CAD;"	  ,"ZAR;"		  ,"END;"	 ,"TER;"	,"TGL;"		 ,"TGB;"};
 
-	//{"Up","Down","Left","Right","Up_br1","Down_br1","Up_br2","Down_br2","Acel_Continuo","Acel_End","Acel_Ter","Toggle_Luz","Toggle_Buzzer", "Stop"};
-	private static final char[] letras={'w','s','a','d','t','g','y','h','z','x','c','n','m','e'};
+	//{"Up","Down","Left","Right","Up_br1","Down_br1","Up_br2","Down_br2","Acel_Continuo","Acel_End","Acel_Ter","Toggle_Luz","Toggle_Buzzer", "Stop", "Next_camera", "Prev_camera"};
+	//'w',  's',   'a',   'd',    't',      'g',      'y',     'h',       'z',             'x',      'c',       'n',         'm',             'e',    'k'            'l'    };
 
 	private static final int MAX_PARAMETROS = 6;
 
-	private IComunicacion comunicacion;
+	private IComunicacion comunicacionComandos;
+	private IComunicacion comunicacionCamaras;	
 	private InterfazPrincipal interfaz;
 	private Thread_CAD_SEN thread_CAD_SEN;
 
@@ -30,12 +31,11 @@ public class Control
 		m2=m1=b1=b2=0;
 		interfaz=ventana;
 
+		String hostname=propiedades.getProperty("ipComandos");
 		if(comunicacionPorSocket)
 		{
-			String hostname=propiedades.getProperty("ipComandos");
 			String port_name=propiedades.getProperty("PuertoComandos");
-
-			comunicacion=new Comunicacion_SOCKET(this,hostname,port_name);
+			comunicacionComandos=new Comunicacion_SOCKET(this,hostname,port_name);
 		}
 		else
 		{
@@ -43,8 +43,11 @@ public class Control
 			int time_out = Integer.parseInt(propiedades.getProperty("Time_out_UART").trim());
 			int data_rate = Integer.parseInt(propiedades.getProperty("Data_rate_UART").trim());
 
-			comunicacion=new Comunicacion_USART(this,puerto,time_out,data_rate);
+			comunicacionComandos=new Comunicacion_USART(this,puerto,time_out,data_rate);
 		}
+
+		String port_camaras=propiedades.getProperty("PuertoCamaras");
+		comunicacionCamaras=new Comunicacion_SOCKET(this,hostname,port_camaras);
 
 		thread_CAD_SEN=new Thread_CAD_SEN(this);
 		thread_CAD_SEN.start();
@@ -53,7 +56,7 @@ public class Control
 	public void cerrar()
 	{
 		thread_CAD_SEN.parar();
-		comunicacion.close();
+		comunicacionComandos.close();
 	}
 
 	public void tomarDato(String mensajeDelOtro)
@@ -128,91 +131,97 @@ public class Control
 	public void enviarOrden(char c)
 	{
 		//Para ajustar el movimiento del carros.
-		if(c==letras[0]) {m1=300; m2=-300;}			//Up
-		else if(c==letras[1]) {m1=-300; m2=300;}	//Down
-		else if(c==letras[2]) {m1=300; m2=300;} 	//Left
-		else if(c==letras[3]) {m1=-300; m2=-300;} 	//Rigth
+		//'z',             'x',      'c',       'n',         'm',             'e',    'k'            'l'    };
+
+		if(c=='w') {m1=300; m2=-300;}			//Up
+		else if(c=='s') {m1=-300; m2=300;}	//Down
+		else if(c=='a') {m1=300; m2=300;} 	//Left
+		else if(c=='d') {m1=-300; m2=-300;} 	//Rigth
+
+		if(c=='w' || c=='s' || c=='a' || c=='d')
+		{
+			//MCA:#:#;
+			if(!lockMCA) lockMCA=true;
+		}
 
 		//Para ajustar el movimiento de los brazos.
-		else if(c==letras[4]) {b1=300;}		//Up_br1
-		else if(c==letras[5]) {b1=-300;}		//Down_br1
-		else if(c==letras[6]) {b2=300;}		//Up_br2
-		else if(c==letras[7]) {b2=-300;}		//Down_br2
+		if(c=='t') {b1=300;}		//Up_br1
+		else if(c=='g') {b1=-300;}		//Down_br1
+		else if(c=='y') {b2=300;}		//Up_br2
+		else if(c=='h') {b2=-300;}		//Down_br2
 
-		//Para preparar el mensaje
-		ciclo: for(int i=0; i<letras.length; i++)
+		if(c=='t' || c=='g' || c=='y' || c=='h')
 		{
-			if(c==letras[i])
-			{
-				if(i>=0 && i<4)
-				{
-					//MCA:#:#;
-					if(!lockMCA) lockMCA=true;
-					break ciclo;
-				}
-				else if(i>=4 && i<8)
-				{
-					//MBR:#:#;
-					if(!lockMBR) lockMBR=true;
-					break ciclo;
-				}
-				else if(i>=8)
-				{
-					//  8;   9;   10;    11;   12;
-					//ZAR;  END;  TER;  TGL;  TGB;
-					if(i==11 && !lockTGL) lockTGL=true;
-					else if(i==12 && !lockTGB) lockTGB=true;
-					else if(i==letras.length-1) {pararMotores(); pararBrazos(); return;} //Freno para el operario
-					break ciclo;
-				}
-			}
+			//MBR:#:#;
+			if(!lockMBR) lockMBR=true;
 		}
+
+		if(c=='z'); //Acel_Continuo
+		else if(c=='x'); //Acel_End
+		else if(c=='c'); //Acel_Ter
+		else if(c=='n')lockTGL=true;//Toggle_Luz
+		else if(c=='m')lockTGB=true; //Toggle_Buzzer
+		else if(c=='e') {pararMotores(); pararBrazos(); return;} //Freno para el operario
+		else if(c=='k') siguienteCamara(); //Next_camera
+		else if(c=='l') anteriorCamara(); //Prev_camera
+	}
+
+	private void anteriorCamara()
+	{
+		comunicacionCamaras.enviarLinea("l");
+		interfaz.displayInfoEnviada("Anterior Camara");
+	}
+
+	private void siguienteCamara() 
+	{
+		comunicacionCamaras.enviarLinea("k");
+		interfaz.displayInfoEnviada("Siguiente Camara");
 	}
 
 	public void pedirCAD()
 	{
-		comunicacion.enviarLinea("CAD;");
+		comunicacionComandos.enviarLinea("CAD;");
 		interfaz.displayInfoEnviada("CAD;");
 	}
 
 	public void pedirSEN()
 	{
-		comunicacion.enviarLinea("SEN;");
+		comunicacionComandos.enviarLinea("SEN;");
 		interfaz.displayInfoEnviada("SEN;");
 	}
 
 	public void pararMotores()
 	{
 		m1=m2=0;
-		comunicacion.enviarLinea("MCA:0:0;");
+		comunicacionComandos.enviarLinea("MCA:0:0;");
 		interfaz.displayInfoEnviada("MCA:0:0;");
 	}
 
 	public void pararBrazos()
 	{
 		b1=b2=0;
-		comunicacion.enviarLinea("MBR:0:0;");
+		comunicacionComandos.enviarLinea("MBR:0:0;");
 		interfaz.displayInfoEnviada("MBR:0:0;");
 	}
 
 	public void moverCarro()
 	{
-		comunicacion.enviarLinea("MCA:"+m1+":"+m2+";");
+		comunicacionComandos.enviarLinea("MCA:"+m1+":"+m2+";");
 		interfaz.displayInfoEnviada("MCA:"+m1+":"+m2+";");
 	}
 	public void moverBrazos()
 	{
-		comunicacion.enviarLinea("MBR:"+b1+":"+b2+";");
+		comunicacionComandos.enviarLinea("MBR:"+b1+":"+b2+";");
 		interfaz.displayInfoEnviada("MBR:"+b1+":"+b2+";");
 	}
 	public void toggleBuzzer()
 	{
-		comunicacion.enviarLinea("TGB;");
+		comunicacionComandos.enviarLinea("TGB;");
 		interfaz.displayInfoEnviada("TGB;");
 	}
 	public void toggleLuz()
 	{
-		comunicacion.enviarLinea("TGL;");
+		comunicacionComandos.enviarLinea("TGL;");
 		interfaz.displayInfoEnviada("TGL;");
 	}
 }

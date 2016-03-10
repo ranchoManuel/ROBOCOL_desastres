@@ -1,8 +1,16 @@
 #! /bin/sh
+
+#Para activar este script: sudo update-rc.d robocol defaults
+#Para desactivarlo : sudo update-rc.d -f robocol remove
+
 do_start () {
 	cd /home/pi/Desktop/Robocol/Experimentos_C/06_Aplicacion_Puente
 	gcc -pthread -o appPuente main.c comn_sockets.c comn_serial.c
-	./appPuente 1234 /dev/ttyAMA0 115200
+	./appPuente 1234 /dev/ttyAMA0 115200 &
+	
+	cd /home/pi/Desktop/Robocol/Experimentos_C/09_video_ffmpeg
+	gcc -pthread -o appCamaras main.c comn_sockets.c
+	./appCamaras 1235 $(ls /dev/video*)
 }
 
 case "$1" in

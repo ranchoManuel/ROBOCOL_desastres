@@ -1,11 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void enviarMensaje_a_Socket(char *texto);
+void camaraSiguiente();
 
-void enviarMensaje_a_Programa(char *texto);
+void camaraAnterior();
 
 #define BUFFSIZE 110
+#define PADDING 100000
+#define CANTCAMS 2
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
