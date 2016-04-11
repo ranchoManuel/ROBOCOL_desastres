@@ -81,8 +81,8 @@ public class Panel3D extends PApplet implements Serializable
 
 	public void graficar_SEN(double senT, double senH, double senD)
 	{
-		sensT = (float) senT;
-		sensH = (float) senH;
-		sensD = (float) senD;
+		sensT = (float) (-71.4286*(3.3*senT/255)+189.28);
+		sensH = (float) (31.25*(3.3*senH/255)-25);
+		sensD = (float) (2.54*1000*(3.3*senD/255)/9.8);
 	}
 }
